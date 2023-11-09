@@ -1,6 +1,5 @@
 import 'package:app_dreams_tourism/components/my_button.dart';
 import 'package:app_dreams_tourism/components/my_textfield.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
 class RegisterPage extends StatefulWidget {
@@ -32,26 +31,7 @@ class _RegisterPageState extends State<RegisterPage> {
 
     // tenta o login
 
-    try {
-      if (passwordController == confirmPasswordController) {
-        await FirebaseAuth.instance.createUserWithEmailAndPassword(
-          email: emailController.text,
-          password: passwordController.text,
-        );
-      } else {
-        showErrorMessage("Senhas não conferem!");
-      }
-      // mostrar circulo de carregando
-      // ignore: use_build_context_synchronously
-      Navigator.pop(context);
-    } on FirebaseAuthException catch (e) {
-      // mostrar circulo de carregando
-      // ignore: use_build_context_synchronously
-      Navigator.pop(context);
-
-      // mostrar erro de login
-      showErrorMessage(e.code);
-    }
+    
   }
 
   void showErrorMessage(String message) {

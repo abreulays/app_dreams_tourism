@@ -1,11 +1,10 @@
 import 'package:app_dreams_tourism/components/my_button.dart';
 import 'package:app_dreams_tourism/components/my_textfield.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
 class LoginPage extends StatefulWidget {
   final Function()? onTap;
-  const LoginPage({super.key, required this.onTap});
+  const LoginPage({super.key, this.onTap});
 
   @override
   State<LoginPage> createState() => _LoginPageState();
@@ -30,22 +29,7 @@ class _LoginPageState extends State<LoginPage> {
 
     // tenta o login
 
-    try {
-      await FirebaseAuth.instance.signInWithEmailAndPassword(
-        email: emailController.text,
-        password: passwordController.text,
-      );
-      // mostrar circulo de carregando
-      // ignore: use_build_context_synchronously
-      Navigator.pop(context);
-    } on FirebaseAuthException catch (e) {
-      // mostrar circulo de carregando
-      // ignore: use_build_context_synchronously
-      Navigator.pop(context);
 
-      // mostrar erro de login
-      showErrorMessage(e.code);
-    }
   }
 
   void showErrorMessage(String message) {
