@@ -1,10 +1,17 @@
+import 'dart:convert';
+import 'package:app_dreams_tourism/components/date_input_field.dart';
+import 'package:app_dreams_tourism/components/input_uf_brasil.dart';
 import 'package:app_dreams_tourism/components/my_button.dart';
 import 'package:app_dreams_tourism/components/my_textfield.dart';
+import 'package:app_dreams_tourism/pages/login_page.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
+import 'package:http/http.dart' as http;
+import 'package:mask_text_input_formatter/mask_text_input_formatter.dart';
 
 class RegisterPage extends StatefulWidget {
   final Function()? onTap;
-  const RegisterPage({super.key, required this.onTap});
+  const RegisterPage({super.key, this.onTap});
 
   @override
   State<RegisterPage> createState() => _RegisterPageState();
@@ -13,25 +20,95 @@ class RegisterPage extends StatefulWidget {
 class _RegisterPageState extends State<RegisterPage> {
   // text editing controllers
   final nameController = TextEditingController();
+  final telefoneController = TextEditingController();
+  final cpfController = TextEditingController();
   final emailController = TextEditingController();
   final passwordController = TextEditingController();
   final confirmPasswordController = TextEditingController();
+  final nascimentoController = TextEditingController();
+  final enderecoController = TextEditingController();
+  final cidadeController = TextEditingController();
+  final bairroController = TextEditingController();
+  final ufController = TextEditingController();
 
-  // sign user in method
-  Future<void> signUserUp() async {
-    // mostrar circulo de carregando
+  // Estado selecionado (inicialmente vazio)
+  String selectedState = '';
+
+  bool processing = false;
+
+  void showBoxMessage(String message) {
     showDialog(
       context: context,
       builder: (context) {
-        return const Center(
-          child: CircularProgressIndicator(),
+        return AlertDialog(
+          backgroundColor: Colors.white,
+          title: Center(
+            child: Text(
+              message,
+              style: const TextStyle(color: Colors.black),
+            ),
+          ),
         );
       },
     );
+  }
 
-    // tenta o login
+  void onStateSelected(String? newState) {
+    setState(() {
+      selectedState = newState ??
+          ""; // Use o operador ?? para fornecer um valor padrão, se necessário
+    });
+  }
 
-    
+  void registerUser() async {
+    var url = Uri.parse("http://192.168.1.193/api_dreams_tourism/singup.php");
+    var data = {
+      "nome": nameController.text,
+      "telefone": telefoneController.text,
+      "cpf": cpfController.text,
+      "email": emailController.text,
+      "pass": passwordController.text,
+      "dt_nascimento": nascimentoController.text,
+      "endereco": enderecoController.text,
+      "cidade": cidadeController.text,
+      "bairro": bairroController.text,
+      "uf": ufController.text,
+    };
+    try {
+      final response = await http.post(url, body: data);
+      if (response.statusCode == 200) {
+        final responseBody = jsonDecode(response.body);
+        if (responseBody == "Account already exists") {
+          showBoxMessage("Conta já cadastrada!");
+        } else if (responseBody == "true") {
+          showBoxMessage("Conta cadastrada com sucesso!");
+          nameController.text = "";
+          telefoneController.text = "";
+          cpfController.text = "";
+          emailController.text = "";
+          passwordController.text = "";
+          confirmPasswordController.text = "";
+          nascimentoController.text = "";
+          enderecoController.text = "";
+          cidadeController.text = "";
+          bairroController.text = "";
+          ufController.text = "";
+          // Redirecione para a página de login
+          Navigator.of(context).pushReplacement(
+            MaterialPageRoute(
+              builder: (context) => const LoginPage(),
+            ),
+          );
+        } else {
+          showBoxMessage("Erro ao tentar cadastrar");
+        }
+      } else {
+        showBoxMessage("Erro na solicitação: ${response.statusCode}");
+      }
+    } catch (e) {
+      showBoxMessage("Erro na resposta do servidor: $e");
+      print(e);
+    }
   }
 
   void showErrorMessage(String message) {
@@ -82,6 +159,7 @@ class _RegisterPageState extends State<RegisterPage> {
                 ),
 
                 const SizedBox(height: 25),
+                // name textfield
                 MyTextField(
                   controller: nameController,
                   hintText: 'Nome',
@@ -89,7 +167,69 @@ class _RegisterPageState extends State<RegisterPage> {
                 ),
 
                 const SizedBox(height: 10),
-                // username textfield
+                // telefone textfield
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 25.0),
+                  child: TextField(
+                    controller: telefoneController,
+                    obscureText: false,
+                    decoration: InputDecoration(
+                      enabledBorder: const OutlineInputBorder(
+                        borderSide: BorderSide(color: Colors.white),
+                      ),
+                      focusedBorder: OutlineInputBorder(
+                        borderSide: BorderSide(color: Colors.grey.shade400),
+                      ),
+                      fillColor: Colors.grey.shade200,
+                      filled: true,
+                      hintText: "Celular",
+                      hintStyle: TextStyle(
+                        color: Colors.grey[500],
+                      ),
+                    ),
+                    inputFormatters: [
+                      FilteringTextInputFormatter.digitsOnly,
+                      LengthLimitingTextInputFormatter(
+                          11), // Limita a 11 caracteres (DDD + 9 dígitos)
+                    ],
+                  ),
+                ),
+
+                const SizedBox(height: 10),
+                // cpf textfield
+
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 25.0),
+                  child: TextField(
+                    controller: cpfController,
+                    obscureText: false,
+                    decoration: InputDecoration(
+                      enabledBorder: const OutlineInputBorder(
+                        borderSide: BorderSide(color: Colors.white),
+                      ),
+                      focusedBorder: OutlineInputBorder(
+                        borderSide: BorderSide(color: Colors.grey.shade400),
+                      ),
+                      fillColor: Colors.grey.shade200,
+                      filled: true,
+                      hintText: "CPF",
+                      hintStyle: TextStyle(
+                        color: Colors.grey[500],
+                      ),
+                    ),
+                    inputFormatters: [
+                      MaskTextInputFormatter(
+                        mask: '###.###.###-##', // Máscara para o CPF
+                        filter: {
+                          "#": RegExp(r'[0-9]')
+                        }, // Aceitar somente números
+                      ),
+                    ],
+                  ),
+                ),
+
+                const SizedBox(height: 10),
+                // email textfield
                 MyTextField(
                   controller: emailController,
                   hintText: 'E-mail',
@@ -107,11 +247,52 @@ class _RegisterPageState extends State<RegisterPage> {
 
                 const SizedBox(height: 10),
 
-                // password textfield
+                // confirm password textfield
                 MyTextField(
                   controller: confirmPasswordController,
                   hintText: 'Confirmar Senha',
                   obscureText: true,
+                ),
+
+                const SizedBox(height: 10),
+                // data de nascimento textfield
+                DateInputField(
+                  controller: nascimentoController,
+                  hintText: 'Data de Nascimento',
+                  obscureText: false,
+                ),
+                const SizedBox(height: 10),
+                // endereco textfield
+                MyTextField(
+                  controller: enderecoController,
+                  hintText: 'Endereço',
+                  obscureText: false,
+                ),
+                const SizedBox(height: 10),
+                // cidade textfield
+                MyTextField(
+                  controller: cidadeController,
+                  hintText: 'Cidade',
+                  obscureText: false,
+                ),
+                const SizedBox(height: 10),
+                // bairro textfield
+                MyTextField(
+                  controller: bairroController,
+                  hintText: 'Bairro',
+                  obscureText: false,
+                ),
+                const SizedBox(height: 10),
+                // uf textfield
+                // MyTextField(
+                //   controller: ufController,
+                //   hintText: 'UF',
+                //   obscureText: false,
+                // ),
+                StateUfTextFild(
+                  controller: ufController,
+                  hintText: 'UF',
+                  obscureText: false,
                 ),
 
                 const SizedBox(height: 25),
@@ -119,10 +300,10 @@ class _RegisterPageState extends State<RegisterPage> {
                 // sign in button
                 MyButton(
                   text: "Registrar",
-                  onTap: signUserUp,
+                  onTap: registerUser,
                 ),
 
-                const SizedBox(height: 50),
+                const SizedBox(height: 30),
 
                 // not a member? register now
                 Row(
@@ -134,7 +315,14 @@ class _RegisterPageState extends State<RegisterPage> {
                     ),
                     const SizedBox(width: 4),
                     GestureDetector(
-                      onTap: widget.onTap,
+                      onTap: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => const LoginPage(),
+                          ),
+                        );
+                      },
                       child: const Text(
                         'Entrar!',
                         style: TextStyle(
@@ -144,7 +332,8 @@ class _RegisterPageState extends State<RegisterPage> {
                       ),
                     ),
                   ],
-                )
+                ),
+                const SizedBox(height: 20),
               ],
             ),
           ),
