@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 
 class LoginPage extends StatefulWidget {
   final Function()? onTap;
-  const LoginPage({super.key, this.onTap});
+  const LoginPage({Key? key, this.onTap});
 
   @override
   State<LoginPage> createState() => _LoginPageState();
@@ -15,9 +15,22 @@ class _LoginPageState extends State<LoginPage> {
   final emailController = TextEditingController();
   final passwordController = TextEditingController();
 
-  // sign user in method
+  // Function to validate login
+  Future<void> validateLogin() async {
+    // Get the entered email and password
+    final email = emailController.text;
+    final password = passwordController.text;
+
+
+    // Close the loading dialog
+    Navigator.pop(context);
+
+
+  }
+
+  // Sign user in method
   Future<void> signUserIn() async {
-    // mostrar circulo de carregando
+    // Show a loading circle
     showDialog(
       context: context,
       builder: (context) {
@@ -27,9 +40,8 @@ class _LoginPageState extends State<LoginPage> {
       },
     );
 
-    // tenta o login
-
-
+    // Validate the login
+    validateLogin();
   }
 
   void showErrorMessage(String message) {
@@ -39,10 +51,11 @@ class _LoginPageState extends State<LoginPage> {
         return AlertDialog(
           backgroundColor: Colors.white,
           title: Center(
-              child: Text(
-            message,
-            style: const TextStyle(color: Colors.black),
-          )),
+            child: Text(
+              message,
+              style: const TextStyle(color: Colors.black),
+            ),
+          ),
         );
       },
     );
@@ -58,7 +71,7 @@ class _LoginPageState extends State<LoginPage> {
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                // logo
+                // Logo
                 SizedBox(
                   child: Image.asset(
                     "lib/images/logo.png",
@@ -68,7 +81,7 @@ class _LoginPageState extends State<LoginPage> {
 
                 const SizedBox(height: 20),
 
-                // welcome back, you've been missed!
+                // Welcome back, you've been missed!
                 Text(
                   'Entre e conheça o mundo!',
                   style: TextStyle(
@@ -79,7 +92,7 @@ class _LoginPageState extends State<LoginPage> {
 
                 const SizedBox(height: 25),
 
-                // username textfield
+                // Username textfield
                 MyTextField(
                   controller: emailController,
                   hintText: 'E-mail',
@@ -88,7 +101,7 @@ class _LoginPageState extends State<LoginPage> {
 
                 const SizedBox(height: 10),
 
-                // password textfield
+                // Password textfield
                 MyTextField(
                   controller: passwordController,
                   hintText: 'Senha',
@@ -97,7 +110,7 @@ class _LoginPageState extends State<LoginPage> {
 
                 const SizedBox(height: 10),
 
-                // forgot password?
+                // Forgot password?
                 Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 25.0),
                   child: Row(
@@ -113,14 +126,15 @@ class _LoginPageState extends State<LoginPage> {
 
                 const SizedBox(height: 25),
 
-                // sign in button
-                MyButton(text: "Entrar",
+                // Sign in button
+                MyButton(
+                  text: "Entrar",
                   onTap: signUserIn,
                 ),
 
                 const SizedBox(height: 50),
 
-                // not a member? register now
+                // Not a member? Register now
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [

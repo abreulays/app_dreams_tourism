@@ -136,14 +136,6 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "1.10.0"
-  sql_conn:
-    dependency: "direct main"
-    description:
-      name: sql_conn
-      sha256: "9ed89323d97494c040b7eb093680d61aa9b623487ad1cb39d8e7cf4bca8b1437"
-      url: "https://pub.dev"
-    source: hosted
-    version: "0.0.3"
   stack_trace:
     dependency: transitive
     description:
@@ -202,4 +194,3 @@ packages:
     version: "0.1.4-beta"
 sdks:
   dart: ">=3.1.5 <4.0.0"
-  flutter: ">=2.5.0"
