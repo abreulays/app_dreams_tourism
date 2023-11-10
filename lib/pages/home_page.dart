@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:google_nav_bar/google_nav_bar.dart';
-import 'package:app_dreams_tourism/Model/user_model.dart';
+import 'package:app_dreams_tourism/model/user_model.dart';
 import 'package:app_dreams_tourism/pages/favoritos_page.dart';
 import 'package:app_dreams_tourism/pages/pedidos_page.dart';
 import 'package:app_dreams_tourism/pages/screen_home_page.dart';
-import 'package:app_dreams_tourism/pages/setting_page.dart';
+import 'package:app_dreams_tourism/pages/profile_page.dart';
 
 class HomePage extends StatefulWidget {
   final UserModel user;
@@ -41,7 +41,7 @@ class _HomePageState extends State<HomePage> {
             ScreenHomePage(user: widget.user),
             const FavoritosPage(),
             const PedidosPage(),
-            SettingPage(user: widget.user),
+            ProfilePage(user: widget.user),
           ],
         ),
       ),
@@ -58,8 +58,8 @@ class _HomePageState extends State<HomePage> {
             padding: const EdgeInsets.all(16),
             tabs: const [
               GButton(
-                icon: Icons.home,
-                text: 'Home',
+                icon: Icons.home_filled,
+                text: 'Inicio',
               ),
               
               GButton(
@@ -71,8 +71,8 @@ class _HomePageState extends State<HomePage> {
                 text: 'Pedidos',
               ),
               GButton(
-                icon: Icons.settings,
-                text: 'Configurações',
+                icon: Icons.person,
+                text: 'Perfil',
               ),
             ],
             selectedIndex: paginaAtual, // Defina o índice selecionado

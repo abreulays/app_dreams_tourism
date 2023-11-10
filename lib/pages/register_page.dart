@@ -1,13 +1,12 @@
 import 'dart:convert';
-import 'package:app_dreams_tourism/components/date_input_field.dart';
-import 'package:app_dreams_tourism/components/input_uf_brasil.dart';
-import 'package:app_dreams_tourism/components/my_button.dart';
-import 'package:app_dreams_tourism/components/my_textfield.dart';
+import 'package:app_dreams_tourism/widget/date_input_field.dart';
+import 'package:app_dreams_tourism/widget/input_uf_brasil.dart';
+import 'package:app_dreams_tourism/widget/my_button.dart';
+import 'package:app_dreams_tourism/widget/my_textfield.dart';
 import 'package:app_dreams_tourism/pages/login_page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:http/http.dart' as http;
-import 'package:mask_text_input_formatter/mask_text_input_formatter.dart';
 
 class RegisterPage extends StatefulWidget {
   final Function()? onTap;
@@ -32,9 +31,9 @@ class _RegisterPageState extends State<RegisterPage> {
   final ufController = TextEditingController();
 
   // Estado selecionado (inicialmente vazio)
-  String selectedState = '';
+  // String selectedState = '';
 
-  bool processing = false;
+  // bool processing = false;
 
   void showBoxMessage(String message) {
     showDialog(
@@ -53,19 +52,19 @@ class _RegisterPageState extends State<RegisterPage> {
     );
   }
 
-  void onStateSelected(String? newState) {
-    setState(() {
-      selectedState = newState ??
-          ""; // Use o operador ?? para fornecer um valor padrão, se necessário
-    });
-  }
+  // void onStateSelected(String? newState) {
+  //   setState(() {
+  //     selectedState = newState ??
+  //         ""; // Use o operador ?? para fornecer um valor padrão, se necessário
+  //   });
+  // }
 
   void registerUser() async {
     var url = Uri.parse("http://192.168.0.8/api_dreams_tourism/singup.php");
     var data = {
       "nome": nameController.text,
       "telefone": telefoneController.text,
-      "cpf": cpfController.text,
+      "cpf": cpfController.text.toString(),
       "email": emailController.text,
       "pass": passwordController.text,
       "dt_nascimento": nascimentoController.text,
@@ -107,7 +106,6 @@ class _RegisterPageState extends State<RegisterPage> {
       }
     } catch (e) {
       showBoxMessage("Erro na resposta do servidor: $e");
-      print(e);
     }
   }
 
@@ -216,15 +214,15 @@ class _RegisterPageState extends State<RegisterPage> {
                       hintStyle: TextStyle(
                         color: Colors.grey[500],
                       ),
+                      
+                      
                     ),
                     inputFormatters: [
-                      MaskTextInputFormatter(
-                        mask: '###.###.###-##', // Máscara para o CPF
-                        filter: {
-                          "#": RegExp(r'[0-9]')
-                        }, // Aceitar somente números
-                      ),
+                      FilteringTextInputFormatter.digitsOnly,
+                      LengthLimitingTextInputFormatter(
+                          11), // Limita a 11 caracteres (DDD + 9 dígitos)
                     ],
+                    
                   ),
                 ),
 

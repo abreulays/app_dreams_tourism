@@ -1,7 +1,7 @@
 import 'dart:convert';
-import 'package:app_dreams_tourism/Model/user_model.dart';
-import 'package:app_dreams_tourism/components/my_button.dart';
-import 'package:app_dreams_tourism/components/my_textfield.dart';
+import 'package:app_dreams_tourism/model/user_model.dart';
+import 'package:app_dreams_tourism/widget/my_button.dart';
+import 'package:app_dreams_tourism/widget/my_textfield.dart';
 import 'package:app_dreams_tourism/pages/home_page.dart';
 import 'package:app_dreams_tourism/pages/register_page.dart';
 import 'package:flutter/material.dart';
@@ -124,12 +124,20 @@ class _LoginPageState extends State<LoginPage> {
                 // Logo
                 SizedBox(
                   child: Image.asset(
-                    "lib/images/logo.png",
+                    "lib/assets/images/logo.png",
                     height: 150,
                   ),
                 ),
 
                 const SizedBox(height: 20),
+
+                const Text(
+                  'Dreams Tourism',
+                  style: TextStyle(
+                      color: Color.fromRGBO(140, 82, 255, 1),
+                      fontSize: 35,
+                      fontWeight: FontWeight.bold),
+                ),
 
                 // Welcome back, you've been missed!
                 Text(
@@ -161,18 +169,18 @@ class _LoginPageState extends State<LoginPage> {
                 const SizedBox(height: 10),
 
                 // Forgot password?
-                Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 25.0),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.end,
-                    children: [
-                      Text(
-                        'Esqueceu sua senha?',
-                        style: TextStyle(color: Colors.grey[600]),
-                      ),
-                    ],
-                  ),
-                ),
+                // Padding(
+                //   padding: const EdgeInsets.symmetric(horizontal: 25.0),
+                //   child: Row(
+                //     mainAxisAlignment: MainAxisAlignment.end,
+                //     children: [
+                //       Text(
+                //         'Esqueceu sua senha?',
+                //         style: TextStyle(color: Colors.grey[600]),
+                //       ),
+                //     ],
+                //   ),
+                // ),
 
                 const SizedBox(height: 25),
 

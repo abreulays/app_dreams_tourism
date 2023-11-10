@@ -1,7 +1,9 @@
-import 'package:app_dreams_tourism/widget/search_bar.dart';
+import 'package:app_dreams_tourism/model/user_model.dart';
+import 'package:app_dreams_tourism/pages/notification_page.dart';
+import 'package:app_dreams_tourism/widget/destination_carousel.dart';
+import 'package:app_dreams_tourism/widget/hotel_carousel.dart';
 import 'package:flutter/material.dart';
-import 'package:app_dreams_tourism/Model/user_model.dart';
-import 'package:app_dreams_tourism/widget/category_card.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 class ScreenHomePage extends StatefulWidget {
   final UserModel user;
@@ -9,112 +11,116 @@ class ScreenHomePage extends StatefulWidget {
   const ScreenHomePage({Key? key, required this.user}) : super(key: key);
 
   @override
-  State<ScreenHomePage> createState() => _ScreenHomePageState();
+  _ScreenHomePageState createState() => _ScreenHomePageState();
 }
 
 class _ScreenHomePageState extends State<ScreenHomePage> {
+  int _selectedIndex = 0;
+  List<IconData> _icons = [
+    FontAwesomeIcons.plane,
+    FontAwesomeIcons.bed,
+    FontAwesomeIcons.walking,
+    FontAwesomeIcons.biking,
+  ];
+
+  Widget _buildIcon(int index) {
+    return GestureDetector(
+      onTap: () {
+        setState(() {
+          _selectedIndex = index;
+        });
+      },
+      child: Container(
+        height: 60.0,
+        width: 60.0,
+        decoration: BoxDecoration(
+          color: _selectedIndex == index
+              ? Color.fromRGBO(140, 82, 255, 1)
+              : Color(0xFFE7EBEE),
+          borderRadius: BorderRadius.circular(30.0),
+        ),
+        child: Icon(
+          _icons[index],
+          size: 25.0,
+          color: _selectedIndex == index
+              ? Color.fromRGBO(255, 255, 255, 1)
+              : Color.fromARGB(255, 196, 180, 195),
+        ),
+      ),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
-    var size = MediaQuery.of(context).size;
     return Scaffold(
-      appBar: AppBar(
-        backgroundColor:
-            Color.fromRGBO(140, 82, 255, 1), // Torna a AppBar transparente
-        elevation: 0, // Remove a sombra da AppBar
-        automaticallyImplyLeading: false, // Remove a seta de voltar
-        title: Text(
-          "Dream's Tourism",
-          style: Theme.of(context).textTheme.titleLarge?.copyWith(
-                fontWeight: FontWeight.w900,
-                color: Colors.white,
-              ),
-        ),
-        actions: [
-          IconButton(
-            icon: Icon(Icons.notifications, color: Colors.white),
-            onPressed: () {},
-          ),
-        ],
-      ),
-      body: Stack(
-        children: <Widget>[
-          Container(
-            height: size.height * .45,
-            decoration: const BoxDecoration(
-              color: Color.fromRGBO(140, 82, 255, 1),
-              image: DecorationImage(
-                alignment: Alignment.centerLeft,
-                image: AssetImage("assets/images/undraw_pilates_gpdb.png"),
-              ),
-            ),
-          ),
-          SafeArea(
-            child: Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 20),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: <Widget>[
-                  Text(
-                    "Olá, ${widget.user.nome.split(' ')[0]}!",
-                    style: Theme.of(context)
-                        .textTheme
-                        .titleLarge
-                        ?.copyWith(fontWeight: FontWeight.w900),
-                  ),
-                  const SizedBox(height: 20),
-                  const SearchBarField(),
-                  const SizedBox(height: 20),
-                  Text(
-                    "Que tal uma nova aventura?",
-                    style: Theme.of(context)
-                        .textTheme
-                        .titleLarge
-                        ?.copyWith(fontWeight: FontWeight.w900),
-                  ),
-                  const SizedBox(height: 20),
-                  Expanded(
-                    child: GridView.count(
-                      crossAxisCount: 2,
-                      childAspectRatio: .85,
-                      crossAxisSpacing: 20,
-                      mainAxisSpacing: 20,
-                      children: <Widget>[
-                        CategoryCard(
-                          categoryTitle: "Diet Recommendation",
-                          svgSrc: "assets/icons/Hamburger.svg",
-                          press: () {},
+      body: SafeArea(
+        child: SingleChildScrollView(
+          child: Column(
+            children: [
+              Padding(
+                padding: EdgeInsets.symmetric(horizontal: 20.0, vertical: 5.0),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.end,
+                  children: [
+                    // Adicionar o ícone de notificação
+                    GestureDetector(
+                      onTap: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => NotificationPage(),
+                          ),
+                        );
+                      },
+                      child: Container(
+                        padding:
+                            EdgeInsets.all(10.0), // Aumentar o tamanho do ícone
+
+                        child: Icon(
+                          Icons.notifications,
+                          size: 30.0, // Aumentar o tamanho do ícone
+                          color: Color.fromRGBO(140, 82, 255, 1),
                         ),
-                        CategoryCard(
-                          categoryTitle: "Kegel Exercises",
-                          svgSrc: "assets/icons/Excrecises.svg",
-                          press: () {},
-                        ),
-                        CategoryCard(
-                          categoryTitle: "Meditation",
-                          svgSrc: "assets/icons/Meditation.svg",
-                          press: () {
-                            // Navigator.push(
-                            //   context,
-                            //   MaterialPageRoute(builder: (context) {
-                            //     ; // Replace with your actual screen
-                            //   },
-                            //   ),
-                            // );
-                          },
-                        ),
-                        CategoryCard(
-                          categoryTitle: "Yoga",
-                          svgSrc: "assets/icons/yoga.svg",
-                          press: () {},
-                        ),
-                      ],
+                      ),
                     ),
-                  ),
-                ],
+                  ],
+                ),
               ),
-            ),
-          )
-        ],
+              Padding(
+                padding: EdgeInsets.symmetric(horizontal: 10.0),
+                child: Row(
+                  children: [
+                    SizedBox(
+                        width:
+                            10.0), // Adiciona algum espaço entre o texto e o nome do usuário
+                    Text(
+                      'Bora se aventurar, \n${widget.user.nome.split(' ')[0]}?',
+                      style: TextStyle(
+                        fontSize: 28,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+              SizedBox(height: 20.0),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceAround,
+                children: _icons
+                    .asMap()
+                    .entries
+                    .map(
+                      (MapEntry map) => _buildIcon(map.key),
+                    )
+                    .toList(),
+              ),
+              SizedBox(height: 20.0),
+              DestinationCarousel(),
+              SizedBox(height: 20.0),
+              HotelCarousel(),
+            ],
+          ),
+        ),
       ),
     );
   }
