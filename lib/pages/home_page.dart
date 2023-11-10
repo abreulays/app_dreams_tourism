@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:google_nav_bar/google_nav_bar.dart';
 import 'package:app_dreams_tourism/Model/user_model.dart';
 import 'package:app_dreams_tourism/pages/favoritos_page.dart';
-import 'package:app_dreams_tourism/pages/pacotes_page.dart';
+import 'package:app_dreams_tourism/pages/pedidos_page.dart';
 import 'package:app_dreams_tourism/pages/screen_home_page.dart';
 import 'package:app_dreams_tourism/pages/setting_page.dart';
 
@@ -39,8 +39,8 @@ class _HomePageState extends State<HomePage> {
           onPageChanged: setPaginaAtual,
           children: [
             ScreenHomePage(user: widget.user),
-            PacotesPage(),
-            FavoritosPage(),
+            const FavoritosPage(),
+            const PedidosPage(),
             SettingPage(user: widget.user),
           ],
         ),
@@ -61,13 +61,14 @@ class _HomePageState extends State<HomePage> {
                 icon: Icons.home,
                 text: 'Home',
               ),
-              GButton(
-                icon: Icons.airplane_ticket_outlined,
-                text: 'Pacotes',
-              ),
+              
               GButton(
                 icon: Icons.favorite,
                 text: 'Favoritos',
+              ),
+              GButton(
+                icon: Icons.airplane_ticket_outlined,
+                text: 'Pedidos',
               ),
               GButton(
                 icon: Icons.settings,

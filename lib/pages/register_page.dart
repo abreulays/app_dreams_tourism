@@ -61,7 +61,7 @@ class _RegisterPageState extends State<RegisterPage> {
   }
 
   void registerUser() async {
-    var url = Uri.parse("http://192.168.15.64/api_dreams_tourism/singup.php");
+    var url = Uri.parse("http://192.168.0.8/api_dreams_tourism/singup.php");
     var data = {
       "nome": nameController.text,
       "telefone": telefoneController.text,

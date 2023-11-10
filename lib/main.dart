@@ -8,7 +8,7 @@ Future<void> main() async {
 
   runApp(ChangeNotifierProvider(
       create: (context) => UserModelProvider(),
-      child: MyApp(),
+      child: const MyApp(),
     ),);
 }
 

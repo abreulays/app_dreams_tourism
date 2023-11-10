@@ -27,7 +27,7 @@ class _LoginPageState extends State<LoginPage> {
     showDialog(
       context: context,
       builder: (context) {
-        return Center(
+        return const Center(
           child: CircularProgressIndicator(),
         );
       },
@@ -45,7 +45,7 @@ class _LoginPageState extends State<LoginPage> {
 
     try {
       final url =
-          Uri.parse("http://192.168.15.64/api_dreams_tourism/signin.php");
+          Uri.parse("http://192.168.0.8/api_dreams_tourism/signin.php");
       final data = {
         "email": emailController.text,
         "pass": passwordController.text,
@@ -199,7 +199,7 @@ class _LoginPageState extends State<LoginPage> {
                         Navigator.push(
                           context,
                           MaterialPageRoute(
-                            builder: (context) => RegisterPage(),
+                            builder: (context) => const RegisterPage(),
                           ),
                         );
                       },

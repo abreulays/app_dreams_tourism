@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 
-class PacotesPage extends StatelessWidget {
-  const PacotesPage({super.key});
+class PedidosPage extends StatelessWidget {
+  const PedidosPage({super.key});
 
   @override
   Widget build(BuildContext context) {
     return const Scaffold(
-      body: Center(child: Text("Pacotes!")),
+      body: Center(child: Text("Pedidos!")),
     );
   }
 }
