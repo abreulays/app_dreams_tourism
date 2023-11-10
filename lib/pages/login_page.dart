@@ -1,10 +1,13 @@
 import 'dart:convert';
-
+import 'package:app_dreams_tourism/Model/user_model.dart';
 import 'package:app_dreams_tourism/components/my_button.dart';
 import 'package:app_dreams_tourism/components/my_textfield.dart';
+import 'package:app_dreams_tourism/pages/home_page.dart';
 import 'package:app_dreams_tourism/pages/register_page.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
+import 'package:provider/provider.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class LoginPage extends StatefulWidget {
   final Function()? onTap;
@@ -15,79 +18,80 @@ class LoginPage extends StatefulWidget {
 }
 
 class _LoginPageState extends State<LoginPage> {
-  // text editing controllers
   final emailController = TextEditingController();
   final passwordController = TextEditingController();
 
-  void showBoxMessage(String message) {
+  bool isLoading = false;
+
+  void showLoadingDialog() {
     showDialog(
       context: context,
       builder: (context) {
-        return AlertDialog(
-          backgroundColor: Colors.white,
-          title: Center(
-            child: Text(
-              message,
-              style: const TextStyle(color: Colors.black),
-            ),
-          ),
-        );
-      },
-    );
-  }
-
-  void loginUser() async {
-    var url = Uri.parse("http://192.168.1.193/api_dreams_tourism/singin.php");
-    var data = {
-      "email": emailController.text,
-      "pass": passwordController.text,
-    };
-    try {
-      final response = await http.post(url, body: data);
-      if (response.statusCode == 200) {
-        final responseBody = jsonDecode(response.body);
-        if (responseBody == "Account already exists") {
-          showBoxMessage("Conta já cadastrada!");
-        } else if (responseBody == "true") {
-          showBoxMessage("Login realizado com sucesso!");
-          emailController.text = "";
-          passwordController.text = "";
-        } else {
-          showBoxMessage("Erro ao logar");
-        }
-      } else {
-        showBoxMessage("Erro na solicitação: ${response.statusCode}");
-      }
-    } catch (e) {
-      showBoxMessage("Erro na resposta do servidor: $e");
-      print(e);
-    }
-  }
-
-  // Function to validate login
-  Future<void> validateLogin() async {
-    // Get the entered email and password
-    // final email = emailController.text;
-    // final password = passwordController.text;
-
-    // Close the loading dialog
-    Navigator.pop(context);
-  }
-
-  // Sign user in method
-  Future<void> signUserIn() async {
-    // Show a loading circle
-    showDialog(
-      context: context,
-      builder: (context) {
-        return const Center(
+        return Center(
           child: CircularProgressIndicator(),
         );
       },
     );
+  }
 
-    // Validate the login
-    validateLogin();
+  Future<void> signUserIn() async {
+    if (isLoading) {
+      return;
+    }
+
+    setState(() {
+      isLoading = true;
+    });
+
+    try {
+      final url =
+          Uri.parse("http://192.168.15.64/api_dreams_tourism/signin.php");
+      final data = {
+        "email": emailController.text,
+        "pass": passwordController.text,
+      };
+
+      showLoadingDialog();
+
+      final response = await http.post(url, body: data);
+
+      if (response.statusCode == 200) {
+        final responseBody = jsonDecode(response.body);
+
+        if (responseBody == "user invalid") {
+          showErrorMessage("Usuário ou senha incorreta!");
+        } else if (responseBody is Map<String, dynamic>) {
+          // Autenticação bem-sucedida, o responseBody contém as informações do usuário
+          final user = UserModel.fromJson(responseBody);
+
+          final userModelProvider =
+              Provider.of<UserModelProvider>(context, listen: false);
+          userModelProvider.setUser(user);
+
+          final prefs = await SharedPreferences.getInstance();
+          await prefs.setString('user', jsonEncode(user));
+
+          Navigator.pop(context);
+          Navigator.push(
+            context,
+            MaterialPageRoute(
+              builder: (context) => HomePage(user: user),
+            ),
+          );
+        } else {
+          showErrorMessage("Erro ao logar");
+        }
+      } else {
+        showErrorMessage("Erro na solicitação: ${response.statusCode}");
+        debugPrint("Erro na solicitação: ${response.statusCode}");
+      }
+    } catch (e) {
+      showErrorMessage("Erro na resposta do servidor: $e");
+    } finally {
+      setState(() {
+        isLoading = false;
+      });
+    }
   }
 
   void showErrorMessage(String message) {
@@ -96,7 +100,7 @@ class _LoginPageState extends State<LoginPage> {
       builder: (context) {
         return AlertDialog(
           backgroundColor: Colors.white,
-          title: Center(
+          content: SingleChildScrollView(
             child: Text(
               message,
               style: const TextStyle(color: Colors.black),

@@ -61,7 +61,7 @@ class _RegisterPageState extends State<RegisterPage> {
   }
 
   void registerUser() async {
-    var url = Uri.parse("http://192.168.1.193/api_dreams_tourism/singup.php");
+    var url = Uri.parse("http://192.168.15.64/api_dreams_tourism/singup.php");
     var data = {
       "nome": nameController.text,
       "telefone": telefoneController.text,
@@ -78,7 +78,7 @@ class _RegisterPageState extends State<RegisterPage> {
       final response = await http.post(url, body: data);
       if (response.statusCode == 200) {
         final responseBody = jsonDecode(response.body);
-        if (responseBody == "Account already exists") {
+        if (responseBody == "user exist") {
           showBoxMessage("Conta já cadastrada!");
         } else if (responseBody == "true") {
           showBoxMessage("Conta cadastrada com sucesso!");

@@ -1,10 +1,15 @@
+import 'package:app_dreams_tourism/Model/user_model.dart';
 import 'package:app_dreams_tourism/pages/login_page.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
 
-  runApp(const MyApp());
+  runApp(ChangeNotifierProvider(
+      create: (context) => UserModelProvider(),
+      child: MyApp(),
+    ),);
 }
 
 class MyApp extends StatelessWidget {

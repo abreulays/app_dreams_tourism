@@ -1,12 +1,14 @@
+import 'package:flutter/material.dart';
+import 'package:google_nav_bar/google_nav_bar.dart';
+import 'package:app_dreams_tourism/Model/user_model.dart';
 import 'package:app_dreams_tourism/pages/favoritos_page.dart';
 import 'package:app_dreams_tourism/pages/pacotes_page.dart';
 import 'package:app_dreams_tourism/pages/screen_home_page.dart';
 import 'package:app_dreams_tourism/pages/setting_page.dart';
-import 'package:flutter/material.dart';
-import 'package:google_nav_bar/google_nav_bar.dart';
 
 class HomePage extends StatefulWidget {
-  const HomePage({super.key});
+  final UserModel user;
+  const HomePage({Key? key, required this.user}) : super(key: key);
 
   @override
   State<HomePage> createState() => _HomePageState();
@@ -15,7 +17,6 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage> {
   int paginaAtual = 0;
   late PageController pc;
-
 
   @override
   void initState() {
@@ -36,11 +37,11 @@ class _HomePageState extends State<HomePage> {
         child: PageView(
           controller: pc,
           onPageChanged: setPaginaAtual,
-          children: const [
-            ScreenHomePage(),
+          children: [
+            ScreenHomePage(user: widget.user),
             PacotesPage(),
             FavoritosPage(),
-            SettingPage(),
+            SettingPage(user: widget.user),
           ],
         ),
       ),
@@ -48,8 +49,6 @@ class _HomePageState extends State<HomePage> {
         color: const Color.fromRGBO(140, 82, 255, 1),
         child: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 15.0, vertical: 5),
-          
-
           child: GNav(
             backgroundColor: const Color.fromRGBO(140, 82, 255, 1),
             color: Colors.white,
