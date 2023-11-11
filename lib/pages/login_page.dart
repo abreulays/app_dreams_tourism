@@ -45,7 +45,7 @@ class _LoginPageState extends State<LoginPage> {
 
     try {
       final url =
-          Uri.parse("http://192.168.0.8/api_dreams_tourism/signin.php");
+          Uri.parse("http://172.20.10.2/api_dreams_tourism/signin.php");
       final data = {
         "email": emailController.text,
         "pass": passwordController.text,

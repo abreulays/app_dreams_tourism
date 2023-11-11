@@ -3,6 +3,9 @@ import 'package:app_dreams_tourism/model/destination_model.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
+//Este é um código que detalha os destinos
+//Destination direciona para os destinos, uma classe.
+
 class DestinationScreen extends StatefulWidget {
   final Destination destination;
 
@@ -12,6 +15,7 @@ class DestinationScreen extends StatefulWidget {
   _DestinationScreenState createState() => _DestinationScreenState();
 }
 
+//_buildRatingStars converte de números em icones/emogis e afins. Só que nesse caso, converteu para estrela (Star).
 class _DestinationScreenState extends State<DestinationScreen> {
   Text _buildRatingStars(int rating) {
     String stars = '';
@@ -22,6 +26,9 @@ class _DestinationScreenState extends State<DestinationScreen> {
     return Text(stars);
   }
 
+//Metodo build(BuildContext context)
+//Metodo que controi a interface de tela. Divide a tela em duas partes "principais".
+//Nesse caso ele está dividindo entre informações e imagem dos pacotes.
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -42,6 +49,10 @@ class _DestinationScreenState extends State<DestinationScreen> {
                       ),
                     ],
                   ),
+
+// O widget Hero é usado para criar uma animação de transição suave entre a lista de destinos e esta tela de detalhes.
+//Ele permite que a imagem do destino na lista seja animada para a imagem expandida nesta tela.
+
                   child: Hero(
                     tag: widget.destination.imageUrl,
                     child: ClipRRect(
@@ -53,8 +64,12 @@ class _DestinationScreenState extends State<DestinationScreen> {
                     ),
                   ),
                 ),
+                
+
+              //padding posiciona (margem interna) entre os widget pai e filho. 
                 Padding(
-                  padding: EdgeInsets.symmetric(horizontal: 10.0, vertical: 40.0),
+                  padding:
+                      EdgeInsets.symmetric(horizontal: 10.0, vertical: 40.0),
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: <Widget>[
@@ -98,6 +113,7 @@ class _DestinationScreenState extends State<DestinationScreen> {
                           letterSpacing: 1.2,
                         ),
                       ),
+                      //O row posiciona os elementos em linha horizontal. 
                       Row(
                         children: <Widget>[
                           Icon(
@@ -118,6 +134,7 @@ class _DestinationScreenState extends State<DestinationScreen> {
                     ],
                   ),
                 ),
+                //Positioned e Stack Widgets:posicionar elementos sobrepostos
                 Positioned(
                   right: 20.0,
                   bottom: 20.0,
@@ -129,6 +146,19 @@ class _DestinationScreenState extends State<DestinationScreen> {
                 ),
               ],
             ),
+
+
+
+            //Expanded é usado para organizar/preencher os elementos pai e filho
+            //o Expanded é usado para garantir que o ListView.builder dentro de uma Column (ou outro widget flexível)
+            //preencha todo o espaço vertical disponível. 
+            //itemBuilder: É uma função chamada para construir cada item da lista. Neste caso, ela cria uma Stack para cada atividade.
+            //itemCount: Indica o número total de itens na lista, que é obtido a partir do comprimento da lista de atividades do destino.   
+            //A utilização do Expanded é crítica aqui, pois sem ele, o ListView.builder ocuparia apenas o espaço necessário para exibir seus 
+            //itens e não se expandiria verticalmente para preencher toda a altura disponível. Com o Expanded, 
+            //ListView.builder pode ocupar o espaço restante na Column, garantindo que toda a lista de atividades seja exibida.
+
+
             Expanded(
               child: ListView.builder(
                 padding: EdgeInsets.only(top: 10.0, bottom: 15.0),
@@ -152,7 +182,8 @@ class _DestinationScreenState extends State<DestinationScreen> {
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: <Widget>[
                               Row(
-                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: <Widget>[
                                   Container(

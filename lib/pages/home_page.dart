@@ -6,6 +6,13 @@ import 'package:app_dreams_tourism/pages/pedidos_page.dart';
 import 'package:app_dreams_tourism/pages/screen_home_page.dart';
 import 'package:app_dreams_tourism/pages/profile_page.dart';
 
+
+// Este código representa uma página inicial (HomePage) em um aplicativo Flutter que utiliza um PageView para mostrar diferentes
+// telas correspondentes a diferentes seções da aplicação. Além disso, ele inclui uma barra de navegação na parte inferior 
+// (bottomNavigationBar)para facilitar a navegação entre essas seções. 
+
+
+//Essa classe representa a página inicial, recebe um user da classe UserModel como argumento obrigátorio
 class HomePage extends StatefulWidget {
   final UserModel user;
   const HomePage({Key? key, required this.user}) : super(key: key);
@@ -13,6 +20,7 @@ class HomePage extends StatefulWidget {
   @override
   State<HomePage> createState() => _HomePageState();
 }
+
 
 class _HomePageState extends State<HomePage> {
   int paginaAtual = 0;
