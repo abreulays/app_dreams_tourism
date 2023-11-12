@@ -16,7 +16,7 @@ class Destination {
     required this.activities,
   });
 }
-// Cria instâncias dtividades turísticas e destinos 
+// Cria instâncias de atividades turísticas e destinos. 
 
 List<Activity> activities = [
   Activity(

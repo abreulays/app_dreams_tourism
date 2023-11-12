@@ -3,7 +3,7 @@ import 'package:app_dreams_tourism/widget/date_input_field.dart';
 import 'package:app_dreams_tourism/widget/my_button.dart';
 import 'package:app_dreams_tourism/widget/my_textfield.dart';
 import 'package:app_dreams_tourism/pages/login_page.dart';
-import 'package:app_dreams_tourism/widget/gender_dropwdown_input.dart';
+import 'package:app_dreams_tourism/widget/sexo_dropwdown_input.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:http/http.dart' as http;

@@ -2,8 +2,6 @@
 // define uma classe chamada Activity: Activity é uma classe: Em programação orientada a objetos, uma classe é uma estrutura que 
 //define um conjunto de propriedades e métodos que serão compartilhados por todos os objetos criados a partir dessa classe.
 
-
-
 class Activity {
   String imageUrl;
   String name;

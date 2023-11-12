@@ -1,4 +1,5 @@
 import 'package:app_dreams_tourism/model/user_model.dart';
+import 'package:app_dreams_tourism/pages/update_dados_user.dart';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:app_dreams_tourism/pages/login_page.dart';
@@ -25,9 +26,10 @@ class ProfilePage extends StatelessWidget {
       appBar: AppBar(
         title: const Center(
           child: Text(
-            'SEUS DADOS',
+            'PERFIL',
             style: TextStyle(
-              fontSize: 22, fontWeight: FontWeight.w700,
+              fontSize: 22,
+              fontWeight: FontWeight.w700,
               color: Color.fromRGBO(140, 82, 255, 1), // Cor do título (roxo)
             ),
           ),
@@ -49,44 +51,102 @@ class ProfilePage extends StatelessWidget {
       body: SingleChildScrollView(
         padding: const EdgeInsets.all(20.0),
         child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
-            for (var field in _getUserFields(user)) ...[
-              ListTile(
-                title: Text(field.label),
-                subtitle: Text(field.value),
+            // Área da Foto de Perfil
+            CircleAvatar(
+              radius: 50,
+              backgroundColor: Colors.grey, // Cor de fundo do círculo
+              child: Icon(
+                Icons.person, // Ícone de pessoa
+                size: 60,
+                color: Colors.white, // Cor do ícone
               ),
-            ],
-            const SizedBox(height: 5),
+            ),
+
+            SizedBox(height: 20), // Espaçamento entre a foto e o nome
+
+            // Nome do Usuário
+            Center(
+              child: Text(
+                user.nome,
+                style: TextStyle(
+                  fontSize: 18,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+            ),
+
+            SizedBox(height: 20), // Espaçamento entre o nome e os botões
+
+            // Três Botões Estilizados
+            ElevatedButton(
+              onPressed: () {
+                // Ação do primeiro botão para abrir a página UpdateDadosUser()
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => UpdateDadosUser(user: user,)),
+                );
+              },
+              style: ElevatedButton.styleFrom(
+                primary: Colors.grey.shade200, // Cor de fundo
+                onPrimary: Color.fromRGBO(140, 82, 255, 1), // Cor do texto
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(8.0),
+                  side: BorderSide(color: const Color.fromARGB(255, 224, 224, 224)), // Cor da borda
+                ),
+                padding: EdgeInsets.all(16.0),
+              ),
+              child: Text('Meus Dados', style: TextStyle(fontSize: 16),),
+            ),
+
+            SizedBox(height: 10),
+
+            ElevatedButton(
+              onPressed: () {
+                // Ação do primeiro botão para abrir a página UpdateDadosUser()
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => UpdateDadosUser(user: user,)),
+                );
+              },
+              style: ElevatedButton.styleFrom(
+                primary: Colors.grey.shade200, // Cor de fundo
+                onPrimary: Color.fromRGBO(140, 82, 255, 1), // Cor do texto
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(8.0),
+                  side: BorderSide(color: const Color.fromARGB(255, 224, 224, 224)), // Cor da borda
+                ),
+                padding: EdgeInsets.all(16.0),
+              ),
+              child: Text('Segurança', style: TextStyle(fontSize: 16),),
+            ),
+
+            SizedBox(height: 10),
+
+            ElevatedButton(
+              onPressed: () {
+                // Ação do primeiro botão para abrir a página UpdateDadosUser()
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => UpdateDadosUser(user: user,)),
+                );
+              },
+              style: ElevatedButton.styleFrom(
+                primary: Colors.grey.shade200, // Cor de fundo
+                onPrimary: Color.fromRGBO(140, 82, 255, 1), // Cor do texto
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(8.0),
+                  side: BorderSide(color: const Color.fromARGB(255, 224, 224, 224)), // Cor da borda
+                ),
+                padding: EdgeInsets.all(16.0),
+              ),
+              child: Text('Termos de Uso', style: TextStyle(fontSize: 16),),
+            ),
           ],
         ),
       ),
     );
   }
-
-  List<UserField> _getUserFields(UserModel user) {
-    return [
-      UserField(label: 'Nome', value: user.nome),
-      UserField(label: 'Email', value: user.email),
-      UserField(label: 'Telefone', value: user.telefone),
-      UserField(label: 'CPF', value: user.cpf),
-      UserField(label: 'Gênero', value: user.sexo),
-      // UserField(label: 'Nascimento', value: user.dtNascimento),
-      UserField(label: 'Logradouro', value: user.logradouro),
-      UserField(label: 'CEP', value: user.cep),
-      UserField(label: 'Número', value: user.num_residencia),
-      UserField(label: 'Complemento', value: user.complemento),
-      UserField(label: 'Cidade', value: user.cidade),
-      UserField(label: 'Bairro', value: user.bairro),
-      UserField(label: 'UF', value: user.uf),
-      // Adicione mais campos conforme necessário
-    ];
-  }
-}
-
-class UserField {
-  final String label;
-  final String value;
-
-  UserField({required this.label, required this.value});
 }

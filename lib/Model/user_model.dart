@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 //Classe UserModel repesenta um modelo de dados dos usuários, cada instancia contém uma informação do usuário.
 //toJson (Json, ele é usado pra trocar os dados entre o servidor e o cliente) converte um objeto da classe para um Map<String> 
 //fromJson instância a classe UserModel a partir de um mapa JSON (criado pelo próprio sistema)
+
 //UserModelProvider (dependendo do que recebe ele altera a classe. Exemplo: Entrei com Lays, ele muda tudo pra Lays.)
 
 class UserModelProvider extends ChangeNotifier {
