@@ -1,9 +1,9 @@
 import 'dart:convert';
 import 'package:app_dreams_tourism/widget/date_input_field.dart';
-import 'package:app_dreams_tourism/widget/input_uf_brasil.dart';
 import 'package:app_dreams_tourism/widget/my_button.dart';
 import 'package:app_dreams_tourism/widget/my_textfield.dart';
 import 'package:app_dreams_tourism/pages/login_page.dart';
+import 'package:app_dreams_tourism/widget/gender_dropwdown_input.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:http/http.dart' as http;
@@ -17,23 +17,51 @@ class RegisterPage extends StatefulWidget {
 }
 
 class _RegisterPageState extends State<RegisterPage> {
-  // text editing controllers
+  // Váriaveis de controle do que é inserido no input
   final nameController = TextEditingController();
   final telefoneController = TextEditingController();
   final cpfController = TextEditingController();
+  final sexoController = TextEditingController();
   final emailController = TextEditingController();
   final passwordController = TextEditingController();
   final confirmPasswordController = TextEditingController();
   final nascimentoController = TextEditingController();
-  final enderecoController = TextEditingController();
+  final cepController = TextEditingController();
+  final logradouroController = TextEditingController();
+  final numRediedenciaController = TextEditingController();
+  final complementoController = TextEditingController();
   final cidadeController = TextEditingController();
   final bairroController = TextEditingController();
   final ufController = TextEditingController();
 
-  // Estado selecionado (inicialmente vazio)
-  // String selectedState = '';
+  // Api ViaCEP
+  // Faz uma requisição através da URL, passando o CEP digitado, e retornando um
+  //json com as informações soicitadas, e preenche os campos automaticamente.
+  Future<void> apiViaCep(String cep) async {
+    final viaCEPUrl = Uri.parse('https://viacep.com.br/ws/$cep/json/');
 
-  // bool processing = false;
+    try {
+      final response = await http.get(viaCEPUrl);
+
+      if (response.statusCode == 200) {
+        final data = jsonDecode(response.body);
+
+        setState(() {
+          // Preencher os campos com os dados retornados pela API
+          logradouroController.text = data['logradouro'];
+          cidadeController.text = data['localidade'];
+          bairroController.text = data['bairro'];
+          ufController.text = data['uf'];
+        });
+      } else {
+        // Tratar erro, se necessário
+        print('Erro ao obter dados do CEP: ${response.statusCode}');
+      }
+    } catch (e) {
+      // Tratar exceção, se necessário
+      print('Erro na requisição: $e');
+    }
+  }
 
   void showBoxMessage(String message) {
     showDialog(
@@ -52,46 +80,54 @@ class _RegisterPageState extends State<RegisterPage> {
     );
   }
 
-  // void onStateSelected(String? newState) {
-  //   setState(() {
-  //     selectedState = newState ??
-  //         ""; // Use o operador ?? para fornecer um valor padrão, se necessário
-  //   });
-  // }
-
   void registerUser() async {
-    var url = Uri.parse("http://172.20.10.2/api_dreams_tourism/singup.php");
+    // Exibe um carregando
+    showDialog(
+        context: context,
+        builder: (context) {
+          return const Center(
+            child: CircularProgressIndicator(),
+          );
+        });
+
+    var url = Uri.parse("http://192.168.153.102/api_dreams_tourism/singup.php");
     var data = {
       "nome": nameController.text,
       "telefone": telefoneController.text,
       "cpf": cpfController.text.toString(),
+      "sexo": sexoController.text,
       "email": emailController.text,
       "pass": passwordController.text,
       "dt_nascimento": nascimentoController.text,
-      "endereco": enderecoController.text,
+      "cep": cepController.text,
+      "logradouro": logradouroController.text,
+      "num_residencia": numRediedenciaController.text,
+      "complemento": complementoController.text,
       "cidade": cidadeController.text,
       "bairro": bairroController.text,
       "uf": ufController.text,
     };
     try {
       final response = await http.post(url, body: data);
+
+      // Oculta o carregando
+      Navigator.of(context).pop();
+
       if (response.statusCode == 200) {
         final responseBody = jsonDecode(response.body);
         if (responseBody == "user exist") {
           showBoxMessage("Conta já cadastrada!");
         } else if (responseBody == "true") {
-          showBoxMessage("Conta cadastrada com sucesso!");
-          nameController.text = "";
-          telefoneController.text = "";
-          cpfController.text = "";
-          emailController.text = "";
-          passwordController.text = "";
-          confirmPasswordController.text = "";
-          nascimentoController.text = "";
-          enderecoController.text = "";
-          cidadeController.text = "";
-          bairroController.text = "";
-          ufController.text = "";
+          ScaffoldMessenger.of(context).showSnackBar(
+            const SnackBar(
+              content: Text("Conta cadastrada com sucesso!"),
+              duration: Duration(seconds: 2),
+            ),
+          );
+
+          // Adiciona um pequeno atraso antes de navegar para a página de login
+          await Future.delayed(Duration(seconds: 2));
+
           // Redirecione para a página de login
           Navigator.of(context).pushReplacement(
             MaterialPageRoute(
@@ -171,6 +207,7 @@ class _RegisterPageState extends State<RegisterPage> {
                   child: TextField(
                     controller: telefoneController,
                     obscureText: false,
+                    keyboardType: TextInputType.phone,
                     decoration: InputDecoration(
                       enabledBorder: const OutlineInputBorder(
                         borderSide: BorderSide(color: Colors.white),
@@ -201,6 +238,7 @@ class _RegisterPageState extends State<RegisterPage> {
                   child: TextField(
                     controller: cpfController,
                     obscureText: false,
+                    keyboardType: TextInputType.phone,
                     decoration: InputDecoration(
                       enabledBorder: const OutlineInputBorder(
                         borderSide: BorderSide(color: Colors.white),
@@ -214,16 +252,23 @@ class _RegisterPageState extends State<RegisterPage> {
                       hintStyle: TextStyle(
                         color: Colors.grey[500],
                       ),
-                      
-                      
                     ),
                     inputFormatters: [
                       FilteringTextInputFormatter.digitsOnly,
                       LengthLimitingTextInputFormatter(
                           11), // Limita a 11 caracteres (DDD + 9 dígitos)
                     ],
-                    
                   ),
+                ),
+
+                const SizedBox(height: 10),
+
+                GenderDropdown(
+                  onSelect: (value) {
+                    setState(() {
+                      sexoController.text = value!;
+                    });
+                  },
                 ),
 
                 const SizedBox(height: 10),
@@ -260,41 +305,47 @@ class _RegisterPageState extends State<RegisterPage> {
                   obscureText: false,
                 ),
                 const SizedBox(height: 10),
-                // endereco textfield
+                // cep textfield
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 25.0),
+                  child: TextField(
+                    controller: cepController,
+                    keyboardType: TextInputType.phone,
+                    decoration: InputDecoration(
+                      enabledBorder: const OutlineInputBorder(
+                        borderSide: BorderSide(color: Colors.white),
+                      ),
+                      focusedBorder: OutlineInputBorder(
+                        borderSide: BorderSide(color: Colors.grey.shade400),
+                      ),
+                      fillColor: Colors.grey.shade200,
+                      filled: true,
+                      hintText: "CEP",
+                      hintStyle: TextStyle(color: Colors.grey[500]),
+                    ),
+                    inputFormatters: [
+                      FilteringTextInputFormatter.digitsOnly,
+                      LengthLimitingTextInputFormatter(
+                          8), // Limita a 11 caracteres (DDD + 9 dígitos)
+                    ],
+                    onChanged: apiViaCep,
+                  ),
+                ),
+                const SizedBox(height: 10),
+                // numero residencia textfield
                 MyTextField(
-                  controller: enderecoController,
-                  hintText: 'Endereço',
+                  controller: numRediedenciaController,
+                  hintText: 'Número',
                   obscureText: false,
                 ),
                 const SizedBox(height: 10),
-                // cidade textfield
+                // complemento textfield
                 MyTextField(
-                  controller: cidadeController,
-                  hintText: 'Cidade',
+                  controller: complementoController,
+                  hintText: 'Complemento',
                   obscureText: false,
                 ),
                 const SizedBox(height: 10),
-                // bairro textfield
-                MyTextField(
-                  controller: bairroController,
-                  hintText: 'Bairro',
-                  obscureText: false,
-                ),
-                const SizedBox(height: 10),
-                // uf textfield
-                // MyTextField(
-                //   controller: ufController,
-                //   hintText: 'UF',
-                //   obscureText: false,
-                // ),
-                StateUfTextFild(
-                  controller: ufController,
-                  hintText: 'UF',
-                  obscureText: false,
-                ),
-
-                const SizedBox(height: 25),
-
                 // sign in button
                 MyButton(
                   text: "Registrar",

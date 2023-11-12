@@ -18,11 +18,15 @@ class UserModelProvider extends ChangeNotifier {
 class UserModel {
   final String id;
   final String nome;
+  final String sexo;
   final String email;
   final String telefone;
   final String cpf;
   // final String dtNascimento;
-  final String endereco;
+  final String cep;
+  final String logradouro;
+  final String num_residencia;
+  final String complemento;
   final String cidade;
   final String bairro;
   final String uf;
@@ -30,11 +34,15 @@ class UserModel {
   UserModel({
     required this.id,
     required this.nome,
+    required this.sexo,
     required this.email,
     required this.telefone,
     required this.cpf,
     // required this.dtNascimento,
-    required this.endereco,
+    required this.cep,
+    required this.logradouro,
+    required this.num_residencia,
+    required this.complemento,
     required this.cidade,
     required this.bairro,
     required this.uf,
@@ -45,11 +53,15 @@ class UserModel {
     return {
       'id': id,
       'nome': nome,
+      'sexo': sexo,
       'email': email,
       'telefone': telefone,
       'cpf': cpf,
       // // 'dtNascimento': dtNascimento,
-      'endereco': endereco,
+      'cep': cep,
+      'logradouro': logradouro,
+      'num_residencia': num_residencia,
+      'complemento': complemento,
       'cidade': cidade,
       'bairro': bairro,
       'uf': uf,
@@ -61,11 +73,15 @@ class UserModel {
     return UserModel(
       id: json['id'],
       nome: json['nome'],
+      sexo: json['sexo'],
       email: json['email'],
       telefone: json['telefone'],
       cpf: json['cpf'],
       // // dtNascimento: json['dtNascimento'],
-      endereco: json['endereco'],
+      cep: json['cep'],
+      logradouro: json['logradouro'],
+      num_residencia: json['num_residencia'],
+      complemento: json['complemento'],
       cidade: json['cidade'],
       bairro: json['bairro'],
       uf: json['uf'],
