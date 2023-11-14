@@ -1,12 +1,13 @@
 import 'package:flutter/material.dart';
 
-class MyTextField extends StatelessWidget {
+class MyTextField extends StatelessWidget { //Um widget sem estado, o que significa que sua aparência não muda com o tempo.
   // ignore: prefer_typing_uninitialized_variables
-  final controller;
-  final String hintText;
-  final bool obscureText;
+  final controller; //Uma variável que representa o controlador de texto associado ao campo de entrada. A ausência de tipo indica que pode ser de qualquer tipo.
+  final String hintText; //representa o texto de dica, quando o campo não foi preenchido corretamente ou não foi preenchido
+  final bool obscureText; //booleano que indica que o campo de entrada deve ficar obscurecido (senhas)
 
-  const MyTextField({
+
+  const MyTextField({//Construtor que aceita os parâmetros mencionados acima.
     super.key,
     required this.controller,
     required this.hintText,

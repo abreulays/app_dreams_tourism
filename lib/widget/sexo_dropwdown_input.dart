@@ -1,7 +1,12 @@
 import 'package:flutter/material.dart';
 
+//Uma lista de strings que representa os gêneros disponíveis para seleção no dropdown.
 const List<String> generos = ['Masculino', 'Feminino'];
 
+//Declaração da classe GenderDropdown, que estende StatefulWidget. Este widget possui estado mutável.
+// Uma função de retorno de chamada que será chamada quando um novo gênero for selecionado.
+// O parâmetro String? representa o valor selecionado (o gênero).
+//  Construtor que exige a função onSelect como parâmetro.
 class GenderDropdown extends StatefulWidget {
   final Function(String?) onSelect;
 
@@ -12,13 +17,16 @@ class GenderDropdown extends StatefulWidget {
 }
 
 class _GenderDropdownState extends State<GenderDropdown> {
-  String? generoSelecionado;
+  String? generoSelecionado; //armazena o genêro informado
 
   @override
   Widget build(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 25.0),
-      child: DropdownButtonFormField<String>(
+      child: DropdownButtonFormField<String>( 
+//Retorna um widget DropdownButtonFormField que é um dropdown de seleção.
+// um dropdown é um widget que permite ao usuário selecionar um valor de uma lista. O dropdown é composto por um botão que, 
+//quando clicado, abre um menu suspenso com os valores disponíveis.
         value: generoSelecionado,
         onChanged: (String? newValue) {
           setState(() {
@@ -26,7 +34,9 @@ class _GenderDropdownState extends State<GenderDropdown> {
             widget.onSelect(generoSelecionado); // Chamando a função de retorno de chamada
           });
         },
+        
         items: generos.map<DropdownMenuItem<String>>((String genero) {
+          // Define a lista de itens no dropdown. Mapeia os gêneros para criar DropdownMenuItem para cada um.
           return DropdownMenuItem<String>(
             value: genero == 'Masculino' ? 'M' : 'F',
             child: Text(genero),

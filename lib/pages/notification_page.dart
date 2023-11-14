@@ -32,7 +32,8 @@ class _NotificationPageState extends State<NotificationPage> {
             title: Text('Notification 2'),
             subtitle: Text('Details of Notification 2'),
           ),
-          // Adicione mais widgets ListTile para notificações adicionais
+
+          // Adicionar mais widgets ListTile para notificações adicionais
         ],
       ),
     );

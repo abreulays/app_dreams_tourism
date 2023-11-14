@@ -9,8 +9,7 @@ import 'package:app_dreams_tourism/pages/profile_page.dart';
 
 // Este código representa a página inicial (HomePage) que utiliza um PageView para mostrar diferentestelas correspondentes 
 //a diferentes seções da aplicação. Além disso, ele inclui uma barra de navegação na parte inferior 
-
-// (bottomNavigationBar) é para facilitar a navegação entre essas seções. 
+// (bottomNavigationBar)para facilitar a navegação entre essas seções. 
 
 
 //Essa classe representa a página inicial, recebe um user da classe UserModel como argumento obrigátorio
@@ -38,7 +37,6 @@ class _HomePageState extends State<HomePage> {
       paginaAtual = pagina;
     });
   }
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(

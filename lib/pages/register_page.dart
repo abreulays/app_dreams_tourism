@@ -90,7 +90,7 @@ class _RegisterPageState extends State<RegisterPage> {
           );
         });
 
-    var url = Uri.parse("http://192.168.153.102/api_dreams_tourism/singup.php");
+    var url = Uri.parse("http://192.168.1.90/api_dreams_tourism/singup.php");
     var data = {
       "nome": nameController.text,
       "telefone": telefoneController.text,

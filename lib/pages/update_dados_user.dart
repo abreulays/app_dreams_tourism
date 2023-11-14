@@ -19,10 +19,14 @@ class UpdateDadosUser extends StatelessWidget {
         context, MaterialPageRoute(builder: (context) => const LoginPage()));
   }
 
+// Nesse trecho de código, a palavra-chave override está sendo usada para indicar que o método build na classe atual está
+// sobrescrevendo o método build da classe pai.
+//Widget build(BuildContext context) {: Este é o método build. Ele recebe um parâmetro obrigatório chamado context, que
+// fornece informações sobre a localização do widget na árvore de widgets do Flutter 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
+    return Scaffold( // retorna um widge (Scaffold) que fornece uma estrutura básica para a página inicial. 
+      appBar: AppBar( //uma propriedade que define uma barra de aplicativos (barra superior) da página.
         title: const Text(
           'SEUS DADOS',
           style: TextStyle(
@@ -32,19 +36,22 @@ class UpdateDadosUser extends StatelessWidget {
           ),
         ),
         backgroundColor: Colors.transparent,
-        elevation: 0, // Remove a sombra da AppBar
+        elevation: 0, // Remove a sombra da AppBar e elevação da barra de aplicativos para 0.
         centerTitle: true, // Centraliza o título na AppBar
         iconTheme:
             const IconThemeData(color: Colors.grey), // Altera a cor do ícone de voltar
       ),
-      body: SingleChildScrollView(
+      body: SingleChildScrollView( //Esse widget é útil quando o conteúdo da tela é maior do que a tela visível, 
+      // permitindo que o usuário role para ver todo o conteúdo.
         padding: const EdgeInsets.all(20.0),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.stretch,
-          children: [
-            for (var field in _getUserFields(user)) ...[
+        child: Column( //organiza os "filhos" verticalmente
+          crossAxisAlignment: CrossAxisAlignment.stretch, //para ocuparem toda a largura horizontal disponível.
+          children: [ //recebe uma lista de widgets
+            for (var field in _getUserFields(user)) ...[ 
+              //O método _getUserFields(user) retorna uma lista de objetos que representam campos do usuário.
+              //For, está sendo utilizado um loop for-in para iterar sobre a lista de campos do usuário
               ListTile(
-                title: Text(field.label),
+                title: Text(field.label), //cria um campo a mais para informações adicionais. 
                 subtitle: Text(field.value),
               ),
             ],
@@ -55,9 +62,12 @@ class UpdateDadosUser extends StatelessWidget {
     );
   }
 
-  List<UserField> _getUserFields(UserModel user) {
-    return [
-      UserField(label: 'Nome', value: user.nome),
+  //Este trecho de código define uma função chamada _getUserFields que cria e retorna uma lista de objetos UserField. 
+  //Cada UserField representa um campo específico associado a um usuário (UserModel). 
+
+  List<UserField> _getUserFields(UserModel user) { //List<UserField> _getUserFields(UserModel user) {: A função recebe um parâmetro user do tipo UserModel e retorna uma lista de objetos UserField.
+    return [ //A função utiliza a sintaxe de lista literal para criar e retornar uma lista de objetos UserField
+      UserField(label: 'Nome', value: user.nome), //Ex: Para o campo 'Nome', o valor do atributo nome do objeto user é usado como valor associado ao campo.
       UserField(label: 'Email', value: user.email),
       UserField(label: 'Telefone', value: user.telefone),
       UserField(label: 'CPF', value: user.cpf),
@@ -70,7 +80,7 @@ class UpdateDadosUser extends StatelessWidget {
       UserField(label: 'Cidade', value: user.cidade),
       UserField(label: 'Bairro', value: user.bairro),
       UserField(label: 'UF', value: user.uf),
-      // Adicione mais campos conforme necessário
+     
     ];
   }
 }
@@ -78,6 +88,12 @@ class UpdateDadosUser extends StatelessWidget {
 class UserField {
   final String label;
   final String value;
+
+//UserField({required this.label, required this.value});:
+// Define um construtor para a classe. Esse construtor aceita dois parâmetros obrigatórios
+// (label e value) e os atribui às variáveis de instância correspondentes. O uso de required
+// indica que esses parâmetros devem ser fornecidos ao criar uma instância da classe.
+
 
   UserField({required this.label, required this.value});
 }
