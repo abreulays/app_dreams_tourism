@@ -1,6 +1,7 @@
 import 'package:flutter/services.dart'; //interação com serviços do sistema 
 
-class CellPhoneInputFormatter extends TextInputFormatter { // textInputFormat é uma classe base para formatação de texto em campos de entrada.
+class CellPhoneInputFormatter extends TextInputFormatter { 
+  // textInputFormat é uma classe base para formatação de texto em campos de entrada.
   @override
 
    //Implementação do método formatEditUpdate, que é chamado quando ocorre uma atualização no texto do campo de entrada.

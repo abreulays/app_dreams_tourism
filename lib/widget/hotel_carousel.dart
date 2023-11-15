@@ -35,7 +35,7 @@ class HotelCarousel extends StatelessWidget {
           ),
         ),
         Container(
-          height: 300.0,
+          height: 325.0,
           child: ListView.builder(
             scrollDirection: Axis.horizontal,
             itemCount: hotels.length,
@@ -43,7 +43,7 @@ class HotelCarousel extends StatelessWidget {
               Hotel hotel = hotels[index];
               return Container(
                 margin: EdgeInsets.all(10.0),
-                width: 240.0,
+                width: 240.0, // define a largura da image na box
                 child: Stack(
                   alignment: Alignment.topCenter,
                   children: <Widget>[
@@ -64,7 +64,7 @@ class HotelCarousel extends StatelessWidget {
                               Text(
                                 hotel.name,
                                 style: TextStyle(
-                                  fontSize: 22.0,
+                                  fontSize: 17.0,
                                   fontWeight: FontWeight.w600,
                                   letterSpacing: 1.2,
                                 ),

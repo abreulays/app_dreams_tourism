@@ -10,6 +10,7 @@ class Activity {
   int rating;
   int price;
 
+
   Activity({ 
   //isso é um construtor, um  método especial que é chamado quando um novo objeto da classe é criado. Neste caso, estamos obrigando ele  
   //a requerer as propriedades sendo necessária que sejam fornecidas ao criar um novo objeto Activity.
@@ -20,4 +21,11 @@ class Activity {
     required this.rating,
     required this.price,
   });
+
+
+
+
+  
+
+
 }

@@ -4,8 +4,10 @@ import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 class DestinationCarousel extends StatelessWidget {
+  //Define uma classe chamada DestinationCarousel que estende StatelessWidget, indicando que este widget não mantém um estado interno.
   @override
   Widget build(BuildContext context) {
+    //Sobrescreve o método build da classe StatelessWidget. Este método é chamado quando o widget precisa ser reconstruído
     return Column(
       children: <Widget>[
         Padding(
@@ -37,7 +39,7 @@ class DestinationCarousel extends StatelessWidget {
           ),
         ),
         Container(
-          height: 300.0,
+          height: 325.0, //define o espaço entre a descrição e a imagem do box do pacote.
           child: ListView.builder(
             scrollDirection: Axis.horizontal,
             itemCount: destinations.length,
@@ -54,7 +56,7 @@ class DestinationCarousel extends StatelessWidget {
                 ),
                 child: Container(
                   margin: EdgeInsets.all(10.0),
-                  width: 210.0,
+                  width: 210.0, //define a disposição da largura dos box de foto dos pacotes
                   child: Stack(
                     alignment: Alignment.topCenter,
                     children: <Widget>[
@@ -73,18 +75,21 @@ class DestinationCarousel extends StatelessWidget {
                               mainAxisAlignment: MainAxisAlignment.end,
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: <Widget>[
-                                Text(
-                                  '${destination.activities.length} activities',
-                                  style: TextStyle(
-                                    fontSize: 22.0,
-                                    fontWeight: FontWeight.w600,
-                                    letterSpacing: 1.2,
-                                  ),
-                                ),
+                                // Text(
+                                //   '${destination.activities.length} activities',
+                                //   style: TextStyle(
+                                //     fontSize: 22.0,
+                                //     fontWeight: FontWeight.w600,
+                                //     letterSpacing: 1.2,
+                                //   ),
+                                // ),
                                 Text(
                                   destination.description,
                                   style: TextStyle(
-                                    color: Colors.grey,
+                                    fontSize: 13.5,
+                                
+                                   letterSpacing: 0.5,
+                                    
                                   ),
                                 ),
                               ],
@@ -111,8 +116,8 @@ class DestinationCarousel extends StatelessWidget {
                               child: ClipRRect(
                                 borderRadius: BorderRadius.circular(20.0),
                                 child: Image(
-                                  height: 180.0,
-                                  width: 180.0,
+                                  height: 170.0, //Aqui arruma a distancia do texto com a imagem, na pagina inicial da box.
+                                  width: 170.0, // arruma a largura da imagem (tente manter height e width igual)
                                   image: AssetImage(destination.imageUrl),
                                   fit: BoxFit.cover,
                                 ),
@@ -128,7 +133,7 @@ class DestinationCarousel extends StatelessWidget {
                                     destination.city,
                                     style: TextStyle(
                                       color: Colors.white,
-                                      fontSize: 24.0,
+                                      fontSize: 20.0, //define o titulo que fica em cima da imagejm presente na box da página inicial.
                                       fontWeight: FontWeight.w600,
                                       letterSpacing: 1.2,
                                     ),

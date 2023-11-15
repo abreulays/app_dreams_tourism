@@ -82,7 +82,7 @@ class _DestinationScreenState extends State<DestinationScreen> {
                         color: Colors.black,
                         onPressed: () => Navigator.pop(context),
                       ),
-                      Row(
+                      Row( //posiciona os itens em linha horizontal.
                         children: <Widget>[
                           IconButton(
                             icon: Icon(Icons.search),
@@ -130,7 +130,7 @@ class _DestinationScreenState extends State<DestinationScreen> {
                             widget.destination.country,
                             style: TextStyle(
                               color: Colors.white70,
-                              fontSize: 20.0,
+                              fontSize:  30.0, // descrição BRASIL que fica em cima da imagem do pacote quando se abre a box.
                             ),
                           ),
                         ],
