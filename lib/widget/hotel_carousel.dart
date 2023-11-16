@@ -12,7 +12,7 @@ class HotelCarousel extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: <Widget>[
               Text(
-                'Hoteis Exclusivos',
+                'Mais Procurados',
                 style: TextStyle(
                   fontSize: 22.0,
                   fontWeight: FontWeight.bold,
@@ -78,7 +78,7 @@ class HotelCarousel extends StatelessWidget {
                               ),
                               SizedBox(height: 2.0),
                               Text(
-                                '\$${hotel.price} / night',
+                                'R\$${hotel.price} / Noite',
                                 style: TextStyle(
                                   fontSize: 18.0,
                                   fontWeight: FontWeight.w600,

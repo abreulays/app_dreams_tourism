@@ -10,6 +10,7 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 // aqui temos a declaração de uma classe que se chama ScreenHomePage que extende a classe StatefulWidget.
 class ScreenHomePage extends StatefulWidget {
   final UserModel user;
+  
 //O UserModel é um modelo de dados que representa informações sobre um usuário. 
 //A palavra-chave final indica que o valor da variável não pode ser alterado após ser atribuído.
 
@@ -192,7 +193,7 @@ class _ScreenHomePageState extends State<ScreenHomePage> {
               SizedBox(height: 20.0),
               DestinationCarousel(), //carrousel de destinos com a lista de destinos
               SizedBox(height: 20.0),
-              HotelCarousel(), //exibe o carrousel com a lista de hotels 
+              HotelCarousel(),             
             ],
           ),
         ),

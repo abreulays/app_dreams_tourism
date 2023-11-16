@@ -9,6 +9,7 @@ class Activity {
   List<String> startTimes;
   int rating;
   int price;
+  String city;
 
 
   Activity({ 
@@ -20,6 +21,7 @@ class Activity {
     required this.startTimes,
     required this.rating,
     required this.price,
+    required this.city,
   });
 
 

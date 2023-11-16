@@ -19,30 +19,34 @@ class Destination {
 // Cria instâncias de atividades turísticas e destinos. 
 
 List<Activity> activities = [
-  // Activity(
-  //   imageUrl: 'lib/assets/images/fortaleza.jpn.png',
-  //   name: 'Fortaleza/Dragão do Mar',
-  //   type: 'Passeio',
-  //   startTimes: ['9:00 am', '11:00 am'],
-  //   rating: 5,
-  //   price: 30,
-  // ),
-  // // Activity(
-  //   imageUrl: 'lib/assets/images/natal.jpn.png',
-  //   name: 'Natal/Praia  Genipabu ',
-  //   type: 'Passeio',
-  //   startTimes: ['11:00 pm', '1:00 pm'],
-  //   rating: 4,
-  //   price: 210,
-  // ),
-  // Activity(
-  //   imageUrl: 'lib/assets/images/murano.jpg',
-  //   name: 'Murano and Burano Tour',
-  //   type: 'Sightseeing Tour',
-  //   startTimes: ['12:30 pm', '2:00 pm'],
-  //   rating: 3,
-  //   price: 125,
-  // ),
+  Activity(
+    imageUrl: 'lib/assets/images/fortaleza.jpn.png',
+    name: 'Fortaleza/Dragão do Mar',
+    type: 'Passeio',
+    startTimes: ['9:00 am', '11:00 am'],
+    rating: 5,
+    price: 30,
+    city: 'Fortaleza',
+  ),
+  Activity(
+    imageUrl: 'lib/assets/images/natal.jpn.png',
+    name: 'Natal/Praia  Genipabu ',
+    type: 'Passeio',
+    startTimes: ['11:00 pm', '1:00 pm'],
+    rating: 4,
+    price: 210,
+    city: 'Fortaleza',
+  ),
+  Activity(
+    imageUrl: 'lib/assets/images/murano.jpg',
+    name: 'Murano and Burano Tour',
+    type: 'Sightseeing Tour',
+    startTimes: ['12:30 pm', '2:00 pm'],
+    rating: 3,
+    price: 125,
+    city: 'Fortaleza',
+  ),
+  
 ];
 
 List<Destination> destinations = [

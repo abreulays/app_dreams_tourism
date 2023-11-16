@@ -58,7 +58,7 @@ class _DestinationScreenState extends State<DestinationScreen> {
                   child: Hero(
                     tag: widget.destination.imageUrl,
                     child: ClipRRect(
-                      borderRadius: BorderRadius.circular(30.0),
+                      // borderRadius: BorderRadius.circular(30.0),
                       child: Image(
                         image: AssetImage(widget.destination.imageUrl),
                         fit: BoxFit.cover,
@@ -72,7 +72,7 @@ class _DestinationScreenState extends State<DestinationScreen> {
 
                 Padding(
                   padding:
-                      EdgeInsets.symmetric(horizontal: 10.0, vertical: 40.0),
+                      EdgeInsets.symmetric(horizontal: 10.0, vertical: 10.0),
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: <Widget>[
@@ -173,8 +173,8 @@ class _DestinationScreenState extends State<DestinationScreen> {
               child: ListView.builder(
                 padding: EdgeInsets.only(top: 10.0, bottom: 15.0),
                 itemCount: widget.destination.activities.length,
-                itemBuilder: (BuildContext context, int index) {
-                  Activity activity = widget.destination.activities[index];
+                itemBuilder: (BuildContext context, int index) {Activity
+                   activity = widget.destination.activities[index];
                   return Stack(
                     children: <Widget>[
                       Container(
@@ -211,14 +211,14 @@ class _DestinationScreenState extends State<DestinationScreen> {
                                   Column(
                                     children: <Widget>[
                                       Text(
-                                        '\$${activity.price}',
+                                        'R\$${activity.price}',
                                         style: TextStyle(
                                           fontSize: 22.0,
                                           fontWeight: FontWeight.w600,
                                         ),
                                       ),
                                       Text(
-                                        'per pax',
+                                        'Por Pessoa',
                                         style: TextStyle(
                                           color: Colors.grey,
                                         ),

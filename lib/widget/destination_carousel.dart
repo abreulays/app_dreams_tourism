@@ -39,7 +39,8 @@ class DestinationCarousel extends StatelessWidget {
           ),
         ),
         Container(
-          height: 325.0, //define o espaço entre a descrição e a imagem do box do pacote.
+          height:
+              325.0, //define o espaço entre a descrição e a imagem do box do pacote.
           child: ListView.builder(
             scrollDirection: Axis.horizontal,
             itemCount: destinations.length,
@@ -56,40 +57,55 @@ class DestinationCarousel extends StatelessWidget {
                 ),
                 child: Container(
                   margin: EdgeInsets.all(10.0),
-                  width: 210.0, //define a disposição da largura dos box de foto dos pacotes
+                  width:
+                      240.0, //define a disposição da largura dos box de foto dos pacotes
                   child: Stack(
                     alignment: Alignment.topCenter,
                     children: <Widget>[
                       Positioned(
-                        bottom: 15.0,
+                        top: 180.0,
                         child: Container(
-                          height: 120.0,
-                          width: 200.0,
+                          width: 240.0,
                           decoration: BoxDecoration(
                             color: Colors.white,
                             borderRadius: BorderRadius.circular(10.0),
                           ),
                           child: Padding(
-                            padding: EdgeInsets.all(10.0),
+                            padding: const EdgeInsets.all(10.0),
                             child: Column(
                               mainAxisAlignment: MainAxisAlignment.end,
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: <Widget>[
-                                // Text(
-                                //   '${destination.activities.length} activities',
-                                //   style: TextStyle(
-                                //     fontSize: 22.0,
-                                //     fontWeight: FontWeight.w600,
-                                //     letterSpacing: 1.2,
-                                //   ),
-                                // ),
+                                // Limit description to 4 lines
                                 Text(
                                   destination.description,
-                                  style: TextStyle(
+                                  maxLines: 4,
+                                  overflow: TextOverflow.ellipsis,
+                                  style: const TextStyle(
                                     fontSize: 13.5,
-                                
-                                   letterSpacing: 0.5,
-                                    
+                                    letterSpacing: 0.5,
+                                  ),
+                                ),
+                                SizedBox(
+                                    height:
+                                        8.0), // Add space between description and text box
+                                Center(
+                                  child: Container(
+                                    padding: EdgeInsets.symmetric(
+                                        horizontal: 16.0, vertical: 8.0),
+                                    decoration: BoxDecoration(
+                                      color:
+                                          const Color.fromRGBO(140, 82, 255, 1),
+                                      borderRadius: BorderRadius.circular(5.0),
+                                    ),
+                                    child: Text(
+                                      '${destination.activities.length} Pacotes',
+                                      style: TextStyle(
+                                        color: Colors.white,
+                                        fontSize: 16.0,
+                                        fontWeight: FontWeight.w700,
+                                      ),
+                                    ),
                                   ),
                                 ),
                               ],
@@ -116,8 +132,10 @@ class DestinationCarousel extends StatelessWidget {
                               child: ClipRRect(
                                 borderRadius: BorderRadius.circular(20.0),
                                 child: Image(
-                                  height: 170.0, //Aqui arruma a distancia do texto com a imagem, na pagina inicial da box.
-                                  width: 170.0, // arruma a largura da imagem (tente manter height e width igual)
+                                  height:
+                                      180.0, //Aqui arruma a distancia do texto com a imagem, na pagina inicial da box.
+                                  width:
+                                      220.0, // arruma a largura da imagem (tente manter height e width igual)
                                   image: AssetImage(destination.imageUrl),
                                   fit: BoxFit.cover,
                                 ),
@@ -133,7 +151,8 @@ class DestinationCarousel extends StatelessWidget {
                                     destination.city,
                                     style: TextStyle(
                                       color: Colors.white,
-                                      fontSize: 20.0, //define o titulo que fica em cima da imagejm presente na box da página inicial.
+                                      fontSize:
+                                          20.0, //define o titulo que fica em cima da imagejm presente na box da página inicial.
                                       fontWeight: FontWeight.w600,
                                       letterSpacing: 1.2,
                                     ),
