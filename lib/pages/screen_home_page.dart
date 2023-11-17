@@ -179,7 +179,7 @@ class _ScreenHomePageState extends State<ScreenHomePage> {
               const SizedBox(height: 20.0),
               const DestinationCarousel(), //carrousel de destinos com a lista de destinos
               // const SizedBox(height: 0.0),
-              ListCardActivity(user: widget.user,),
+              ListCardActivity(),
             ],
           ),
         ),
