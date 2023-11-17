@@ -4,6 +4,7 @@ import 'package:app_dreams_tourism/widget/list_card_activity.dart';
 import 'package:app_dreams_tourism/widget/destination_carousel.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:lottie/lottie.dart';
 
 // aqui temos a declaração de uma classe que se chama ScreenHomePage que extende a classe StatefulWidget.
 class ScreenHomePage extends StatefulWidget {
@@ -106,7 +107,8 @@ class _ScreenHomePageState extends State<ScreenHomePage> {
           child: Column(
             children: [
               Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 20.0, vertical: 5.0),
+                padding:
+                    const EdgeInsets.symmetric(horizontal: 20.0, vertical: 5.0),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.end,
                   children: [
@@ -132,8 +134,8 @@ class _ScreenHomePageState extends State<ScreenHomePage> {
                       // child: Container(: Container é um widget que pode conter outros widgets e
                       // é usado para definir margens, preenchimentos e decorações para o conteúdo que ele contém.
                       child: Container(
-                        padding:
-                            const EdgeInsets.all(10.0), // Aumentar o tamanho do ícone
+                        padding: const EdgeInsets.all(
+                            10.0), // Aumentar o tamanho do ícone
 
                         child: const Icon(
                           Icons.notifications,
@@ -171,23 +173,13 @@ class _ScreenHomePageState extends State<ScreenHomePage> {
 //  que é horizontal neste caso. spaceAround distribui
 //  o espaço entre os filhos de modo que haja espaço igual em torno de cada filho
 
-              const SizedBox(height: 20.0),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceAround,
-                children: _icons //
-                    .asMap() //apresenta os icones como mapas, em que chaves são índices e os valores são os elementos da lista.
-                    .entries //obtém os pares chave-valor do mapa
-                    .map(
-                      // é usada para transformar cada entrada do mapa chamando _buildIcon para cada índice.
-                      (MapEntry map) => _buildIcon(map.key),
-                    )
-                    .toList(), //aqui é uma lista de icones
+              Center(
+                child: Lottie.asset("lib/assets/images/plane_home.json"),
               ),
               const SizedBox(height: 20.0),
               const DestinationCarousel(), //carrousel de destinos com a lista de destinos
               // const SizedBox(height: 0.0),
-              const ListCardActivity(),
-
+              ListCardActivity(user: widget.user,),
             ],
           ),
         ),

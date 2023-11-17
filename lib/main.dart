@@ -1,5 +1,5 @@
 import 'package:app_dreams_tourism/model/user_model.dart';
-import 'package:app_dreams_tourism/pages/login_page.dart';
+import 'package:app_dreams_tourism/pages/splash.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -21,7 +21,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return const MaterialApp(
       debugShowCheckedModeBanner: false,
-      home: LoginPage(),
+      home: SplashScreen(),
     );
   }
 }

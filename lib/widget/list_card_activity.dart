@@ -1,11 +1,15 @@
 import 'package:app_dreams_tourism/model/destination_model.dart';
+import 'package:app_dreams_tourism/model/user_model.dart';
+import 'package:app_dreams_tourism/pages/home_page.dart';
 import 'package:flutter/material.dart';
+import 'package:lottie/lottie.dart';
 import 'package:app_dreams_tourism/model/activity_model.dart';
 
 class ListCardActivity extends StatelessWidget {
-  // ignore: use_key_in_widget_constructors
-  const ListCardActivity({Key? key});
+  
 
+  const ListCardActivity({Key? key, required this.user});
+final UserModel user;
   Text _buildRatingStars(int rating) {
     String stars = '';
     for (int i = 0; i < rating; i++) {
@@ -14,6 +18,46 @@ class ListCardActivity extends StatelessWidget {
     stars.trim();
     return Text(stars);
   }
+
+  void _showPopup(BuildContext context) {
+  showDialog(
+    context: context,
+    builder: (BuildContext context) {
+      return AlertDialog(
+        content: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            SizedBox(
+              width: 50,
+              height: 50,
+              child: Lottie.asset(
+                'lib/assets/images/check.json', // Substitua pelo caminho do seu arquivo Lottie
+                repeat: false,
+                reverse: false,
+                animate: true,
+              ),
+            ),
+            const SizedBox(height: 10),
+            Text(
+              'Compra Realizada',
+              style: TextStyle(
+                fontSize: 22,
+                fontWeight: FontWeight.bold,
+              ),
+            ),
+          ],
+        ),
+      );
+    },
+  );
+
+  // Aguarde 3 segundos e depois redirecione para PedidosPage
+  Future.delayed(const Duration(seconds: 3), () {
+    Navigator.of(context).pop(); // Fecha o diálogo
+    Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => HomePage(user: user)));
+  });
+}
+
 
   @override
   Widget build(BuildContext context) {
@@ -121,7 +165,7 @@ class ListCardActivity extends StatelessWidget {
                                 const SizedBox(height: 10),
                                 TextButton.icon(
                                   onPressed: () {
-                                    // Adicione a lógica do botão aqui
+                                    _showPopup(context);
                                   },
                                   style: TextButton.styleFrom(
                                     backgroundColor:
