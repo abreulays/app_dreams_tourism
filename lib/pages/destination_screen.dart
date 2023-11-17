@@ -9,9 +9,10 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 class DestinationScreen extends StatefulWidget {
   final Destination destination;
 
-  DestinationScreen({required this.destination});
+  const DestinationScreen({super.key, required this.destination});
 
   @override
+  // ignore: library_private_types_in_public_api
   _DestinationScreenState createState() => _DestinationScreenState();
 }
 
@@ -43,7 +44,7 @@ class _DestinationScreenState extends State<DestinationScreen> {
                   height: MediaQuery.of(context).size.width,
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(30.0),
-                    boxShadow: [
+                    boxShadow: const [
                       BoxShadow(
                         color: Colors.black26,
                         offset: Offset(0.0, 2.0),
@@ -72,12 +73,12 @@ class _DestinationScreenState extends State<DestinationScreen> {
 
                 Padding(
                   padding:
-                      EdgeInsets.symmetric(horizontal: 10.0, vertical: 10.0),
+                      const EdgeInsets.symmetric(horizontal: 10.0, vertical: 10.0),
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: <Widget>[
                       IconButton(
-                        icon: Icon(Icons.arrow_back),
+                        icon: const Icon(Icons.arrow_back),
                         iconSize: 30.0,
                         color: Colors.black,
                         onPressed: () => Navigator.pop(context),
@@ -85,13 +86,14 @@ class _DestinationScreenState extends State<DestinationScreen> {
                       Row( //posiciona os itens em linha horizontal.
                         children: <Widget>[
                           IconButton(
-                            icon: Icon(Icons.search),
+                            icon: const Icon(Icons.search),
                             iconSize: 30.0,
                             color: Colors.black,
                             onPressed: () => Navigator.pop(context),
                           ),
                           IconButton(
-                            icon: Icon(FontAwesomeIcons.sortAmountDown),
+                            // ignore: deprecated_member_use
+                            icon: const Icon(FontAwesomeIcons.sortAmountDown),
                             iconSize: 25.0,
                             color: Colors.black,
                             onPressed: () => Navigator.pop(context),
@@ -109,7 +111,7 @@ class _DestinationScreenState extends State<DestinationScreen> {
                     children: <Widget>[
                       Text(
                         widget.destination.city,
-                        style: TextStyle(
+                        style: const TextStyle(
                           color: Colors.white,
                           fontSize: 35.0,
                           fontWeight: FontWeight.w600,
@@ -120,15 +122,15 @@ class _DestinationScreenState extends State<DestinationScreen> {
                       //O row posiciona os elementos em linha horizontal. 
                       Row(
                         children: <Widget>[
-                          Icon(
+                          const Icon(
                             FontAwesomeIcons.locationArrow,
                             size: 15.0,
                             color: Colors.white70,
                           ),
-                          SizedBox(width: 5.0),
+                          const SizedBox(width: 5.0),
                           Text(
                             widget.destination.country,
-                            style: TextStyle(
+                            style: const TextStyle(
                               color: Colors.white70,
                               fontSize:  30.0, // descrição BRASIL que fica em cima da imagem do pacote quando se abre a box.
                             ),
@@ -141,7 +143,7 @@ class _DestinationScreenState extends State<DestinationScreen> {
 
                 //Positioned e Stack Widgets:posicionar elementos sobrepostos
 
-                Positioned(
+                const Positioned(
                   right: 20.0,
                   bottom: 20.0,
                   child: Icon(
@@ -171,14 +173,16 @@ class _DestinationScreenState extends State<DestinationScreen> {
 
             Expanded(
               child: ListView.builder(
-                padding: EdgeInsets.only(top: 10.0, bottom: 15.0),
+                padding: const EdgeInsets.only(top: 10.0, bottom: 15.0),
                 itemCount: widget.destination.activities.length,
                 itemBuilder: (BuildContext context, int index) {Activity
                    activity = widget.destination.activities[index];
                   return Stack(
+                    
                     children: <Widget>[
+                      
                       Container(
-                        margin: EdgeInsets.fromLTRB(40.0, 5.0, 20.0, 5.0),
+                        margin: const EdgeInsets.fromLTRB(40.0, 5.0, 20.0, 5.0),
                         height: 170.0,
                         width: double.infinity,
                         decoration: BoxDecoration(
@@ -186,7 +190,7 @@ class _DestinationScreenState extends State<DestinationScreen> {
                           borderRadius: BorderRadius.circular(20.0),
                         ),
                         child: Padding(
-                          padding: EdgeInsets.fromLTRB(100.0, 20.0, 20.0, 20.0),
+                          padding: const EdgeInsets.fromLTRB(100.0, 20.0, 20.0, 20.0),
                           child: Column(
                             mainAxisAlignment: MainAxisAlignment.center,
                             crossAxisAlignment: CrossAxisAlignment.start,
@@ -196,11 +200,11 @@ class _DestinationScreenState extends State<DestinationScreen> {
                                     MainAxisAlignment.spaceBetween,
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: <Widget>[
-                                  Container(
+                                  SizedBox(
                                     width: 120.0,
                                     child: Text(
                                       activity.name,
-                                      style: TextStyle(
+                                      style: const TextStyle(
                                         fontSize: 18.0,
                                         fontWeight: FontWeight.w600,
                                       ),
@@ -212,12 +216,12 @@ class _DestinationScreenState extends State<DestinationScreen> {
                                     children: <Widget>[
                                       Text(
                                         'R\$${activity.price}',
-                                        style: TextStyle(
+                                        style: const TextStyle(
                                           fontSize: 22.0,
                                           fontWeight: FontWeight.w600,
                                         ),
                                       ),
-                                      Text(
+                                      const Text(
                                         'Por Pessoa',
                                         style: TextStyle(
                                           color: Colors.grey,
@@ -229,16 +233,16 @@ class _DestinationScreenState extends State<DestinationScreen> {
                               ),
                               Text(
                                 activity.type,
-                                style: TextStyle(
+                                style: const TextStyle(
                                   color: Colors.grey,
                                 ),
                               ),
                               _buildRatingStars(activity.rating),
-                              SizedBox(height: 10.0),
+                              const SizedBox(height: 10.0),
                               Row(
                                 children: <Widget>[
                                   Container(
-                                    padding: EdgeInsets.all(5.0),
+                                    padding: const EdgeInsets.all(5.0),
                                     width: 70.0,
                                     decoration: BoxDecoration(
                                       color: Colors.amber,
@@ -249,9 +253,9 @@ class _DestinationScreenState extends State<DestinationScreen> {
                                       activity.startTimes[0],
                                     ),
                                   ),
-                                  SizedBox(width: 10.0),
+                                  const SizedBox(width: 10.0),
                                   Container(
-                                    padding: EdgeInsets.all(5.0),
+                                    padding: const EdgeInsets.all(5.0),
                                     width: 70.0,
                                     decoration: BoxDecoration(
                                       color: Colors.amber,

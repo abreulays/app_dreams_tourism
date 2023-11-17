@@ -1,23 +1,10 @@
 import 'package:app_dreams_tourism/model/user_model.dart';
-import 'package:app_dreams_tourism/pages/login_page.dart';
 import 'package:flutter/material.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 
 class UpdateDadosUser extends StatelessWidget {
   final UserModel user;
 
   const UpdateDadosUser({Key? key, required this.user}) : super(key: key);
-
-  Future<void> _signUserOut(BuildContext context) async {
-    // Remova o token de sessão ao sair
-    final prefs = await SharedPreferences.getInstance();
-    await prefs.remove('session_token');
-
-    // Redirecione para a tela de login ou qualquer outra tela apropriada
-    // Substitua a linha abaixo pela navegação para a tela de login
-    Navigator.push(
-        context, MaterialPageRoute(builder: (context) => const LoginPage()));
-  }
 
 // Nesse trecho de código, a palavra-chave override está sendo usada para indicar que o método build na classe atual está
 // sobrescrevendo o método build da classe pai.

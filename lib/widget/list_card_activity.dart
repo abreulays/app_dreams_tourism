@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:app_dreams_tourism/model/activity_model.dart';
 
 class ListCardActivity extends StatelessWidget {
+  // ignore: use_key_in_widget_constructors
   const ListCardActivity({Key? key});
 
   Text _buildRatingStars(int rating) {
@@ -17,26 +18,52 @@ class ListCardActivity extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Column(
-      children: activities.map((Activity activity) {
-        return Padding(
-          padding: const EdgeInsets.all(10.0),
-          child: ClipRRect(
-            borderRadius: BorderRadius.only(
-              bottomLeft: Radius.circular(30.0),
-              bottomRight: Radius.circular(30.0),
-            ),
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 20.0),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: <Widget>[
+              Row(
+                children: [
+                  Icon(
+                    Icons.surfing_rounded,
+                    color: Theme.of(context).textTheme.titleLarge!.color,
+                    size: 24.0,
+                  ),
+                  const SizedBox(width: 8.0),
+                  const Text(
+                    'Diversão Garantida',
+                    style: TextStyle(
+                      fontSize: 22.0,
+                      fontWeight: FontWeight.bold,
+                      letterSpacing: 1.5,
+                    ),
+                  ),
+                ],
+              ),
+            ],
+          ),
+        ),
+        ...activities.map((Activity activity) {
+          return Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 20.0, vertical: 5),
             child: Card(
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(20.0),
+              ),
+              elevation: 5,
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  // Imagem no topo do card
-                  Container(
+                  SizedBox(
                     width: double.infinity,
-                    height: 200, // Ajuste a altura conforme necessário
+                    height: 200,
                     child: ClipRRect(
-                      borderRadius: BorderRadius.only(
-                        topLeft: Radius.circular(30.0),
-                        topRight: Radius.circular(30.0),
+                      borderRadius: const BorderRadius.only(
+                        topLeft: Radius.circular(20.0),
+                        topRight: Radius.circular(20.0),
                       ),
                       child: Image.asset(
                         activity.imageUrl,
@@ -44,61 +71,78 @@ class ListCardActivity extends StatelessWidget {
                       ),
                     ),
                   ),
-                  // Detalhes da atividade
                   Padding(
                     padding: const EdgeInsets.all(15.0),
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        Text(
-                          activity.name,
-                          style: TextStyle(
-                              fontSize: 16, fontWeight: FontWeight.bold),
-                        ),
-                        Text(
-                          'Type: ${activity.type}',
-                          style: TextStyle(fontSize: 14),
-                        ),
-                        Text(
-                          'Price: ${activity.price}',
-                          style: TextStyle(fontSize: 14),
-                        ),
-                        SizedBox(height: 8),
-                        // Outros detalhes da atividade
                         Row(
-                          children: <Widget>[
-                            Container(
-                              padding: EdgeInsets.all(5.0),
-                              width: 70.0,
-                              decoration: BoxDecoration(
-                                color: Colors.amber,
-                                borderRadius: BorderRadius.circular(10.0),
-                              ),
-                              alignment: Alignment.center,
-                              child: Text(
-                                activity.startTimes[0],
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Expanded(
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Text(
+                                    activity.name,
+                                    style: const TextStyle(
+                                      fontSize: 16,
+                                      fontWeight: FontWeight.bold,
+                                    ),
+                                  ),
+                                  const SizedBox(height: 5),
+                                  _buildRatingStars(activity.rating),
+                                  const SizedBox(height: 5),
+                                  Text(
+                                    'Tipo: ${activity.type}',
+                                    style: const TextStyle(fontSize: 14),
+                                  ),
+                                  Text(
+                                    'Cidade: ${activity.city}',
+                                    style: const TextStyle(fontSize: 14),
+                                  ),
+                                ],
                               ),
                             ),
-                            SizedBox(width: 10.0),
-                            Container(
-                              padding: EdgeInsets.all(5.0),
-                              width: 70.0,
-                              decoration: BoxDecoration(
-                                color: Colors.amber,
-                                borderRadius: BorderRadius.circular(10.0),
-                              ),
-                              alignment: Alignment.center,
-                              child: Text(
-                                activity.startTimes[1],
-                              ),
+                            Column(
+                              crossAxisAlignment: CrossAxisAlignment.end,
+                              children: [
+                                Text(
+                                  'R\$ ${activity.price}',
+                                  style: const TextStyle(
+                                    fontSize: 25,
+                                    fontWeight: FontWeight.bold,
+                                  ),
+                                ),
+                                const Text(
+                                  'Por Pessoa',
+                                  style: TextStyle(fontSize: 12),
+                                ),
+                                const SizedBox(height: 10),
+                                TextButton.icon(
+                                  onPressed: () {
+                                    // Adicione a lógica do botão aqui
+                                  },
+                                  style: TextButton.styleFrom(
+                                    backgroundColor:
+                                        const Color.fromRGBO(140, 82, 255, 1),
+                                  ),
+                                  icon: const Icon(
+                                    Icons.add_shopping_cart,
+                                    size: 20,
+                                    color: Colors.white,
+                                  ),
+                                  label: const Text(
+                                    'Comprar',
+                                    style: TextStyle(
+                                      color: Colors.white,
+                                    ),
+                                  ),
+                                ),
+                                const SizedBox(width: 8),
+                              ],
                             ),
                           ],
-                        ),
-                        SizedBox(height: 8),
-                        _buildRatingStars(activity.rating),
-                        Text(
-                          'City: ${activity.city}',
-                          style: TextStyle(fontSize: 14),
                         ),
                       ],
                     ),
@@ -106,9 +150,9 @@ class ListCardActivity extends StatelessWidget {
                 ],
               ),
             ),
-          ),
-        );
-      }).toList(),
+          );
+        }).toList(),
+      ],
     );
   }
 }

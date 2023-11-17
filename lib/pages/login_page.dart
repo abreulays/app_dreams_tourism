@@ -11,6 +11,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 class LoginPage extends StatefulWidget {
   final Function()? onTap;
+  // ignore: use_key_in_widget_constructors
   const LoginPage({Key? key, this.onTap});
 
   @override
@@ -45,7 +46,7 @@ class _LoginPageState extends State<LoginPage> {
 
     try {
       final url =
-          Uri.parse("http://192.168.1.90/api_dreams_tourism/signin.php");
+          Uri.parse("http://192.168.15.64/api_dreams_tourism/signin.php");
       final data = {
         "email": emailController.text,
         "pass": passwordController.text,
@@ -65,13 +66,16 @@ class _LoginPageState extends State<LoginPage> {
           final user = UserModel.fromJson(responseBody);
 
           final userModelProvider =
+              // ignore: use_build_context_synchronously
               Provider.of<UserModelProvider>(context, listen: false);
           userModelProvider.setUser(user);
 
           final prefs = await SharedPreferences.getInstance();
           await prefs.setString('user', jsonEncode(user));
 
+          // ignore: use_build_context_synchronously
           Navigator.pop(context);
+          // ignore: use_build_context_synchronously
           Navigator.push(
             context,
             MaterialPageRoute(

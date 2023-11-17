@@ -55,11 +55,11 @@ class _RegisterPageState extends State<RegisterPage> {
         });
       } else {
         // Tratar erro, se necessário
-        print('Erro ao obter dados do CEP: ${response.statusCode}');
+        debugPrint('Erro ao obter dados do CEP: ${response.statusCode}');
       }
     } catch (e) {
       // Tratar exceção, se necessário
-      print('Erro na requisição: $e');
+      debugPrint('Erro na requisição: $e');
     }
   }
 
@@ -90,7 +90,7 @@ class _RegisterPageState extends State<RegisterPage> {
           );
         });
 
-    var url = Uri.parse("http://192.168.1.90/api_dreams_tourism/singup.php");
+    var url = Uri.parse("http://192.168.15.64/api_dreams_tourism/singup.php");
     var data = {
       "nome": nameController.text,
       "telefone": telefoneController.text,
@@ -111,6 +111,7 @@ class _RegisterPageState extends State<RegisterPage> {
       final response = await http.post(url, body: data);
 
       // Oculta o carregando
+      // ignore: use_build_context_synchronously
       Navigator.of(context).pop();
 
       if (response.statusCode == 200) {
@@ -118,6 +119,7 @@ class _RegisterPageState extends State<RegisterPage> {
         if (responseBody == "user exist") {
           showBoxMessage("Conta já cadastrada!");
         } else if (responseBody == "true") {
+          // ignore: use_build_context_synchronously
           ScaffoldMessenger.of(context).showSnackBar(
             const SnackBar(
               content: Text("Conta cadastrada com sucesso!"),
@@ -126,9 +128,10 @@ class _RegisterPageState extends State<RegisterPage> {
           );
 
           // Adiciona um pequeno atraso antes de navegar para a página de login
-          await Future.delayed(Duration(seconds: 2));
+          await Future.delayed(const Duration(seconds: 2));
 
           // Redirecione para a página de login
+          // ignore: use_build_context_synchronously
           Navigator.of(context).pushReplacement(
             MaterialPageRoute(
               builder: (context) => const LoginPage(),

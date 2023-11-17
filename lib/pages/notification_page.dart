@@ -4,6 +4,7 @@ class NotificationPage extends StatefulWidget {
   const NotificationPage({Key? key}) : super(key: key);
 
   @override
+  // ignore: library_private_types_in_public_api
   _NotificationPageState createState() => _NotificationPageState();
 }
 
@@ -12,18 +13,18 @@ class _NotificationPageState extends State<NotificationPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: Color.fromRGBO(140, 82, 255, 1), // Defina a cor roxa desejada
+        backgroundColor: const Color.fromRGBO(140, 82, 255, 1), // Defina a cor roxa desejada
         elevation: 0, // Remova a sombra
         leading: IconButton(
-          icon: Icon(Icons.arrow_back),
+          icon: const Icon(Icons.arrow_back),
           onPressed: () {
             Navigator.pop(context);
           },
         ),
-        title: Text('Notificações'),
+        title: const Text('Notificações'),
       ),
       body: ListView(
-        children: [
+        children: const [
           ListTile(
             title: Text('Notification 1'),
             subtitle: Text('Details of Notification 1'),

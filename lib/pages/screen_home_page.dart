@@ -22,6 +22,7 @@ class ScreenHomePage extends StatefulWidget {
 // Por exemplo, a classe Animal pode ter um método chamado fazerBarulho(). A classe Cachorro pode ser uma subclasse de Animal
 // e pode sobrescrever o método fazerBarulho() para fornecer uma implementação específica para cachorros.
   @override
+  // ignore: library_private_types_in_public_api
   _ScreenHomePageState createState() => _ScreenHomePageState();
 }
 
@@ -29,10 +30,12 @@ class ScreenHomePage extends StatefulWidget {
 //que indica que FontAwesomeIcons.plane é o primeiro
 class _ScreenHomePageState extends State<ScreenHomePage> {
   int _selectedIndex = 0;
-  List<IconData> _icons = [
+  final List<IconData> _icons = [
     FontAwesomeIcons.plane,
     FontAwesomeIcons.bed,
+    // ignore: deprecated_member_use
     FontAwesomeIcons.walking,
+    // ignore: deprecated_member_use
     FontAwesomeIcons.biking,
   ];
 
@@ -181,8 +184,8 @@ class _ScreenHomePageState extends State<ScreenHomePage> {
                     .toList(), //aqui é uma lista de icones
               ),
               const SizedBox(height: 20.0),
-              DestinationCarousel(), //carrousel de destinos com a lista de destinos
-              const SizedBox(height: 20.0),
+              const DestinationCarousel(), //carrousel de destinos com a lista de destinos
+              // const SizedBox(height: 0.0),
               const ListCardActivity(),
 
             ],

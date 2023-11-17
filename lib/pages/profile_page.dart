@@ -16,6 +16,7 @@ class ProfilePage extends StatelessWidget {
 
     // Redirecione para a tela de login ou qualquer outra tela apropriada
     // Substitua a linha abaixo pela navegação para a tela de login
+    // ignore: use_build_context_synchronously
     Navigator.push(
         context, MaterialPageRoute(builder: (context) => const LoginPage()));
   }
@@ -55,7 +56,7 @@ class ProfilePage extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
             // Área da Foto de Perfil
-            CircleAvatar(
+            const CircleAvatar(
               radius: 50,
               backgroundColor: Colors.grey, // Cor de fundo do círculo
               child: Icon(
@@ -65,20 +66,20 @@ class ProfilePage extends StatelessWidget {
               ),
             ),
 
-            SizedBox(height: 20), // Espaçamento entre a foto e o nome
+            const SizedBox(height: 20), // Espaçamento entre a foto e o nome
 
             // Nome do Usuário
             Center(
               child: Text(
                 user.nome,
-                style: TextStyle(
+                style: const TextStyle(
                   fontSize: 18,
                   fontWeight: FontWeight.bold,
                 ),
               ),
             ),
 
-            SizedBox(height: 20), // Espaçamento entre o nome e os botões
+            const SizedBox(height: 20), // Espaçamento entre o nome e os botões
 
             // Três Botões Estilizados
             ElevatedButton(
@@ -90,18 +91,17 @@ class ProfilePage extends StatelessWidget {
                 );
               },
               style: ElevatedButton.styleFrom(
-                primary: Colors.grey.shade200, // Cor de fundo
-                onPrimary: Color.fromRGBO(140, 82, 255, 1), // Cor do texto
+                foregroundColor: const Color.fromRGBO(140, 82, 255, 1), backgroundColor: Colors.grey.shade200, // Cor do texto
                 shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(8.0),
-                  side: BorderSide(color: const Color.fromARGB(255, 224, 224, 224)), // Cor da borda
+                  side: const BorderSide(color: Color.fromARGB(255, 224, 224, 224)), // Cor da borda
                 ),
-                padding: EdgeInsets.all(16.0),
+                padding: const EdgeInsets.all(16.0),
               ),
-              child: Text('Meus Dados', style: TextStyle(fontSize: 16),),
+              child: const Text('Meus Dados', style: TextStyle(fontSize: 16),),
             ),
 
-            SizedBox(height: 10),
+            const SizedBox(height: 10),
 
             ElevatedButton(
               onPressed: () {
@@ -112,18 +112,17 @@ class ProfilePage extends StatelessWidget {
                 );
               },
               style: ElevatedButton.styleFrom(
-                primary: Colors.grey.shade200, // Cor de fundo
-                onPrimary: Color.fromRGBO(140, 82, 255, 1), // Cor do texto
+                foregroundColor: const Color.fromRGBO(140, 82, 255, 1), backgroundColor: Colors.grey.shade200, // Cor do texto
                 shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(8.0),
-                  side: BorderSide(color: const Color.fromARGB(255, 224, 224, 224)), // Cor da borda
+                  side: const BorderSide(color: Color.fromARGB(255, 224, 224, 224)), // Cor da borda
                 ),
-                padding: EdgeInsets.all(16.0),
+                padding: const EdgeInsets.all(16.0),
               ),
-              child: Text('Segurança', style: TextStyle(fontSize: 16),),
+              child: const Text('Segurança', style: TextStyle(fontSize: 16),),
             ),
 
-            SizedBox(height: 10),
+            const SizedBox(height: 10),
 
             ElevatedButton(
               onPressed: () {
@@ -134,15 +133,14 @@ class ProfilePage extends StatelessWidget {
                 );
               },
               style: ElevatedButton.styleFrom(
-                primary: Colors.grey.shade200, // Cor de fundo
-                onPrimary: Color.fromRGBO(140, 82, 255, 1), // Cor do texto
+                foregroundColor: const Color.fromRGBO(140, 82, 255, 1), backgroundColor: Colors.grey.shade200, // Cor do texto
                 shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(8.0),
-                  side: BorderSide(color: const Color.fromARGB(255, 224, 224, 224)), // Cor da borda
+                  side: const BorderSide(color: Color.fromARGB(255, 224, 224, 224)), // Cor da borda
                 ),
-                padding: EdgeInsets.all(16.0),
+                padding: const EdgeInsets.all(16.0),
               ),
-              child: Text('Termos de Uso', style: TextStyle(fontSize: 16),),
+              child: const Text('Termos de Uso', style: TextStyle(fontSize: 16),),
             ),
           ],
         ),

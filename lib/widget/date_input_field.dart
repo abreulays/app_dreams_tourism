@@ -9,7 +9,7 @@ class DateInputField extends StatefulWidget {
   final String hintText;
   final bool obscureText;
 
-  DateInputField({ //função que recebe como argumentos controller,hint e obscure text.
+  const DateInputField({super.key,  //função que recebe como argumentos controller,hint e obscure text.
     required this.controller, // O controlador de campo de texto que foi especificado como argumento para a função  
     required this.hintText, //O texto que foi especificado como argumento para a função 
     this.obscureText = false, //O valor booleano que foi especificado como argumento para a função 
@@ -19,6 +19,7 @@ class DateInputField extends StatefulWidget {
 //createState() está substituindo um método com o mesmo nome na superclasse da classe widget.
 //Neste caso, a classe widget DateInputField está substituindo o método createState() da superclasse StatefulWidget.
   @override
+  // ignore: library_private_types_in_public_api
   _DateInputFieldState createState() => _DateInputFieldState();
 }
 
@@ -65,7 +66,7 @@ class _DateInputFieldState extends State<DateInputField> {
           hintText: widget.hintText, //Texto de dica exibido quando o campo está vazio.
           hintStyle: TextStyle(color: Colors.grey[500]), //Estilo do texto de dica, definindo a cor para cinza.
           suffixIcon: IconButton( //Um ícone de calendário que, quando pressionado, chama o método _selectDate
-            icon: Icon(Icons.calendar_today), //: Ícone de calendário.
+            icon: const Icon(Icons.calendar_today), //: Ícone de calendário.
             onPressed: () {
               _selectDate(context); //Quando pressionado, chama o método _selectDate para abrir o seletor de data.
             },

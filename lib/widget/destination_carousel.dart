@@ -4,43 +4,47 @@ import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 class DestinationCarousel extends StatelessWidget {
+  const DestinationCarousel({super.key});
+
   //Define uma classe chamada DestinationCarousel que estende StatelessWidget, indicando que este widget não mantém um estado interno.
   @override
   Widget build(BuildContext context) {
     //Sobrescreve o método build da classe StatelessWidget. Este método é chamado quando o widget precisa ser reconstruído
     return Column(
-      children: <Widget>[
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
         Padding(
-          padding: EdgeInsets.symmetric(horizontal: 20.0),
+          padding: const EdgeInsets.symmetric(horizontal: 20.0),
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: <Widget>[
-              Text(
-                'Top Destinos',
-                style: TextStyle(
-                  fontSize: 22.0,
-                  fontWeight: FontWeight.bold,
-                  letterSpacing: 1.5,
-                ),
-              ),
-              GestureDetector(
-                onTap: () => print('Ver Todos'),
-                child: Text(
-                  'Ver Todos',
-                  style: TextStyle(
-                    color: Theme.of(context).primaryColor,
-                    fontSize: 16.0,
-                    fontWeight: FontWeight.w600,
-                    letterSpacing: 1.0,
+              Row(
+                children: [
+                  Icon(
+                    Icons.star_rounded, // Substitua pelo ícone desejado
+                    color: Theme.of(context)
+                        .textTheme
+                        .titleLarge!
+                        .color, // Usa a cor do texto
+                    size: 24.0,
                   ),
-                ),
+                  const SizedBox(width: 8.0), // Espaçamento entre o ícone e o texto
+                  const Text(
+                    'Top Destinos',
+                    style: TextStyle(
+                      fontSize: 22.0,
+                      fontWeight: FontWeight.bold,
+                      letterSpacing: 1.5,
+                    ),
+                  ),
+                ],
               ),
             ],
           ),
         ),
-        Container(
+        SizedBox(
           height:
-              325.0, //define o espaço entre a descrição e a imagem do box do pacote.
+              300.0, //define o espaço entre a descrição e a imagem do box do pacote.
           child: ListView.builder(
             scrollDirection: Axis.horizontal,
             itemCount: destinations.length,
@@ -56,7 +60,7 @@ class DestinationCarousel extends StatelessWidget {
                   ),
                 ),
                 child: Container(
-                  margin: EdgeInsets.all(10.0),
+                  margin: const EdgeInsets.all(10.0),
                   width:
                       240.0, //define a disposição da largura dos box de foto dos pacotes
                   child: Stack(
@@ -65,7 +69,7 @@ class DestinationCarousel extends StatelessWidget {
                       Positioned(
                         top: 180.0,
                         child: Container(
-                          width: 240.0,
+                          width: 230.0,
                           decoration: BoxDecoration(
                             color: Colors.white,
                             borderRadius: BorderRadius.circular(10.0),
@@ -86,28 +90,42 @@ class DestinationCarousel extends StatelessWidget {
                                     letterSpacing: 0.5,
                                   ),
                                 ),
-                                SizedBox(
-                                    height:
-                                        8.0), // Add space between description and text box
-                                Center(
-                                  child: Container(
-                                    padding: EdgeInsets.symmetric(
-                                        horizontal: 16.0, vertical: 8.0),
-                                    decoration: BoxDecoration(
-                                      color:
-                                          const Color.fromRGBO(140, 82, 255, 1),
-                                      borderRadius: BorderRadius.circular(5.0),
-                                    ),
-                                    child: Text(
-                                      '${destination.activities.length} Pacotes',
-                                      style: TextStyle(
-                                        color: Colors.white,
-                                        fontSize: 16.0,
-                                        fontWeight: FontWeight.w700,
-                                      ),
-                                    ),
-                                  ),
-                                ),
+                                // Add space between description and text box
+                                // Center(
+                                  
+                                //   child: Container(
+                                //     width: 150,
+                                    
+                                //     padding: EdgeInsets.symmetric(
+                                //         horizontal: 8.0, vertical: 8.0),
+                                //     decoration: BoxDecoration(
+                                //       color:
+                                //           const Color.fromRGBO(140, 82, 255, 1),
+                                //       borderRadius: BorderRadius.circular(5.0),
+                                //     ),
+                                //     child: Center(
+                                //       child: Row(
+                                //         mainAxisSize: MainAxisSize.min,
+                                //         children: [
+                                //           Icon(
+                                //             Icons.remove_red_eye,
+                                //             color: Colors.white,
+                                //             size: 20.0,
+                                //           ),
+                                //           SizedBox(width: 8.0),
+                                //           Text(
+                                //             'Ver Pacotes',
+                                //             style: TextStyle(
+                                //               color: Colors.white,
+                                //               fontSize: 16.0,
+                                //               fontWeight: FontWeight.w700,
+                                //             ),
+                                //           ),
+                                //         ],
+                                //       ),
+                                //     ),
+                                //   ),
+                                // ),
                               ],
                             ),
                           ),
@@ -117,7 +135,7 @@ class DestinationCarousel extends StatelessWidget {
                         decoration: BoxDecoration(
                           color: Colors.white,
                           borderRadius: BorderRadius.circular(20.0),
-                          boxShadow: [
+                          boxShadow: const [
                             BoxShadow(
                               color: Colors.black26,
                               offset: Offset(0.0, 2.0),
@@ -149,7 +167,7 @@ class DestinationCarousel extends StatelessWidget {
                                 children: <Widget>[
                                   Text(
                                     destination.city,
-                                    style: TextStyle(
+                                    style: const TextStyle(
                                       color: Colors.white,
                                       fontSize:
                                           20.0, //define o titulo que fica em cima da imagejm presente na box da página inicial.
@@ -159,15 +177,15 @@ class DestinationCarousel extends StatelessWidget {
                                   ),
                                   Row(
                                     children: <Widget>[
-                                      Icon(
+                                      const Icon(
                                         FontAwesomeIcons.locationArrow,
                                         size: 10.0,
                                         color: Colors.white,
                                       ),
-                                      SizedBox(width: 5.0),
+                                      const SizedBox(width: 5.0),
                                       Text(
                                         destination.country,
-                                        style: TextStyle(
+                                        style: const TextStyle(
                                           color: Colors.white,
                                         ),
                                       ),

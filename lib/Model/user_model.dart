@@ -26,6 +26,7 @@ class UserModel {
   // final String dtNascimento;
   final String cep;
   final String logradouro;
+  // ignore: non_constant_identifier_names
   final String num_residencia;
   final String complemento;
   final String cidade;
@@ -42,6 +43,7 @@ class UserModel {
     // required this.dtNascimento,
     required this.cep,
     required this.logradouro,
+    // ignore: non_constant_identifier_names
     required this.num_residencia,
     required this.complemento,
     required this.cidade,
