@@ -1,8 +1,11 @@
+import 'package:app_dreams_tourism/model/activity_model.dart';
 import 'package:app_dreams_tourism/widget/list_card_favorites.dart';
 import 'package:flutter/material.dart';
 
 class FavoritosPage extends StatelessWidget {
-  const FavoritosPage({Key? key}) : super(key: key);
+    final List<Activity> activities;
+
+  const FavoritosPage({Key? key, required this.activities}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -37,7 +40,7 @@ class FavoritosPage extends StatelessWidget {
               const SizedBox(height: 16),
 
               // Lista de favoritos
-              ListCardFavorite(),
+              ListCardFavorite(activities: activities),
             ],
           ),
         ),

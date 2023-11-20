@@ -1,21 +1,49 @@
 import 'package:app_dreams_tourism/pages/activity_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:app_dreams_tourism/model/activity_model.dart';
+import 'package:intl/intl.dart';
+import 'package:http/http.dart' as http;
 
 class ListCardFavorite extends StatefulWidget {
-  const ListCardFavorite({Key? key}) : super(key: key);
+  final List<Activity> activities;
+
+  const ListCardFavorite({Key? key, required this.activities})
+      : super(key: key);
 
   @override
   _ListCardFavoriteState createState() => _ListCardFavoriteState();
 }
 
 class _ListCardFavoriteState extends State<ListCardFavorite> {
-  
+  void _toggleFavoriteState(Activity activity) async {
+    // Define a URL do seu endpoint favorite.php
+    final url =
+        Uri.parse("http://192.168.15.64/api_dreams_tourism/favorite.php");
+
+    // Faz a solicitação POST com o ID do pacote
+    final response = await http.post(url, body: {
+      'id': activity.id,
+    });
+
+    // Verifica se a solicitação foi bem-sucedida
+    if (response.statusCode == 200) {
+      // Atualiza o estado local da atividade
+      setState(() {
+        // Toggle the favorite state
+        activity.favoritos = (activity.favoritos == "1") ? "0" : "1";
+      });
+    } else {
+      // Exibe uma mensagem de erro em caso de falha
+      print("Erro ao realizar a solicitação HTTP: ${response.statusCode}");
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     // Filtra apenas as atividades favoritas
-    List<Activity> favoriteActivities =
-        activities.where((activity) => activity.favoritos).toList();
+    List<Activity> favoriteActivities = widget.activities
+        .where((activity) => activity.favoritos == "1")
+        .toList();
 
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
@@ -37,35 +65,33 @@ class _ListCardFavoriteState extends State<ListCardFavorite> {
                   children: [
                     Stack(
                       children: [
-                        // SizedBox(
-                        //   width: double.infinity,
-                        //   height: 200,
-                        //   child: ClipRRect(
-                        //     borderRadius: const BorderRadius.only(
-                        //       topLeft: Radius.circular(20.0),
-                        //       topRight: Radius.circular(20.0),
-                        //     ),
-                        //     child: Image.asset(
-                        //       activity.imageUrl,
-                        //       fit: BoxFit.cover,
-                        //     ),
-                        //   ),
-                        // ),
+                        SizedBox(
+                          width: double.infinity,
+                          height: 200,
+                          child: ClipRRect(
+                            borderRadius: const BorderRadius.only(
+                              topLeft: Radius.circular(20.0),
+                              topRight: Radius.circular(20.0),
+                            ),
+                            // child: Image.asset(
+                            //   activity.imageUrl,
+                            //   fit: BoxFit.cover,
+                            // ),
+                          ),
+                        ),
                         Positioned(
                           top: 10,
                           right: 10,
                           child: GestureDetector(
                             onTap: () {
-                              setState(() {
-                                // Toggle the favorite state
-                                activity.favoritos = !activity.favoritos;
-                              });
+                              // Chama a função para alternar o estado de favoritos
+                              _toggleFavoriteState(activity);
                             },
                             child: Icon(
-                              activity.favoritos
+                              (activity.favoritos == "1")
                                   ? Icons.star
                                   : Icons.star_border,
-                              color: activity.favoritos
+                              color: (activity.favoritos == "1")
                                   ? Colors.amber
                                   : Colors.black,
                               size: 30,
@@ -105,37 +131,41 @@ class _ListCardFavoriteState extends State<ListCardFavorite> {
                                       style: const TextStyle(fontSize: 14),
                                     ),
                                     const SizedBox(height: 5),
-                                    // Row(
-                                    //   children: <Widget>[
-                                    //     Container(
-                                    //       padding: const EdgeInsets.all(5.0),
-                                    //       width: 70.0,
-                                    //       decoration: BoxDecoration(
-                                    //         color: Colors.amber,
-                                    //         borderRadius:
-                                    //             BorderRadius.circular(10.0),
-                                    //       ),
-                                    //       alignment: Alignment.center,
-                                    //       child: Text(
-                                    //         activity.startTimes[0],
-                                    //       ),
-                                    //     ),
-                                    //     const SizedBox(width: 10.0),
-                                    //     Container(
-                                    //       padding: const EdgeInsets.all(5.0),
-                                    //       width: 70.0,
-                                    //       decoration: BoxDecoration(
-                                    //         color: Colors.amber,
-                                    //         borderRadius:
-                                    //             BorderRadius.circular(10.0),
-                                    //       ),
-                                    //       alignment: Alignment.center,
-                                    //       child: Text(
-                                    //         activity.startTimes[1],
-                                    //       ),
-                                    //     ),
-                                    //   ],
-                                    // )
+                                    Row(
+                                      children: <Widget>[
+                                        Container(
+                                          padding: const EdgeInsets.all(5.0),
+                                          width: 70.0,
+                                          decoration: BoxDecoration(
+                                            color: Colors.amber,
+                                            borderRadius:
+                                                BorderRadius.circular(10.0),
+                                          ),
+                                          alignment: Alignment.center,
+                                          child: Text(
+                                            DateFormat.Hm().format(
+                                                DateTime.parse(
+                                                    activity.duracaoInicio)),
+                                          ),
+                                        ),
+                                        const SizedBox(width: 10.0),
+                                        Container(
+                                          padding: const EdgeInsets.all(5.0),
+                                          width: 70.0,
+                                          decoration: BoxDecoration(
+                                            color: Colors.amber,
+                                            borderRadius:
+                                                BorderRadius.circular(10.0),
+                                          ),
+                                          alignment: Alignment.center,
+                                          child: Text(
+                                            DateFormat.Hm().format(
+                                                DateTime.parse(
+                                                    activity.duracaoFinal)),
+                                          ),
+                                        ),
+                                      ],
+                                    )
                                   ],
                                 ),
                               ),
@@ -183,7 +213,10 @@ class _ListCardFavoriteState extends State<ListCardFavorite> {
     Navigator.push(
       context,
       MaterialPageRoute(
-        builder: (context) => ActivityScreen(id: id, activity: activity),
+        builder: (context) => ActivityScreen(
+          id: id,
+          activities: widget.activities,
+        ),
       ),
     );
   }

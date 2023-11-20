@@ -5,8 +5,10 @@ import 'package:lottie/lottie.dart';
 
 class ActivityScreen extends StatefulWidget {
   final String id;
+    final List<Activity> activities;
 
-  const ActivityScreen({Key? key, required this.id, required Activity activity})
+
+  const ActivityScreen({Key? key, required this.id, required this.activities,})
       : super(key: key);
 
   @override
@@ -21,7 +23,7 @@ class _ActivityScreenState extends State<ActivityScreen> {
     super.initState();
     // Aqui você deve buscar a atividade correspondente ao ID
     // Substitua o código abaixo pela lógica de busca na sua lista de atividades
-    activity = activities.firstWhere((element) => element.id == widget.id);
+    activity = widget.activities.firstWhere((element) => element.id == widget.id);
   }
 
   Text _buildRatingStars(int rating) {

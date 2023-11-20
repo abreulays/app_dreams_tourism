@@ -1,10 +1,15 @@
+import 'package:app_dreams_tourism/model/activity_model.dart';
 import 'package:app_dreams_tourism/model/destination_model.dart';
 import 'package:app_dreams_tourism/pages/destination_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
+// ignore: must_be_immutable
 class DestinationCarousel extends StatelessWidget {
-  const DestinationCarousel({super.key});
+  final List<Activity> activities;
+  List<Destination> destinations;
+
+  DestinationCarousel({super.key, required this.activities}) : destinations = getDestinations(activities);
 
   //Define uma classe chamada DestinationCarousel que estende StatelessWidget, indicando que este widget não mantém um estado interno.
   @override
@@ -28,7 +33,8 @@ class DestinationCarousel extends StatelessWidget {
                         .color, // Usa a cor do texto
                     size: 24.0,
                   ),
-                  const SizedBox(width: 8.0), // Espaçamento entre o ícone e o texto
+                  const SizedBox(
+                      width: 8.0), // Espaçamento entre o ícone e o texto
                   const Text(
                     'Top Destinos',
                     style: TextStyle(
@@ -55,7 +61,7 @@ class DestinationCarousel extends StatelessWidget {
                   context,
                   MaterialPageRoute(
                     builder: (_) => DestinationScreen(
-                      destination: destination,
+                      destination: destination, activities: activities,
                     ),
                   ),
                 ),
@@ -92,10 +98,10 @@ class DestinationCarousel extends StatelessWidget {
                                 ),
                                 // Add space between description and text box
                                 // Center(
-                                  
+
                                 //   child: Container(
                                 //     width: 150,
-                                    
+
                                 //     padding: EdgeInsets.symmetric(
                                 //         horizontal: 8.0, vertical: 8.0),
                                 //     decoration: BoxDecoration(

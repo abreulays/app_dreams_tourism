@@ -1,9 +1,14 @@
 import 'package:app_dreams_tourism/pages/activity_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:app_dreams_tourism/model/activity_model.dart';
+import 'package:intl/intl.dart';
 
 class ListCardActivity extends StatefulWidget {
-  const ListCardActivity({Key? key}) : super(key: key);
+  final List<Activity> activities;
+  const ListCardActivity({
+    Key? key,
+    required this.activities,
+  }) : super(key: key);
 
   @override
   _ListCardActivityState createState() => _ListCardActivityState();
@@ -21,13 +26,13 @@ class _ListCardActivityState extends State<ListCardActivity> {
     return Text(stars);
   }
 
-  void _navigateToActivityScreen(activity) {
+  void _navigateToActivityScreen(Activity activity) {
     Navigator.push(
       context,
       MaterialPageRoute(
         builder: (context) => ActivityScreen(
-          activity: activity,
           id: activity.id,
+          activities: widget.activities,
         ),
       ),
     );
@@ -64,13 +69,12 @@ class _ListCardActivityState extends State<ListCardActivity> {
             ],
           ),
         ),
-        ...activities.map((Activity activity) {
-
+        ...widget.activities.map((Activity activity) {
           return Padding(
             padding: const EdgeInsets.symmetric(horizontal: 20.0, vertical: 5),
             child: GestureDetector(
               onTap: () {
-                _navigateToActivityScreen(activity.id);
+                _navigateToActivityScreen(activity);
               },
               child: Card(
                 shape: RoundedRectangleBorder(
@@ -82,42 +86,39 @@ class _ListCardActivityState extends State<ListCardActivity> {
                   children: [
                     Stack(
                       children: [
-                        // SizedBox(
-                        //   width: double.infinity,
-                        //   height: 200,
-                        //   child: ClipRRect(
-                        //     borderRadius: const BorderRadius.only(
-                        //       topLeft: Radius.circular(20.0),
-                        //       topRight: Radius.circular(20.0),
-                        //     ),
-                        //     child: Image.asset(
-                        //       activity.imageUrl,
-                        //       fit: BoxFit.cover,
-                        //     ),
-                        //   ),
-                        // ),
+                        SizedBox(
+                          width: double.infinity,
+                          height: 200,
+                          child: ClipRRect(
+                            borderRadius: const BorderRadius.only(
+                              topLeft: Radius.circular(20.0),
+                              topRight: Radius.circular(20.0),
+                            ),
+                            // child: Image.asset(
+                            //   destination.imageUrl,
+                            //   fit: BoxFit.cover,
+                            // ),
+                          ),
+                        ),
                         Positioned(
                           top: 10,
                           right: 10,
                           child: GestureDetector(
                             onTap: () {
                               setState(() {
-                                // Convertendo a string para int
                                 int id = int.tryParse(activity.id) ?? 0;
-
-                                // Adicionando uma verificação de nulidade aqui
                                 isStarFilledMap[id] =
                                     !(isStarFilledMap[id] ?? false);
                               });
                             },
                             child: Icon(
                               isStarFilledMap[int.tryParse(activity.id) ?? 0] ??
-                                      false
+                                      (activity.favoritos == '1')
                                   ? Icons.star_rounded
                                   : Icons.star_outline_rounded,
                               color: isStarFilledMap[
                                           int.tryParse(activity.id) ?? 0] ??
-                                      false
+                                      (activity.favoritos == '1')
                                   ? Colors.amber
                                   : Colors.black,
                               size: 30,
@@ -157,37 +158,41 @@ class _ListCardActivityState extends State<ListCardActivity> {
                                       style: const TextStyle(fontSize: 14),
                                     ),
                                     const SizedBox(height: 5),
-                                    // Row(
-                                    //   children: <Widget>[
-                                    //     Container(
-                                    //       padding: const EdgeInsets.all(5.0),
-                                    //       width: 70.0,
-                                    //       decoration: BoxDecoration(
-                                    //         color: Colors.amber,
-                                    //         borderRadius:
-                                    //             BorderRadius.circular(10.0),
-                                    //       ),
-                                    //       alignment: Alignment.center,
-                                    //       child: Text(
-                                    //         activity.startTimes[0],
-                                    //       ),
-                                    //     ),
-                                    //     const SizedBox(width: 10.0),
-                                    //     Container(
-                                    //       padding: const EdgeInsets.all(5.0),
-                                    //       width: 70.0,
-                                    //       decoration: BoxDecoration(
-                                    //         color: Colors.amber,
-                                    //         borderRadius:
-                                    //             BorderRadius.circular(10.0),
-                                    //       ),
-                                    //       alignment: Alignment.center,
-                                    //       child: Text(
-                                    //         activity.startTimes[1],
-                                    //       ),
-                                    //     ),
-                                    //   ],
-                                    // )
+                                    Row(
+                                      children: <Widget>[
+                                        Container(
+                                          padding: const EdgeInsets.all(5.0),
+                                          width: 70.0,
+                                          decoration: BoxDecoration(
+                                            color: Colors.amber,
+                                            borderRadius:
+                                                BorderRadius.circular(10.0),
+                                          ),
+                                          alignment: Alignment.center,
+                                          child: Text(
+                                            DateFormat.Hm().format(
+                                                DateTime.parse(
+                                                    activity.duracaoInicio)),
+                                          ),
+                                        ),
+                                        const SizedBox(width: 10.0),
+                                        Container(
+                                          padding: const EdgeInsets.all(5.0),
+                                          width: 70.0,
+                                          decoration: BoxDecoration(
+                                            color: Colors.amber,
+                                            borderRadius:
+                                                BorderRadius.circular(10.0),
+                                          ),
+                                          alignment: Alignment.center,
+                                          child: Text(
+                                            DateFormat.Hm().format(
+                                                DateTime.parse(
+                                                    activity.duracaoFinal)),
+                                          ),
+                                        ),
+                                      ],
+                                    )
                                   ],
                                 ),
                               ),

@@ -1,7 +1,7 @@
 import 'dart:convert';
 import 'package:http/http.dart' as http;
 
-// define uma classe chamada Activity: Activity é uma classe: Em programação orientada a objetos, uma classe é uma estrutura que 
+// define uma classe chamada Activity: Activity é uma classe: Em programação orientada a objetos, uma classe é uma estrutura que
 //define um conjunto de propriedades e métodos que serão compartilhados por todos os objetos criados a partir dessa classe.
 
 class Activity {
@@ -12,15 +12,15 @@ class Activity {
   String duracaoFinal;
   String statusPacote;
   String descricaoLugar;
-  bool favoritos;
+  String favoritos;
   String descricaoCard;
   String tituloCard;
   String cidade;
   String estado;
   String tipo;
   String avaliacao;
-  
-  Activity({ 
+
+  Activity({
     required this.id,
     required this.nomePacote,
     required this.preco,
@@ -40,7 +40,7 @@ class Activity {
 
 Future<List<Activity>> fetchActivities() async {
   final url = Uri.parse("http://192.168.15.64/api_dreams_tourism/packages.php");
-  final response = await http.post(url);
+  final response = await http.get(url);
 
   if (response.statusCode == 200) {
     List<dynamic> data = json.decode(response.body);
@@ -69,7 +69,7 @@ Future<List<Activity>> fetchActivities() async {
     throw Exception('Falha na solicitação');
   }
 }
-// Cria instâncias de atividades turísticas e destinos. 
+// Cria instâncias de atividades turísticas e destinos.
 
 // List<Activity> activities = [
 //   Activity(
@@ -108,6 +108,5 @@ Future<List<Activity>> fetchActivities() async {
 //     city: 'Maceió',
 //     favorite: false,
 //   ),
-  
-// ];
 
+// ];

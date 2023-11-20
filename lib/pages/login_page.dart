@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'package:app_dreams_tourism/model/activity_model.dart';
 import 'package:app_dreams_tourism/model/user_model.dart';
 import 'package:app_dreams_tourism/widget/my_button.dart';
 import 'package:app_dreams_tourism/widget/my_textfield.dart';
@@ -14,8 +15,6 @@ class LoginPage extends StatefulWidget {
   // ignore: use_key_in_widget_constructors
   const LoginPage({Key? key, this.onTap});
 
-  
-  
   @override
   State<LoginPage> createState() => _LoginPageState();
 }
@@ -68,20 +67,24 @@ class _LoginPageState extends State<LoginPage> {
           final user = UserModel.fromJson(responseBody);
 
           final userModelProvider =
-              // ignore: use_build_context_synchronously
               Provider.of<UserModelProvider>(context, listen: false);
           userModelProvider.setUser(user);
 
           final prefs = await SharedPreferences.getInstance();
           await prefs.setString('user', jsonEncode(user));
 
-          // ignore: use_build_context_synchronously
+          // Carrega a lista de atividades após o login
+          final activities = await fetchActivities();
+
+          // Fecha o diálogo de carregamento
           Navigator.pop(context);
-          // ignore: use_build_context_synchronously
+
+          // Redireciona para a HomePage com as informações do usuário e a lista de atividades
           Navigator.push(
             context,
             MaterialPageRoute(
-              builder: (context) => HomePage(user: user),
+              builder: (context) =>
+                  HomePage(user: user, activities: activities),
             ),
           );
         } else {

@@ -1,3 +1,4 @@
+import 'package:app_dreams_tourism/model/activity_model.dart';
 import 'package:flutter/material.dart';
 import 'package:google_nav_bar/google_nav_bar.dart';
 import 'package:app_dreams_tourism/model/user_model.dart';
@@ -15,7 +16,9 @@ import 'package:app_dreams_tourism/pages/profile_page.dart';
 //Essa classe representa a página inicial, recebe um user da classe UserModel como argumento obrigátorio
 class HomePage extends StatefulWidget {
   final UserModel user;
-  const HomePage({Key? key, required this.user}) : super(key: key);
+  final List<Activity> activities;
+
+  const HomePage({Key? key, required this.user, required this.activities,}) : super(key: key);
 
   @override
   State<HomePage> createState() => _HomePageState();
@@ -45,8 +48,8 @@ class _HomePageState extends State<HomePage> {
           controller: pc,
           onPageChanged: setPaginaAtual,
           children: [
-            ScreenHomePage(user: widget.user),
-            const FavoritosPage(),
+            ScreenHomePage(user: widget.user, activities: widget.activities),
+            FavoritosPage(activities:widget.activities),
             const PedidosPage(),
             ProfilePage(user: widget.user),
           ],

@@ -1,3 +1,4 @@
+import 'package:app_dreams_tourism/model/activity_model.dart';
 import 'package:app_dreams_tourism/model/user_model.dart';
 import 'package:app_dreams_tourism/pages/notification_page.dart';
 import 'package:app_dreams_tourism/widget/list_card_activity.dart';
@@ -9,11 +10,12 @@ import 'package:lottie/lottie.dart';
 // aqui temos a declaração de uma classe que se chama ScreenHomePage que extende a classe StatefulWidget.
 class ScreenHomePage extends StatefulWidget {
   final UserModel user;
+  final List<Activity> activities;
 
 //O UserModel é um modelo de dados que representa informações sobre um usuário.
 //A palavra-chave final indica que o valor da variável não pode ser alterado após ser atribuído.
 
-  const ScreenHomePage({Key? key, required this.user}) : super(key: key);
+  const ScreenHomePage({Key? key, required this.user, required this.activities, }) : super(key: key);
 //const é um contrutor que da classe ScreenHomePage que usa como parametros o Key (que ajuda a identificar os widgets)
 //que chama como parâmetros o valor obrigátorio user do tipo UserModel.
 //A chamada super(key: key) chama o construtor padrão "pai" (StatefulWidget) passando a chave fornecida.
@@ -177,9 +179,9 @@ class _ScreenHomePageState extends State<ScreenHomePage> {
                 child: Lottie.asset("lib/assets/images/plane_home.json"),
               ),
               const SizedBox(height: 20.0),
-              const DestinationCarousel(), //carrousel de destinos com a lista de destinos
+              DestinationCarousel(activities: widget.activities), //carrousel de destinos com a lista de destinos
               // const SizedBox(height: 0.0),
-              ListCardActivity(),
+              ListCardActivity(activities: widget.activities),
             ],
           ),
         ),

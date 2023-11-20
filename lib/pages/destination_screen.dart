@@ -9,8 +9,10 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 class DestinationScreen extends StatefulWidget {
   final Destination destination;
+    final List<Activity> activities;
 
-  const DestinationScreen({super.key, required this.destination});
+
+  const DestinationScreen({super.key, required this.destination, required this.activities});
 
   @override
   // ignore: library_private_types_in_public_api
@@ -30,11 +32,11 @@ class _DestinationScreenState extends State<DestinationScreen> {
   }
 
   void _navigateToActivityScreen(String id) {
-    Activity activity = activities.firstWhere((activity) => activity.id == id);
+    Activity activity = widget.activities.firstWhere((activity) => activity.id == id);
     Navigator.push(
       context,
       MaterialPageRoute(
-        builder: (context) => ActivityScreen(id: id, activity: activity),
+        builder: (context) => ActivityScreen(id: id, activities: widget.activities,),
       ),
     );
   }
