@@ -1,4 +1,3 @@
-
 import 'package:app_dreams_tourism/model/activity_model.dart';
 
 class Destination {
@@ -17,6 +16,7 @@ class Destination {
   });
 }
 
+
 List<Destination> destinations = [
   Destination(
     imageUrl: 'lib/assets/images/fortaleza.jpn.png',
@@ -32,7 +32,6 @@ List<Destination> destinations = [
     description: 'Florianopolis é famosa pelas suas praias, incluindo estâncias turísticas populares como a Praia dos Ingleses na extremidade norte da ilha.',
     activities: activities,
   ),
-
   Destination(
     imageUrl: 'lib/assets/images/natal.jpn.png',
     city: 'Natal',

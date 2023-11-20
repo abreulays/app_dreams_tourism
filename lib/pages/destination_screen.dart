@@ -1,5 +1,6 @@
 import 'package:app_dreams_tourism/model/activity_model.dart';
 import 'package:app_dreams_tourism/model/destination_model.dart';
+import 'package:app_dreams_tourism/pages/activity_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
@@ -26,6 +27,16 @@ class _DestinationScreenState extends State<DestinationScreen> {
     }
     stars.trim();
     return Text(stars);
+  }
+
+  void _navigateToActivityScreen(String id) {
+    Activity activity = activities.firstWhere((activity) => activity.id == id);
+    Navigator.push(
+      context,
+      MaterialPageRoute(
+        builder: (context) => ActivityScreen(id: id, activity: activity),
+      ),
+    );
   }
 
 //Metodo build(BuildContext context)
@@ -67,13 +78,12 @@ class _DestinationScreenState extends State<DestinationScreen> {
                     ),
                   ),
                 ),
-                
 
-              //padding posiciona (margem interna) entre os widget pai e filho. 
+                //padding posiciona (margem interna) entre os widget pai e filho.
 
                 Padding(
-                  padding:
-                      const EdgeInsets.symmetric(horizontal: 10.0, vertical: 10.0),
+                  padding: const EdgeInsets.symmetric(
+                      horizontal: 10.0, vertical: 10.0),
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: <Widget>[
@@ -83,7 +93,8 @@ class _DestinationScreenState extends State<DestinationScreen> {
                         color: Colors.black,
                         onPressed: () => Navigator.pop(context),
                       ),
-                      Row( //posiciona os itens em linha horizontal.
+                      Row(
+                        //posiciona os itens em linha horizontal.
                         children: <Widget>[
                           IconButton(
                             icon: const Icon(Icons.search),
@@ -119,7 +130,7 @@ class _DestinationScreenState extends State<DestinationScreen> {
                         ),
                       ),
 
-                      //O row posiciona os elementos em linha horizontal. 
+                      //O row posiciona os elementos em linha horizontal.
                       Row(
                         children: <Widget>[
                           const Icon(
@@ -132,7 +143,8 @@ class _DestinationScreenState extends State<DestinationScreen> {
                             widget.destination.country,
                             style: const TextStyle(
                               color: Colors.white70,
-                              fontSize:  30.0, // descrição BRASIL que fica em cima da imagem do pacote quando se abre a box.
+                              fontSize:
+                                  30.0, // descrição BRASIL que fica em cima da imagem do pacote quando se abre a box.
                             ),
                           ),
                         ],
@@ -155,140 +167,144 @@ class _DestinationScreenState extends State<DestinationScreen> {
               ],
             ),
 
-
-
             //Expanded é usado para organizar/preencher os elementos pai e filho
             //o Expanded é usado para garantir que o ListView.builder dentro de uma Column (ou outro widget flexível)
-            //preencha todo o espaço vertical disponível. 
+            //preencha todo o espaço vertical disponível.
 
             //itemBuilder: É uma função chamada para construir cada item da lista. Neste caso, ela cria uma Stack para cada atividade.
 
             //itemCount: Indica o número total de itens na lista, que é obtido a partir do comprimento da lista de atividades do destino.
-             
-            //A utilização do Expanded é crítica aqui, pois sem ele, o ListView.builder ocuparia apenas o espaço necessário para exibir seus 
-            //itens e não se expandiria verticalmente para preencher toda a altura disponível. Com o Expanded, 
+
+            //A utilização do Expanded é crítica aqui, pois sem ele, o ListView.builder ocuparia apenas o espaço necessário para exibir seus
+            //itens e não se expandiria verticalmente para preencher toda a altura disponível. Com o Expanded,
 
             //ListView.builder pode ocupar o espaço restante na Column, garantindo que toda a lista de atividades seja exibida.
-
 
             Expanded(
               child: ListView.builder(
                 padding: const EdgeInsets.only(top: 10.0, bottom: 15.0),
                 itemCount: widget.destination.activities.length,
-                itemBuilder: (BuildContext context, int index) {Activity
-                   activity = widget.destination.activities[index];
-                  return Stack(
-                    
-                    children: <Widget>[
-                      
-                      Container(
-                        margin: const EdgeInsets.fromLTRB(40.0, 5.0, 20.0, 5.0),
-                        height: 170.0,
-                        width: double.infinity,
-                        decoration: BoxDecoration(
-                          color: Colors.white,
-                          borderRadius: BorderRadius.circular(20.0),
-                        ),
-                        child: Padding(
-                          padding: const EdgeInsets.fromLTRB(100.0, 20.0, 20.0, 20.0),
-                          child: Column(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: <Widget>[
-                              Row(
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceBetween,
+                itemBuilder: (BuildContext context, int index) {
+                  Activity activity = widget.destination.activities[index];
+                  return GestureDetector(
+                      onTap: () {
+                        _navigateToActivityScreen(activity.id);
+                      },
+                      child: Stack(
+                        children: <Widget>[
+                          Container(
+                            margin:
+                                const EdgeInsets.fromLTRB(40.0, 5.0, 20.0, 5.0),
+                            height: 170.0,
+                            width: double.infinity,
+                            decoration: BoxDecoration(
+                              color: Colors.white,
+                              borderRadius: BorderRadius.circular(20.0),
+                            ),
+                            child: Padding(
+                              padding: const EdgeInsets.fromLTRB(
+                                  100.0, 20.0, 20.0, 20.0),
+                              child: Column(
+                                mainAxisAlignment: MainAxisAlignment.center,
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: <Widget>[
-                                  SizedBox(
-                                    width: 120.0,
-                                    child: Text(
-                                      activity.name,
-                                      style: const TextStyle(
-                                        fontSize: 18.0,
-                                        fontWeight: FontWeight.w600,
-                                      ),
-                                      overflow: TextOverflow.ellipsis,
-                                      maxLines: 2,
-                                    ),
-                                  ),
-                                  Column(
+                                  Row(
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceBetween,
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
                                     children: <Widget>[
-                                      Text(
-                                        'R\$${activity.price}',
-                                        style: const TextStyle(
-                                          fontSize: 22.0,
-                                          fontWeight: FontWeight.w600,
+                                      SizedBox(
+                                        width: 120.0,
+                                        child: Text(
+                                          activity.nomePacote,
+                                          style: const TextStyle(
+                                            fontSize: 18.0,
+                                            fontWeight: FontWeight.w600,
+                                          ),
+                                          overflow: TextOverflow.ellipsis,
+                                          maxLines: 2,
                                         ),
                                       ),
-                                      const Text(
-                                        'Por Pessoa',
-                                        style: TextStyle(
-                                          color: Colors.grey,
-                                        ),
+                                      Column(
+                                        children: <Widget>[
+                                          Text(
+                                            'R\$${activity.preco}',
+                                            style: const TextStyle(
+                                              fontSize: 22.0,
+                                              fontWeight: FontWeight.w600,
+                                            ),
+                                          ),
+                                          const Text(
+                                            'Por Pessoa',
+                                            style: TextStyle(
+                                              color: Colors.grey,
+                                            ),
+                                          ),
+                                        ],
                                       ),
                                     ],
                                   ),
-                                ],
-                              ),
-                              Text(
-                                activity.type,
-                                style: const TextStyle(
-                                  color: Colors.grey,
-                                ),
-                              ),
-                              _buildRatingStars(activity.rating),
-                              const SizedBox(height: 10.0),
-                              Row(
-                                children: <Widget>[
-                                  Container(
-                                    padding: const EdgeInsets.all(5.0),
-                                    width: 70.0,
-                                    decoration: BoxDecoration(
-                                      color: Colors.amber,
-                                      borderRadius: BorderRadius.circular(10.0),
-                                    ),
-                                    alignment: Alignment.center,
-                                    child: Text(
-                                      activity.startTimes[0],
+                                  Text(
+                                    activity.tipo,
+                                    style: const TextStyle(
+                                      color: Colors.grey,
                                     ),
                                   ),
-                                  const SizedBox(width: 10.0),
-                                  Container(
-                                    padding: const EdgeInsets.all(5.0),
-                                    width: 70.0,
-                                    decoration: BoxDecoration(
-                                      color: Colors.amber,
-                                      borderRadius: BorderRadius.circular(10.0),
-                                    ),
-                                    alignment: Alignment.center,
-                                    child: Text(
-                                      activity.startTimes[1],
-                                    ),
-                                  ),
+                                  // _buildRatingStars(activity.rating),
+                                  const SizedBox(height: 10.0),
+                                  // Row(
+                                  //   children: <Widget>[
+                                  //     Container(
+                                  //       padding: const EdgeInsets.all(5.0),
+                                  //       width: 70.0,
+                                  //       decoration: BoxDecoration(
+                                  //         color: Colors.amber,
+                                  //         borderRadius:
+                                  //             BorderRadius.circular(10.0),
+                                  //       ),
+                                  //       alignment: Alignment.center,
+                                  //       child: Text(
+                                  //         activity.startTimes[0],
+                                  //       ),
+                                  //     ),
+                                  //     const SizedBox(width: 10.0),
+                                  //     Container(
+                                  //       padding: const EdgeInsets.all(5.0),
+                                  //       width: 70.0,
+                                  //       decoration: BoxDecoration(
+                                  //         color: Colors.amber,
+                                  //         borderRadius:
+                                  //             BorderRadius.circular(10.0),
+                                  //       ),
+                                  //       alignment: Alignment.center,
+                                  //       child: Text(
+                                  //         activity.startTimes[1],
+                                  //       ),
+                                  //     ),
+                                  //   ],
+                                  // )
                                 ],
-                              )
-                            ],
-                          ),
-                        ),
-                      ),
-                      Positioned(
-                        left: 20.0,
-                        top: 15.0,
-                        bottom: 15.0,
-                        child: ClipRRect(
-                          borderRadius: BorderRadius.circular(20.0),
-                          child: Image(
-                            width: 110.0,
-                            image: AssetImage(
-                              activity.imageUrl,
+                              ),
                             ),
-                            fit: BoxFit.cover,
                           ),
-                        ),
-                      ),
-                    ],
-                  );
+                          // Positioned(
+                          //   left: 20.0,
+                          //   top: 15.0,
+                          //   bottom: 15.0,
+                          //   child: ClipRRect(
+                          //     borderRadius: BorderRadius.circular(20.0),
+                          //     child: Image(
+                          //       width: 110.0,
+                          //       image: AssetImage(
+                          //         activity.imageUrl,
+                          //       ),
+                          //       fit: BoxFit.cover,
+                          //     ),
+                          //   ),
+                          // ),
+                        ],
+                      ));
                 },
               ),
             ),

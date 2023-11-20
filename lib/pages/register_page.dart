@@ -90,15 +90,15 @@ class _RegisterPageState extends State<RegisterPage> {
           );
         });
 
-    var url = Uri.parse("http://192.168.1.90/api_dreams_tourism/singup.php");
+    var url = Uri.parse("http://192.168.15.64/api_dreams_tourism/singup.php");
     var data = {
       "nome": nameController.text,
       "telefone": telefoneController.text,
       "cpf": cpfController.text.toString(),
       "sexo": sexoController.text,
       "email": emailController.text,
-      "pass": passwordController.text,
-      "dt_nascimento": nascimentoController.text,
+      "senha": passwordController.text,
+      "data_nascimento": nascimentoController.text,
       "cep": cepController.text,
       "logradouro": logradouroController.text,
       "num_residencia": numRediedenciaController.text,

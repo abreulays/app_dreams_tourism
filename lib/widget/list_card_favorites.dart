@@ -2,75 +2,30 @@ import 'package:app_dreams_tourism/pages/activity_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:app_dreams_tourism/model/activity_model.dart';
 
-class ListCardActivity extends StatefulWidget {
-  const ListCardActivity({Key? key}) : super(key: key);
+class ListCardFavorite extends StatefulWidget {
+  const ListCardFavorite({Key? key}) : super(key: key);
 
   @override
-  _ListCardActivityState createState() => _ListCardActivityState();
+  _ListCardFavoriteState createState() => _ListCardFavoriteState();
 }
 
-class _ListCardActivityState extends State<ListCardActivity> {
-  Map<int, bool> isStarFilledMap = {};
-
-  Text _buildRatingStars(int rating) {
-    String stars = '';
-    for (int i = 0; i < rating; i++) {
-      stars += '⭐ ';
-    }
-    stars.trim();
-    return Text(stars);
-  }
-
-  void _navigateToActivityScreen(activity) {
-    Navigator.push(
-      context,
-      MaterialPageRoute(
-        builder: (context) => ActivityScreen(
-          activity: activity,
-          id: activity.id,
-        ),
-      ),
-    );
-  }
-
+class _ListCardFavoriteState extends State<ListCardFavorite> {
+  
   @override
   Widget build(BuildContext context) {
+    // Filtra apenas as atividades favoritas
+    List<Activity> favoriteActivities =
+        activities.where((activity) => activity.favoritos).toList();
+
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 20.0),
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: <Widget>[
-              Row(
-                children: [
-                  Icon(
-                    Icons.surfing_rounded,
-                    color: Theme.of(context).textTheme.titleLarge!.color,
-                    size: 24.0,
-                  ),
-                  const SizedBox(width: 8.0),
-                  const Text(
-                    'Diversão Garantida',
-                    style: TextStyle(
-                      fontSize: 22.0,
-                      fontWeight: FontWeight.bold,
-                      letterSpacing: 1.5,
-                    ),
-                  ),
-                ],
-              ),
-            ],
-          ),
-        ),
-        ...activities.map((Activity activity) {
-
+        ...favoriteActivities.map((Activity activity) {
           return Padding(
             padding: const EdgeInsets.symmetric(horizontal: 20.0, vertical: 5),
             child: GestureDetector(
               onTap: () {
-                _navigateToActivityScreen(activity.id);
+                _navigateToActivityScreen(activity.id, activity);
               },
               child: Card(
                 shape: RoundedRectangleBorder(
@@ -102,22 +57,15 @@ class _ListCardActivityState extends State<ListCardActivity> {
                           child: GestureDetector(
                             onTap: () {
                               setState(() {
-                                // Convertendo a string para int
-                                int id = int.tryParse(activity.id) ?? 0;
-
-                                // Adicionando uma verificação de nulidade aqui
-                                isStarFilledMap[id] =
-                                    !(isStarFilledMap[id] ?? false);
+                                // Toggle the favorite state
+                                activity.favoritos = !activity.favoritos;
                               });
                             },
                             child: Icon(
-                              isStarFilledMap[int.tryParse(activity.id) ?? 0] ??
-                                      false
-                                  ? Icons.star_rounded
-                                  : Icons.star_outline_rounded,
-                              color: isStarFilledMap[
-                                          int.tryParse(activity.id) ?? 0] ??
-                                      false
+                              activity.favoritos
+                                  ? Icons.star
+                                  : Icons.star_border,
+                              color: activity.favoritos
                                   ? Colors.amber
                                   : Colors.black,
                               size: 30,
@@ -146,7 +94,7 @@ class _ListCardActivityState extends State<ListCardActivity> {
                                       ),
                                     ),
                                     const SizedBox(height: 5),
-                                    // _buildRatingStars(activity.avaliacao),
+                                    // _buildRatingStars(activity.rating),
                                     const SizedBox(height: 5),
                                     Text(
                                       'Tipo: ${activity.tipo}',
@@ -219,6 +167,24 @@ class _ListCardActivityState extends State<ListCardActivity> {
           );
         }).toList(),
       ],
+    );
+  }
+
+  Text _buildRatingStars(int rating) {
+    String stars = '';
+    for (int i = 0; i < rating; i++) {
+      stars += '⭐ ';
+    }
+    stars.trim();
+    return Text(stars);
+  }
+
+  void _navigateToActivityScreen(String id, Activity activity) {
+    Navigator.push(
+      context,
+      MaterialPageRoute(
+        builder: (context) => ActivityScreen(id: id, activity: activity),
+      ),
     );
   }
 }

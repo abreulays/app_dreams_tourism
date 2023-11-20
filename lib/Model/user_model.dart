@@ -80,7 +80,7 @@ class UserModel {
       email: json['email'],
       telefone: json['telefone'],
       cpf: json['cpf'],
-      // // dtNascimento: json['dtNascimento'],
+      // dtNascimento: json['dtNascimento'],
       cep: json['cep'],
       logradouro: json['logradouro'],
       num_residencia: json['num_residencia'],
