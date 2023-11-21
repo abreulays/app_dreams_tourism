@@ -1,6 +1,7 @@
 import 'dart:convert';
 import 'package:app_dreams_tourism/model/activity_model.dart';
 import 'package:app_dreams_tourism/model/user_model.dart';
+import 'package:app_dreams_tourism/widget/global_variavel.dart';
 import 'package:app_dreams_tourism/widget/my_button.dart';
 import 'package:app_dreams_tourism/widget/my_textfield.dart';
 import 'package:app_dreams_tourism/pages/home_page.dart';
@@ -47,7 +48,7 @@ class _LoginPageState extends State<LoginPage> {
 
     try {
       final url =
-          Uri.parse("http://192.168.15.64/api_dreams_tourism/signin.php");
+          Uri.parse("${GlobalVariables.ipAddress}/api_dreams_tourism/signin.php");
       final data = {
         "email": emailController.text,
         "senha": passwordController.text,

@@ -1,7 +1,9 @@
 import 'package:app_dreams_tourism/pages/activity_screen.dart';
+import 'package:app_dreams_tourism/widget/global_variavel.dart';
 import 'package:flutter/material.dart';
 import 'package:app_dreams_tourism/model/activity_model.dart';
 import 'package:intl/intl.dart';
+import 'package:http/http.dart' as http;
 
 class ListCardActivity extends StatefulWidget {
   final List<Activity> activities;
@@ -15,16 +17,45 @@ class ListCardActivity extends StatefulWidget {
 }
 
 class _ListCardActivityState extends State<ListCardActivity> {
+
+  void _toggleFavoriteState(Activity activity) async {
+    // Define a URL do seu endpoint favorite.php
+    final url =
+        Uri.parse("${GlobalVariables.ipAddress}/api_dreams_tourism/favorite.php");
+
+    // Faz a solicitação POST com o ID do pacote
+    final response = await http.post(url, body: {
+      'id': activity.id,
+    });
+
+    // Verifica se a solicitação foi bem-sucedida
+    if (response.statusCode == 200) {
+      // Atualiza o estado local da atividade
+      setState(() {
+        // Toggle the favorite state
+        activity.favoritos = (activity.favoritos == "1") ? "0" : "1";
+      });
+    } else {
+      // Exibe uma mensagem de erro em caso de falha
+      print("Erro ao realizar a solicitação HTTP: ${response.statusCode}");
+    }
+  }
+
   Map<int, bool> isStarFilledMap = {};
 
-  Text _buildRatingStars(int rating) {
-    String stars = '';
-    for (int i = 0; i < rating; i++) {
-      stars += '⭐ ';
-    }
-    stars.trim();
-    return Text(stars);
+  Text _buildRatingStars(String rating) {
+  // Converte a string de rating para um valor inteiro.
+  int ratingValue = int.tryParse(rating) ?? 0;
+
+  String stars = '';
+  for (int i = 0; i < ratingValue; i++) {
+    stars += '⭐ ';
   }
+  stars = stars.trim();
+  
+  return Text(stars);
+}
+
 
   void _navigateToActivityScreen(Activity activity) {
     Navigator.push(
@@ -105,20 +136,14 @@ class _ListCardActivityState extends State<ListCardActivity> {
                           right: 10,
                           child: GestureDetector(
                             onTap: () {
-                              setState(() {
-                                int id = int.tryParse(activity.id) ?? 0;
-                                isStarFilledMap[id] =
-                                    !(isStarFilledMap[id] ?? false);
-                              });
+                              // Chama a função para alternar o estado de favoritos
+                              _toggleFavoriteState(activity);
                             },
                             child: Icon(
-                              isStarFilledMap[int.tryParse(activity.id) ?? 0] ??
-                                      (activity.favoritos == '1')
-                                  ? Icons.star_rounded
-                                  : Icons.star_outline_rounded,
-                              color: isStarFilledMap[
-                                          int.tryParse(activity.id) ?? 0] ??
-                                      (activity.favoritos == '1')
+                              (activity.favoritos == "1")
+                                  ? Icons.star
+                                  : Icons.star_border,
+                              color: (activity.favoritos == "1")
                                   ? Colors.amber
                                   : Colors.black,
                               size: 30,
@@ -147,7 +172,7 @@ class _ListCardActivityState extends State<ListCardActivity> {
                                       ),
                                     ),
                                     const SizedBox(height: 5),
-                                    // _buildRatingStars(activity.avaliacao),
+                                    _buildRatingStars(activity.avaliacao),
                                     const SizedBox(height: 5),
                                     Text(
                                       'Tipo: ${activity.tipo}',

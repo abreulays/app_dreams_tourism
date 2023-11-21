@@ -3,6 +3,7 @@ import 'package:app_dreams_tourism/model/destination_model.dart';
 import 'package:app_dreams_tourism/pages/activity_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:intl/intl.dart';
 
 //Este é um código que detalha os destinos
 //Destination direciona para os destinos, uma classe.
@@ -22,17 +23,22 @@ class DestinationScreen extends StatefulWidget {
 //_buildRatingStars converte de números em icones/emogis e afins. Só que nesse caso, converteu para estrela (Star).
 
 class _DestinationScreenState extends State<DestinationScreen> {
-  Text _buildRatingStars(int rating) {
-    String stars = '';
-    for (int i = 0; i < rating; i++) {
-      stars += '⭐ ';
-    }
-    stars.trim();
-    return Text(stars);
+  Text _buildRatingStars(String rating) {
+  // Converte a string de rating para um valor inteiro.
+  int ratingValue = int.tryParse(rating) ?? 0;
+
+  String stars = '';
+  for (int i = 0; i < ratingValue; i++) {
+    stars += '⭐ ';
   }
+  stars = stars.trim();
+  
+  return Text(stars);
+}
+
 
   void _navigateToActivityScreen(String id) {
-    Activity activity = widget.activities.firstWhere((activity) => activity.id == id);
+    // Activity activity = widget.activities.firstWhere((activity) => activity.id == id);
     Navigator.push(
       context,
       MaterialPageRoute(
@@ -253,39 +259,44 @@ class _DestinationScreenState extends State<DestinationScreen> {
                                       color: Colors.grey,
                                     ),
                                   ),
-                                  // _buildRatingStars(activity.rating),
+                                  const SizedBox(height: 5.0),
+                                  _buildRatingStars(activity.avaliacao),
                                   const SizedBox(height: 10.0),
-                                  // Row(
-                                  //   children: <Widget>[
-                                  //     Container(
-                                  //       padding: const EdgeInsets.all(5.0),
-                                  //       width: 70.0,
-                                  //       decoration: BoxDecoration(
-                                  //         color: Colors.amber,
-                                  //         borderRadius:
-                                  //             BorderRadius.circular(10.0),
-                                  //       ),
-                                  //       alignment: Alignment.center,
-                                  //       child: Text(
-                                  //         activity.startTimes[0],
-                                  //       ),
-                                  //     ),
-                                  //     const SizedBox(width: 10.0),
-                                  //     Container(
-                                  //       padding: const EdgeInsets.all(5.0),
-                                  //       width: 70.0,
-                                  //       decoration: BoxDecoration(
-                                  //         color: Colors.amber,
-                                  //         borderRadius:
-                                  //             BorderRadius.circular(10.0),
-                                  //       ),
-                                  //       alignment: Alignment.center,
-                                  //       child: Text(
-                                  //         activity.startTimes[1],
-                                  //       ),
-                                  //     ),
-                                  //   ],
-                                  // )
+                                  Row(
+                                      children: <Widget>[
+                                        Container(
+                                          padding: const EdgeInsets.all(5.0),
+                                          width: 70.0,
+                                          decoration: BoxDecoration(
+                                            color: Colors.amber,
+                                            borderRadius:
+                                                BorderRadius.circular(10.0),
+                                          ),
+                                          alignment: Alignment.center,
+                                          child: Text(
+                                            DateFormat.Hm().format(
+                                                DateTime.parse(
+                                                    activity.duracaoInicio)),
+                                          ),
+                                        ),
+                                        const SizedBox(width: 10.0),
+                                        Container(
+                                          padding: const EdgeInsets.all(5.0),
+                                          width: 70.0,
+                                          decoration: BoxDecoration(
+                                            color: Colors.amber,
+                                            borderRadius:
+                                                BorderRadius.circular(10.0),
+                                          ),
+                                          alignment: Alignment.center,
+                                          child: Text(
+                                            DateFormat.Hm().format(
+                                                DateTime.parse(
+                                                    activity.duracaoFinal)),
+                                          ),
+                                        ),
+                                      ],
+                                    )
                                 ],
                               ),
                             ),

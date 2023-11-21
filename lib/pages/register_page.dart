@@ -1,5 +1,6 @@
 import 'dart:convert';
 import 'package:app_dreams_tourism/widget/date_input_field.dart';
+import 'package:app_dreams_tourism/widget/global_variavel.dart';
 import 'package:app_dreams_tourism/widget/my_button.dart';
 import 'package:app_dreams_tourism/widget/my_textfield.dart';
 import 'package:app_dreams_tourism/pages/login_page.dart';
@@ -90,7 +91,7 @@ class _RegisterPageState extends State<RegisterPage> {
           );
         });
 
-    var url = Uri.parse("http://192.168.15.64/api_dreams_tourism/singup.php");
+    var url = Uri.parse("${GlobalVariables.ipAddress}/api_dreams_tourism/singup.php");
     var data = {
       "nome": nameController.text,
       "telefone": telefoneController.text,

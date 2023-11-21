@@ -1,4 +1,5 @@
 import 'package:app_dreams_tourism/pages/activity_screen.dart';
+import 'package:app_dreams_tourism/widget/global_variavel.dart';
 import 'package:flutter/material.dart';
 import 'package:app_dreams_tourism/model/activity_model.dart';
 import 'package:intl/intl.dart';
@@ -18,7 +19,7 @@ class _ListCardFavoriteState extends State<ListCardFavorite> {
   void _toggleFavoriteState(Activity activity) async {
     // Define a URL do seu endpoint favorite.php
     final url =
-        Uri.parse("http://192.168.15.64/api_dreams_tourism/favorite.php");
+        Uri.parse("${GlobalVariables.ipAddress}/api_dreams_tourism/favorite.php");
 
     // Faz a solicitação POST com o ID do pacote
     final response = await http.post(url, body: {
@@ -120,7 +121,7 @@ class _ListCardFavoriteState extends State<ListCardFavorite> {
                                       ),
                                     ),
                                     const SizedBox(height: 5),
-                                    // _buildRatingStars(activity.rating),
+                                    _buildRatingStars(activity.avaliacao),
                                     const SizedBox(height: 5),
                                     Text(
                                       'Tipo: ${activity.tipo}',
@@ -200,14 +201,19 @@ class _ListCardFavoriteState extends State<ListCardFavorite> {
     );
   }
 
-  Text _buildRatingStars(int rating) {
-    String stars = '';
-    for (int i = 0; i < rating; i++) {
-      stars += '⭐ ';
-    }
-    stars.trim();
-    return Text(stars);
+  Text _buildRatingStars(String rating) {
+  // Converte a string de rating para um valor inteiro.
+  int ratingValue = int.tryParse(rating) ?? 0;
+
+  String stars = '';
+  for (int i = 0; i < ratingValue; i++) {
+    stars += '⭐ ';
   }
+  stars = stars.trim();
+  
+  return Text(stars);
+}
+
 
   void _navigateToActivityScreen(String id, Activity activity) {
     Navigator.push(

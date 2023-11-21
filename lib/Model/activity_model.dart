@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'package:app_dreams_tourism/widget/global_variavel.dart';
 import 'package:http/http.dart' as http;
 
 // define uma classe chamada Activity: Activity é uma classe: Em programação orientada a objetos, uma classe é uma estrutura que
@@ -39,7 +40,7 @@ class Activity {
 }
 
 Future<List<Activity>> fetchActivities() async {
-  final url = Uri.parse("http://192.168.15.64/api_dreams_tourism/packages.php");
+  final url = Uri.parse("${GlobalVariables.ipAddress}/api_dreams_tourism/packages.php");
   final response = await http.get(url);
 
   if (response.statusCode == 200) {
