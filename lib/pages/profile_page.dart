@@ -1,4 +1,6 @@
 import 'package:app_dreams_tourism/model/user_model.dart';
+import 'package:app_dreams_tourism/pages/seguranca.dart';
+import 'package:app_dreams_tourism/pages/sobre_nos.dart';
 import 'package:app_dreams_tourism/pages/update_dados_user.dart';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -108,7 +110,7 @@ class ProfilePage extends StatelessWidget {
                 // Ação do primeiro botão para abrir a página UpdateDadosUser()
                 Navigator.push(
                   context,
-                  MaterialPageRoute(builder: (context) => UpdateDadosUser(user: user,)),
+                  MaterialPageRoute(builder: (context) => SegurancaPage(user: user,)),
                 );
               },
               style: ElevatedButton.styleFrom(
@@ -129,7 +131,7 @@ class ProfilePage extends StatelessWidget {
                 // Ação do primeiro botão para abrir a página UpdateDadosUser()
                 Navigator.push(
                   context,
-                  MaterialPageRoute(builder: (context) => UpdateDadosUser(user: user,)),
+                  MaterialPageRoute(builder: (context) => SobreNosPage(user: user,)),
                 );
               },
               style: ElevatedButton.styleFrom(
@@ -140,7 +142,7 @@ class ProfilePage extends StatelessWidget {
                 ),
                 padding: const EdgeInsets.all(16.0),
               ),
-              child: const Text('Termos de Uso', style: TextStyle(fontSize: 16),),
+              child: const Text('Sobre Nós', style: TextStyle(fontSize: 16),),
             ),
           ],
         ),
