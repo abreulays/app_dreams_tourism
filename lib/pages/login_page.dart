@@ -68,6 +68,7 @@ class _LoginPageState extends State<LoginPage> {
           final user = UserModel.fromJson(responseBody);
 
           final userModelProvider =
+              // ignore: use_build_context_synchronously
               Provider.of<UserModelProvider>(context, listen: false);
           userModelProvider.setUser(user);
 
@@ -78,9 +79,11 @@ class _LoginPageState extends State<LoginPage> {
           final activities = await fetchActivities();
 
           // Fecha o diálogo de carregamento
+          // ignore: use_build_context_synchronously
           Navigator.pop(context);
 
           // Redireciona para a HomePage com as informações do usuário e a lista de atividades
+          // ignore: use_build_context_synchronously
           Navigator.push(
             context,
             MaterialPageRoute(

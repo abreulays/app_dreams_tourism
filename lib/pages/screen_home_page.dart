@@ -4,7 +4,6 @@ import 'package:app_dreams_tourism/pages/notification_page.dart';
 import 'package:app_dreams_tourism/widget/list_card_activity.dart';
 import 'package:app_dreams_tourism/widget/destination_carousel.dart';
 import 'package:flutter/material.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:lottie/lottie.dart';
 
 // aqui temos a declaração de uma classe que se chama ScreenHomePage que extende a classe StatefulWidget.
@@ -32,15 +31,7 @@ class ScreenHomePage extends StatefulWidget {
 //nesse caso, _selectedIndex armazena o indice dos icones selecionados. Iniciando em zero,
 //que indica que FontAwesomeIcons.plane é o primeiro
 class _ScreenHomePageState extends State<ScreenHomePage> {
-  int _selectedIndex = 0;
-  final List<IconData> _icons = [
-    FontAwesomeIcons.plane,
-    FontAwesomeIcons.bed,
-    // ignore: deprecated_member_use
-    FontAwesomeIcons.walking,
-    // ignore: deprecated_member_use
-    FontAwesomeIcons.biking,
-  ];
+
 
 //Widget _buildIcon(int index): Define um método privado _buildIcon que recebe um índice como parâmetro e retorna um widget.
 //Este método é responsável por criar um widget GestureDetector para cada ícone na lista. Um GestureDetector detecta gestos
@@ -50,32 +41,6 @@ class _ScreenHomePageState extends State<ScreenHomePage> {
 // quando o usuário toca no ícone. Quando o usuário toca em um ícone, o método setState é chamado. O setState notifica o framework Flutter de que o estado interno deste widget mudou,
 //  e ele precisa ser reconstruído. Neste caso, o _selectedIndex é atualizado com o índice do ícone tocado.
 
-  Widget _buildIcon(int index) {
-    return GestureDetector(
-      onTap: () {
-        setState(() {
-          _selectedIndex = index;
-        });
-      },
-      child: Container(
-        height: 60.0,
-        width: 60.0,
-        decoration: BoxDecoration(
-          color: _selectedIndex == index
-              ? const Color.fromRGBO(140, 82, 255, 1)
-              : const Color(0xFFE7EBEE),
-          borderRadius: BorderRadius.circular(30.0),
-        ),
-        child: Icon(
-          _icons[index],
-          size: 25.0,
-          color: _selectedIndex == index
-              ? const Color.fromRGBO(255, 255, 255, 1)
-              : const Color.fromARGB(255, 196, 180, 195),
-        ),
-      ),
-    );
-  }
 
 //  Esta anotação @override indica que o método build está sobrescrevendo um método da classe pai. No contexto do Flutter,
 // o método build  é responsável por construir a hierarquia de widgets que compõem a interface do usuário.

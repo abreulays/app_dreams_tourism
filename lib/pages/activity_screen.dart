@@ -1,4 +1,5 @@
 import 'package:app_dreams_tourism/model/activity_model.dart';
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:intl/intl.dart';
@@ -13,6 +14,7 @@ class ActivityScreen extends StatefulWidget {
       : super(key: key);
 
   @override
+  // ignore: library_private_types_in_public_api
   _ActivityScreenState createState() => _ActivityScreenState();
 }
 
@@ -60,7 +62,7 @@ class _ActivityScreenState extends State<ActivityScreen> {
                 ),
               ),
               const SizedBox(height: 10),
-              Text(
+              const Text(
                 'Compra Realizada',
                 style: TextStyle(
                   fontSize: 22,
@@ -105,15 +107,16 @@ class _ActivityScreenState extends State<ActivityScreen> {
                               ),
                             ],
                           ),
-                          // child: Hero(
-                          //   tag: activity.imageUrl,
-                          //   child: ClipRRect(
-                          //     child: Image(
-                          //       image: AssetImage(activity.imageUrl),
-                          //       fit: BoxFit.cover,
-                          //     ),
-                          //   ),
-                          // ),
+                          child: Hero(
+                            tag: activity.imageUrl,
+                            child: ClipRRect(
+                              child: CachedNetworkImage(
+                              imageUrl: activity.imageUrl,
+                              fit: BoxFit.cover,
+                              
+                            ),
+                            ),
+                          ),
                         ),
                         Padding(
                           padding: const EdgeInsets.symmetric(
@@ -137,6 +140,7 @@ class _ActivityScreenState extends State<ActivityScreen> {
                                   ),
                                   IconButton(
                                     icon: const Icon(
+                                        // ignore: deprecated_member_use
                                         FontAwesomeIcons.sortAmountDown),
                                     iconSize: 25.0,
                                     color: Colors.black,
@@ -268,7 +272,7 @@ class _ActivityScreenState extends State<ActivityScreen> {
                                       ],
                                     ),
                           const SizedBox(height: 10.0),
-                          Text(
+                          const Text(
                             'Avaliação:',
                             style: TextStyle(
                               fontSize: 20.0,
@@ -285,7 +289,7 @@ class _ActivityScreenState extends State<ActivityScreen> {
               ),
             ),
             Container(
-              color: Color.fromARGB(0, 255, 193, 7),
+              color: const Color.fromARGB(0, 255, 193, 7),
               width: double.infinity,
               padding: const EdgeInsets.all(20.0),
               child: TextButton.icon(

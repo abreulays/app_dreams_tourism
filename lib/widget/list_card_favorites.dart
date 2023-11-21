@@ -1,5 +1,6 @@
 import 'package:app_dreams_tourism/pages/activity_screen.dart';
 import 'package:app_dreams_tourism/widget/global_variavel.dart';
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:app_dreams_tourism/model/activity_model.dart';
 import 'package:intl/intl.dart';
@@ -12,14 +13,15 @@ class ListCardFavorite extends StatefulWidget {
       : super(key: key);
 
   @override
+  // ignore: library_private_types_in_public_api
   _ListCardFavoriteState createState() => _ListCardFavoriteState();
 }
 
 class _ListCardFavoriteState extends State<ListCardFavorite> {
   void _toggleFavoriteState(Activity activity) async {
     // Define a URL do seu endpoint favorite.php
-    final url =
-        Uri.parse("${GlobalVariables.ipAddress}/api_dreams_tourism/favorite.php");
+    final url = Uri.parse(
+        "${GlobalVariables.ipAddress}/api_dreams_tourism/favorite.php");
 
     // Faz a solicitação POST com o ID do pacote
     final response = await http.post(url, body: {
@@ -35,7 +37,7 @@ class _ListCardFavoriteState extends State<ListCardFavorite> {
       });
     } else {
       // Exibe uma mensagem de erro em caso de falha
-      print("Erro ao realizar a solicitação HTTP: ${response.statusCode}");
+      debugPrint("Erro ao realizar a solicitação HTTP: ${response.statusCode}");
     }
   }
 
@@ -74,10 +76,10 @@ class _ListCardFavoriteState extends State<ListCardFavorite> {
                               topLeft: Radius.circular(20.0),
                               topRight: Radius.circular(20.0),
                             ),
-                            // child: Image.asset(
-                            //   activity.imageUrl,
-                            //   fit: BoxFit.cover,
-                            // ),
+                            child: CachedNetworkImage(
+                              imageUrl: activity.imageUrl,
+                              fit: BoxFit.cover,
+                            ),
                           ),
                         ),
                         Positioned(
@@ -202,18 +204,17 @@ class _ListCardFavoriteState extends State<ListCardFavorite> {
   }
 
   Text _buildRatingStars(String rating) {
-  // Converte a string de rating para um valor inteiro.
-  int ratingValue = int.tryParse(rating) ?? 0;
+    // Converte a string de rating para um valor inteiro.
+    int ratingValue = int.tryParse(rating) ?? 0;
 
-  String stars = '';
-  for (int i = 0; i < ratingValue; i++) {
-    stars += '⭐ ';
+    String stars = '';
+    for (int i = 0; i < ratingValue; i++) {
+      stars += '⭐ ';
+    }
+    stars = stars.trim();
+
+    return Text(stars);
   }
-  stars = stars.trim();
-  
-  return Text(stars);
-}
-
 
   void _navigateToActivityScreen(String id, Activity activity) {
     Navigator.push(

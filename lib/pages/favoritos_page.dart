@@ -16,8 +16,8 @@ class FavoritosPage extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               // Título com ícone
-              Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 20),
+              const Padding(
+                padding: EdgeInsets.symmetric(horizontal: 20, vertical: 20),
                 child: Row(
                   children: [
                     Icon(

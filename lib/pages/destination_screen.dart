@@ -1,6 +1,7 @@
 import 'package:app_dreams_tourism/model/activity_model.dart';
 import 'package:app_dreams_tourism/model/destination_model.dart';
 import 'package:app_dreams_tourism/pages/activity_screen.dart';
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:intl/intl.dart';
@@ -301,21 +302,20 @@ class _DestinationScreenState extends State<DestinationScreen> {
                               ),
                             ),
                           ),
-                          // Positioned(
-                          //   left: 20.0,
-                          //   top: 15.0,
-                          //   bottom: 15.0,
-                          //   child: ClipRRect(
-                          //     borderRadius: BorderRadius.circular(20.0),
-                          //     child: Image(
-                          //       width: 110.0,
-                          //       image: AssetImage(
-                          //         activity.imageUrl,
-                          //       ),
-                          //       fit: BoxFit.cover,
-                          //     ),
-                          //   ),
-                          // ),
+                          Positioned(
+                            left: 20.0,
+                            top: 15.0,
+                            bottom: 15.0,
+                            child: ClipRRect(
+                              borderRadius: BorderRadius.circular(20.0),
+                              child: CachedNetworkImage(
+                              imageUrl: activity.imageUrl,
+                              fit: BoxFit.cover,
+                              width: 110.0,
+                              
+                            ),
+                            ),
+                          ),
                         ],
                       ));
                 },

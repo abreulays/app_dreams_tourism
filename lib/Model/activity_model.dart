@@ -20,6 +20,7 @@ class Activity {
   String estado;
   String tipo;
   String avaliacao;
+  String imageUrl;
 
   Activity({
     required this.id,
@@ -36,6 +37,7 @@ class Activity {
     required this.estado,
     required this.tipo,
     required this.avaliacao,
+    required this.imageUrl,
   });
 }
 
@@ -62,6 +64,7 @@ Future<List<Activity>> fetchActivities() async {
         estado: item['estado'],
         tipo: item['tipo'],
         avaliacao: item['avaliacao'],
+        imageUrl: item['urlimagem1'],
       );
     }).toList();
 
