@@ -139,14 +139,18 @@ class _ActivityScreenState extends State<ActivityScreen> {
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: <Widget>[
-                              Text(
-                                activity.nomePacote,
-                                style: const TextStyle(
-                                  color: Colors.white,
-                                  fontSize: 30.0,
-                                  fontWeight: FontWeight.w600,
-                                  letterSpacing: 1.2,
-                                ),
+                              Row(
+                                children: [
+                                  Text(
+                                    activity.nomePacote,
+                                    style: const TextStyle(
+                                      color: Colors.white,
+                                      fontSize: 30.0,
+                                      fontWeight: FontWeight.w600,
+                                      letterSpacing: 1.2,
+                                    ),
+                                  ),
+                                ],
                               ),
                               Row(
                                 children: <Widget>[
