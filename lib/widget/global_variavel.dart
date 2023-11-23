@@ -1,3 +1,3 @@
 class GlobalVariables {
-  static String ipAddress = "http://192.168.0.6";
+  static String ipAddress = "http://192.168.1.161";
 }

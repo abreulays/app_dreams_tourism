@@ -130,24 +130,6 @@ class _ActivityScreenState extends State<ActivityScreen> {
                                 color: Colors.black,
                                 onPressed: () => Navigator.pop(context),
                               ),
-                              Row(
-                                children: <Widget>[
-                                  IconButton(
-                                    icon: const Icon(Icons.search),
-                                    iconSize: 30.0,
-                                    color: Colors.black,
-                                    onPressed: () => Navigator.pop(context),
-                                  ),
-                                  IconButton(
-                                    icon: const Icon(
-                                        // ignore: deprecated_member_use
-                                        FontAwesomeIcons.sortAmountDown),
-                                    iconSize: 25.0,
-                                    color: Colors.black,
-                                    onPressed: () => Navigator.pop(context),
-                                  ),
-                                ],
-                              ),
                             ],
                           ),
                         ),
@@ -161,7 +143,7 @@ class _ActivityScreenState extends State<ActivityScreen> {
                                 activity.nomePacote,
                                 style: const TextStyle(
                                   color: Colors.white,
-                                  fontSize: 35.0,
+                                  fontSize: 30.0,
                                   fontWeight: FontWeight.w600,
                                   letterSpacing: 1.2,
                                 ),

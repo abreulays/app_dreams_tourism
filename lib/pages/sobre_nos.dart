@@ -42,7 +42,7 @@ class SobreNosPage extends StatelessWidget {
           children: [
             //recebe uma lista de widgets
             Text(
-              "Somos uma agência de turismo com o objetivo de proporcionar aos nossos clientes a melhor viagem da vida deles, com o melhor custo-benefício e segurança que eles merecem.\n\nA Dreams tourism é uma recém startup no mercado de turismo com grandes parcerias com os melhores hotéis e passeios exclusivos.",
+              "Somos uma agência de turismo com o objetivo de proporcionar aos nossos clientes a melhor experiência em suas viagem, segurança e o descanso que merecem, com o melhor custo-benefício.\n\nA Dreams Tourism é uma recém startup no mercado de turismo com grandes parcerias com os melhores hotéis e passeios exclusivos.",
               style: TextStyle(
                 fontSize: 18,
               ),

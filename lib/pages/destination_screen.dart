@@ -6,51 +6,62 @@ import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:intl/intl.dart';
 
-//Este é um código que detalha os destinos
-//Destination direciona para os destinos, uma classe.
-
 class DestinationScreen extends StatefulWidget {
   final Destination destination;
-    final List<Activity> activities;
+  final List<Activity> activities;
 
-
-  const DestinationScreen({super.key, required this.destination, required this.activities});
+  const DestinationScreen(
+      {super.key, required this.destination, required this.activities});
 
   @override
   // ignore: library_private_types_in_public_api
   _DestinationScreenState createState() => _DestinationScreenState();
 }
 
-//_buildRatingStars converte de números em icones/emogis e afins. Só que nesse caso, converteu para estrela (Star).
-
 class _DestinationScreenState extends State<DestinationScreen> {
   Text _buildRatingStars(String rating) {
-  // Converte a string de rating para um valor inteiro.
-  int ratingValue = int.tryParse(rating) ?? 0;
+    // Converte a string de rating para um valor inteiro.
+    int ratingValue = int.tryParse(rating) ?? 0;
 
-  String stars = '';
-  for (int i = 0; i < ratingValue; i++) {
-    stars += '⭐ ';
+    String stars = '';
+    for (int i = 0; i < ratingValue; i++) {
+      stars += '⭐ ';
+    }
+    stars = stars.trim();
+
+    return Text(stars);
   }
-  stars = stars.trim();
-  
-  return Text(stars);
-}
-
 
   void _navigateToActivityScreen(String id) {
     // Activity activity = widget.activities.firstWhere((activity) => activity.id == id);
     Navigator.push(
       context,
       MaterialPageRoute(
-        builder: (context) => ActivityScreen(id: id, activities: widget.activities,),
+        builder: (context) => ActivityScreen(
+          id: id,
+          activities: widget.activities,
+        ),
       ),
     );
   }
 
-//Metodo build(BuildContext context)
-//Metodo que controi a interface de tela. Divide a tela em duas partes "principais".
-//Nesse caso ele está dividindo entre informações e imagem dos pacotes.
+  bool isStateInRegion(String region, String state) {
+    // Mapeamento de regiões para estados correspondentes
+    Map<String, List<String>> regionsMap = {
+      'norte': ['ac', 'ap', 'am', 'pa', 'ro', 'rr', 'to'],
+      'nordeste': ['al', 'ba', 'ce', 'ma', 'pb', 'pe', 'pi', 'rn', 'se'],
+      'centro-oeste': ['df', 'go', 'mt', 'ms'],
+      'sudeste': ['es', 'mg', 'rj', 'sp'],
+      'sul': ['pr', 'rs', 'sc'],
+    };
+
+    // Converte as strings para minúsculas para garantir a comparação insensível a maiúsculas e minúsculas
+    region = region.toLowerCase();
+    state = state.toLowerCase();
+
+    // Verifica se o estado faz parte da região
+    return regionsMap[region]?.contains(state) ?? false;
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -72,10 +83,6 @@ class _DestinationScreenState extends State<DestinationScreen> {
                       ),
                     ],
                   ),
-
-// O widget Hero é usado para criar uma animação de transição suave entre a lista de destinos e esta tela de detalhes.
-//Ele permite que a imagem do destino na lista seja animada para a imagem expandida nesta tela.
-
                   child: Hero(
                     tag: widget.destination.imageUrl,
                     child: ClipRRect(
@@ -87,9 +94,6 @@ class _DestinationScreenState extends State<DestinationScreen> {
                     ),
                   ),
                 ),
-
-                //padding posiciona (margem interna) entre os widget pai e filho.
-
                 Padding(
                   padding: const EdgeInsets.symmetric(
                       horizontal: 10.0, vertical: 10.0),
@@ -102,24 +106,23 @@ class _DestinationScreenState extends State<DestinationScreen> {
                         color: Colors.black,
                         onPressed: () => Navigator.pop(context),
                       ),
-                      Row(
-                        //posiciona os itens em linha horizontal.
-                        children: <Widget>[
-                          IconButton(
-                            icon: const Icon(Icons.search),
-                            iconSize: 30.0,
-                            color: Colors.black,
-                            onPressed: () => Navigator.pop(context),
-                          ),
-                          IconButton(
-                            // ignore: deprecated_member_use
-                            icon: const Icon(FontAwesomeIcons.sortAmountDown),
-                            iconSize: 25.0,
-                            color: Colors.black,
-                            onPressed: () => Navigator.pop(context),
-                          ),
-                        ],
-                      ),
+                      // Row(
+                      //   children: <Widget>[
+                      //     IconButton(
+                      //       icon: const Icon(Icons.search),
+                      //       iconSize: 30.0,
+                      //       color: Colors.black,
+                      //       onPressed: () => Navigator.pop(context),
+                      //     ),
+                      //     IconButton(
+                      //       // ignore: deprecated_member_use
+                      //       icon: const Icon(FontAwesomeIcons.sortAmountDown),
+                      //       iconSize: 25.0,
+                      //       color: Colors.black,
+                      //       onPressed: () => Navigator.pop(context),
+                      //     ),
+                      //   ],
+                      // ),
                     ],
                   ),
                 ),
@@ -130,7 +133,7 @@ class _DestinationScreenState extends State<DestinationScreen> {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: <Widget>[
                       Text(
-                        widget.destination.city,
+                        widget.destination.region,
                         style: const TextStyle(
                           color: Colors.white,
                           fontSize: 35.0,
@@ -138,8 +141,6 @@ class _DestinationScreenState extends State<DestinationScreen> {
                           letterSpacing: 1.2,
                         ),
                       ),
-
-                      //O row posiciona os elementos em linha horizontal.
                       Row(
                         children: <Widget>[
                           const Icon(
@@ -161,9 +162,6 @@ class _DestinationScreenState extends State<DestinationScreen> {
                     ],
                   ),
                 ),
-
-                //Positioned e Stack Widgets:posicionar elementos sobrepostos
-
                 const Positioned(
                   right: 20.0,
                   bottom: 20.0,
@@ -175,27 +173,19 @@ class _DestinationScreenState extends State<DestinationScreen> {
                 ),
               ],
             ),
-
-            //Expanded é usado para organizar/preencher os elementos pai e filho
-            //o Expanded é usado para garantir que o ListView.builder dentro de uma Column (ou outro widget flexível)
-            //preencha todo o espaço vertical disponível.
-
-            //itemBuilder: É uma função chamada para construir cada item da lista. Neste caso, ela cria uma Stack para cada atividade.
-
-            //itemCount: Indica o número total de itens na lista, que é obtido a partir do comprimento da lista de atividades do destino.
-
-            //A utilização do Expanded é crítica aqui, pois sem ele, o ListView.builder ocuparia apenas o espaço necessário para exibir seus
-            //itens e não se expandiria verticalmente para preencher toda a altura disponível. Com o Expanded,
-
-            //ListView.builder pode ocupar o espaço restante na Column, garantindo que toda a lista de atividades seja exibida.
-
             Expanded(
               child: ListView.builder(
                 padding: const EdgeInsets.only(top: 10.0, bottom: 15.0),
                 itemCount: widget.destination.activities.length,
                 itemBuilder: (BuildContext context, int index) {
                   Activity activity = widget.destination.activities[index];
-                  return GestureDetector(
+
+                  // Verifica se o estado faz parte da região
+                  bool isInRegion = isStateInRegion(
+                      widget.destination.region, activity.estado);
+
+                  if (isInRegion) {
+                    return GestureDetector(
                       onTap: () {
                         _navigateToActivityScreen(activity.id);
                       },
@@ -240,7 +230,7 @@ class _DestinationScreenState extends State<DestinationScreen> {
                                           Text(
                                             'R\$${activity.preco}',
                                             style: const TextStyle(
-                                              fontSize: 22.0,
+                                              fontSize: 20.0,
                                               fontWeight: FontWeight.w600,
                                             ),
                                           ),
@@ -264,40 +254,38 @@ class _DestinationScreenState extends State<DestinationScreen> {
                                   _buildRatingStars(activity.avaliacao),
                                   const SizedBox(height: 10.0),
                                   Row(
-                                      children: <Widget>[
-                                        Container(
-                                          padding: const EdgeInsets.all(5.0),
-                                          width: 70.0,
-                                          decoration: BoxDecoration(
-                                            color: Colors.amber,
-                                            borderRadius:
-                                                BorderRadius.circular(10.0),
-                                          ),
-                                          alignment: Alignment.center,
-                                          child: Text(
-                                            DateFormat.Hm().format(
-                                                DateTime.parse(
-                                                    activity.duracaoInicio)),
-                                          ),
+                                    children: <Widget>[
+                                      Container(
+                                        padding: const EdgeInsets.all(5.0),
+                                        width: 70.0,
+                                        decoration: BoxDecoration(
+                                          color: Colors.amber,
+                                          borderRadius:
+                                              BorderRadius.circular(10.0),
                                         ),
-                                        const SizedBox(width: 10.0),
-                                        Container(
-                                          padding: const EdgeInsets.all(5.0),
-                                          width: 70.0,
-                                          decoration: BoxDecoration(
-                                            color: Colors.amber,
-                                            borderRadius:
-                                                BorderRadius.circular(10.0),
-                                          ),
-                                          alignment: Alignment.center,
-                                          child: Text(
-                                            DateFormat.Hm().format(
-                                                DateTime.parse(
-                                                    activity.duracaoFinal)),
-                                          ),
+                                        alignment: Alignment.center,
+                                        child: Text(
+                                          DateFormat.Hm().format(DateTime.parse(
+                                              activity.duracaoInicio)),
                                         ),
-                                      ],
-                                    )
+                                      ),
+                                      const SizedBox(width: 10.0),
+                                      Container(
+                                        padding: const EdgeInsets.all(5.0),
+                                        width: 70.0,
+                                        decoration: BoxDecoration(
+                                          color: Colors.amber,
+                                          borderRadius:
+                                              BorderRadius.circular(10.0),
+                                        ),
+                                        alignment: Alignment.center,
+                                        child: Text(
+                                          DateFormat.Hm().format(DateTime.parse(
+                                              activity.duracaoFinal)),
+                                        ),
+                                      ),
+                                    ],
+                                  )
                                 ],
                               ),
                             ),
@@ -309,15 +297,19 @@ class _DestinationScreenState extends State<DestinationScreen> {
                             child: ClipRRect(
                               borderRadius: BorderRadius.circular(20.0),
                               child: CachedNetworkImage(
-                              imageUrl: activity.imageUrl,
-                              fit: BoxFit.cover,
-                              width: 110.0,
-                              
-                            ),
+                                imageUrl: activity.imageUrl,
+                                fit: BoxFit.cover,
+                                width: 110.0,
+                              ),
                             ),
                           ),
                         ],
-                      ));
+                      ),
+                    );
+                  } else {
+                    // Pula para a próxima iteração se o estado não pertence à região
+                    return Container();
+                  }
                 },
               ),
             ),

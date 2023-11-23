@@ -172,7 +172,7 @@ class DestinationCarousel extends StatelessWidget {
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: <Widget>[
                                   Text(
-                                    destination.city,
+                                    destination.region,
                                     style: const TextStyle(
                                       color: Colors.white,
                                       fontSize:

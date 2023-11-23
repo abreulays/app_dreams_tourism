@@ -2,23 +2,28 @@ import 'package:app_dreams_tourism/model/activity_model.dart';
 
 class Destination {
   String imageUrl;
-  String city;
+  // String city;
+  String region;
   String country;
   String description;
   List<Activity> activities;
+  
+
 
   Destination({
     required this.imageUrl,
-    required this.city,
+    // required this.city,
+    required this.region,
     required this.country,
     required this.description,
-    required this.activities,
+    required this.activities, 
   });
 
   factory Destination.fromMap(Map<String, dynamic> map, List<Activity> activities) {
     return Destination(
       imageUrl: map['imageUrl'],
-      city: map['city'],
+      // city: map['city'],
+      region: map['region'],
       country: map['country'],
       description: map['description'],
       activities: activities,
@@ -30,57 +35,57 @@ List<Destination> getDestinations(List<Activity> activities) {
   return [
     Destination.fromMap(
       {
-        'imageUrl': 'lib/assets/images/fortaleza.jpn.png',
-        'city': 'Fortaleza',
+        'imageUrl': 'lib/assets/images/Imagem-destaque-ilha.png',
+        'region': 'Nordeste',
         'country': 'Brasil',
         'description':
-            'Fortaleza é a capital do estado do Ceará, no Nordeste brasileiro. É uma cidade conhecida por suas praias, palmeiras, dunas e lagoas.',
-      },
-      activities,
-    ),
-    Destination.fromMap(
-      {
-        'imageUrl': 'lib/assets/images/Floripa 2.jpn.png',
-        'city': 'Florianopolis',
-        'country': 'Brasil',
-        'description':
-            'Florianopolis é famosa pelas suas praias, incluindo estâncias turísticas populares como a Praia dos Ingleses na extremidade norte da ilha.',
-      },
-      activities,
-    ),
-    Destination.fromMap(
-      {
-        'imageUrl': 'lib/assets/images/natal.jpn.png',
-        'city': 'Natal',
-        'country': 'Brasil',
-        'description':
-            'Conhecida pelas dunas de areia costeiras e pelo Forte dos Reis Magos, em forma de estrela, uma fortaleza portuguesa do século XVI na foz do rio Potengi.',
+            'Região conhecida pelas tradições culturais e pelo tesouro cultural do país.   ',
       },
       activities,
     ),
     Destination.fromMap(
       {
         'imageUrl': 'lib/assets/images/SP.jpn.png',
-        'city': 'São Paulo ',
+        'region': 'Sudeste',
         'country': 'Brasil',
         'description':
-            'São Paulo, considerado o maior centro financeiro do Brasil, está entre as cidades mais populosas do mundo, uma metrópole que oferece maravilhas.',
+            'O Sudeste é uma região dinâmica e multifacetada, marcada por centros urbanos pulsantes.',
       },
       activities,
     ),
     Destination.fromMap(
       {
-        'imageUrl': 'lib/assets/images/rio_de_janeiro2.jpn.png',
-        'city': 'Rio de Janeiro',
+        'imageUrl': 'lib/assets/images/imagem_sul.png',
+        'region': 'Sul',
         'country': 'Brasil',
         'description':
-            'O Rio de Janeiro famosa pela estátua de 38 metros de altura do Cristo Redentor, no topo do Corcovado. Tem praias e pontos turisticos incríveis.',
+            'O Sul do Brasil é uma região que se destaca pela rica diversidade e pelas tradições únicas.',
+      },
+      activities,
+    ),
+    Destination.fromMap(
+      {
+        'imageUrl': 'lib/assets/images/imagem_norte.png',
+        'region': 'Norte',
+        'country': 'Brasil',
+        'description':
+            'A região Norte é marcada pela vastidão geográfica, biodiversidade e riqueza cultural.',
+      },
+      activities,
+    ),
+    Destination.fromMap(
+      {
+        'imageUrl': 'lib/assets/images/imagem_centrooeste.png',
+        'region': 'Centro-Oeste',
+        'country': 'Brasil',
+        'description':
+            'A região Centro-Oeste é vasta e diversificada, crucial para o desenvolvimento agropecuário no Brasil. Onde fica nossa Capital.',
       },
       activities,
     ),
   ];
 }
 
-// Agora você pode usar a lista destinations conforme necessário.
+
 // List<Activity> activities = fetchActivities();
 // List<Destination> destinations = getDestinations(activities);
